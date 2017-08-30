@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>乐游·英国精品7日游</title>
+    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    <link href="//lib.baomitu.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="//lib.baomitu.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="//lib.baomitu.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/try/demo_source/jqueryui/style.css">
+
+    <style>
+        ul.nav > li > a {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        div.spinner{
+            display: inline;
+            width: 100px;
+            height: 100px;
+            padding: 29px;
+        }
+        #tabst img{
+            float: left;
+            width: 520px;
+            height: 350px;
+        }
+        #myistab img{
+            width: 560px;
+            height: 363px;
+            float: left;
+            margin-left: 5px;
+            margin-top: 6px;
+            margin-bottom: 3px;
+        }
+        #skan span{
+            border:#acef1c 1px solid;
+            border-radius: 5px;
+        }
+        #comd li{
+            float: left;
+            list-style: none;
+            padding-left: 23px;
+        }
+        #comd{
+            font-size: 16px;
+            padding-top: 10px;
+        }
+        #comd input{
+            width: 40px;
+        }
+    </style>
+</head>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html" style="margin-left: 10px; margin-right: 8px; color: #0daa7d">乐游网</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="index.html"><i class="fa fa-home fa-2x" style="color: #0daa7d"></i></a>
+                        </li>
+
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown" style="margin-top: 5px;">Select language<strong class="caret"></strong></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#">简体中文</a>
+                                </li>
+                                <li>
+                                    <a href="#">繁體中文</a>
+                                </li>
+                                <li class="divider">
+                                </li>
+                                <li>
+                                    <a href="#">English</a>
+                                </li>
+                                <li class="divider">
+                                </li>
+                                <li>
+                                    <a href="#">Français </a>
+                                </li>
+                                <li class="divider">
+                                </li>
+                                <li>
+                                    <a href="#">한국어</a>
+                                </li>
+                                <li class="divider">
+                                </li>
+                                <li>
+                                    <a href="#">日本语</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-left">
+
+                    </form>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            &nbsp;&nbsp;&nbsp;<i class="fa fa-search fa-2x" style="color: #cbcdcb; margin-top: 4px;"></i>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text">
+                        </div> <button class="btn btn-default" type="submit">立刻搜索！</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="shopping_cart.html"><i class="fa fa-shopping-cart fa-1x" style="color: #0daa7d; margin-top: 9px;"> 我的购物车</i>&nbsp;&nbsp;&nbsp;</a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                <i class="fa fa-user-o fa-1x" style="color: #0daa7d; margin-top: 9px;"> 个人中心</i>
+                                <strong class="caret"></strong></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="Login.html">登录</a>
+                                </li>
+                                <li>
+                                    <a href="#">注册</a>
+                                </li>
+                                <li class="divider">
+                                </li>
+                                <li>
+                                    <a href="per_info.html">账号信息</a>
+                                </li>
+                                <li>
+                                    <a href="Safety_center.html">密码更改</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div align="center" style="margin-top: 50px">
+                <div id="myCarousel" class="carousel slide" style="height: 130px; margin-left: 13px; margin-right: 13px; margin-top: 53px; margin-bottom: 10px;">
+                    <!-- 轮播（Carousel）指标 -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        <li data-target="#myCarousel" data-slide-to="3"></li>
+                    </ol>
+                    <!-- 轮播（Carousel）项目 -->
+                    <div class="carousel-inner" align="center" style="height: 130px">
+                        <div class="item active">
+                            <img src="https://ooo.0o0.ooo/2017/06/21/594a6a9bd177c.jpg" alt="First slide">
+                        </div>
+                        <div class="item">
+                            <img src="https://ooo.0o0.ooo/2017/06/21/594a6a9c27ad1.jpg" alt="Second slide">
+                        </div>
+                        <div class="item">
+                            <img src="https://ooo.0o0.ooo/2017/06/21/594a6bd006d56.jpg" alt="Third slide">
+                        </div>
+                        <div class="item">
+                            <img src="https://ooo.0o0.ooo/2017/06/21/594a6c4f4c637.jpg" alt="Third slide">
+                        </div>
+                    </div>
+                    <!-- 轮播（Carousel）导航 -->
+                    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+                </div>
+                <div style="width: 98%">
+                    <div style="width: 100%; float: left;">
+                        <div>
+                            <ul id="mytab" class="nav nav-tabs nav-justified">
+                                <!--<li><a href="index_page.html" data-toggle="tab">乐游网</a></li>-->
+                                <li class="active"><a href="#home1" data-toggle="tab">酒店</a></li>
+                                <li><a href="#home2" data-toggle="tab">旅游</a></li>
+                                <li><a href="#home3" data-toggle="tab">机票</a></li>
+                                <li><a href="#home4" data-toggle="tab">火车</a></li>
+                                <li><a href="#home5" data-toggle="tab">门票</a></li>
+                                <li><a href="#home6" data-toggle="tab">全球购</a></li>
+                            </ul>
+                        </div>
+                        <div id="mytabcontent" class="tab-content">
+                            <div class="tab-pane fade in active" id="home1">
+                                <div class="panel panel-default">
+                                    <ul class="nav nav-justified">
+                                        <li><a href="####">国内酒店</a></li>
+                                        <li><a href="####">海外酒店</a></li>
+                                        <li><a href="####">海外民宿</a></li>
+                                        <li><a href="####">特价酒店</a></li>
+                                        <li><a href="####">途家酒店</a></li>
+                                        <li><a href="####">客栈民宿</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="home2">
+                                <div class="panel panel-default">
+                                    <ul class="nav nav-justified">
+                                        <li><a href="####">旅游首页</a></li>
+                                        <li><a href="####">周末游</a></li>
+                                        <li><a href="####">跟团游</a></li>
+                                        <li><a href="####">自由行</a></li>
+                                        <li><a href="####">主题游</a></li>
+                                        <li><a href="####">当地玩乐</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="home3">
+                                <div class="panel panel-default">
+                                    <ul class="nav nav-justified">
+                                        <li><a href="####">国内机票</a></li>
+                                        <li><a href="####">国际机票</a></li>
+                                        <li><a href="####">特价机票</a></li>
+                                        <li><a href="####">航班动态</a></li>
+                                        <li><a href="####">退票改签</a></li>
+                                        <li><a href="####">机场攻略</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="home4">
+                                <div class="panel panel-default">
+                                    <ul class="nav nav-justified">
+                                        <li><a href="####">国内火车票</a></li>
+                                        <li><a href="####">国际火车票</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="home5">
+                                <div class="panel panel-default">
+                                    <ul class="nav nav-justified">
+                                        <li><a href="####">国内门票</a></li>
+                                        <li><a href="####">海外门票</a></li>
+                                        <li><a href="####">出境WiFi</a></li>
+                                        <li><a href="####">迪士尼</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="home6">
+                                <div class="panel panel-default">
+                                    <ul class="nav nav-justified">
+                                        <li><a href="####">名店购</a></li>
+                                        <li><a href="####">退税</a></li>
+                                        <li><a href="####">银联特惠</a></li>
+                                        <li><a href="####">外币兑换</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12 column">
+            <div style="margin: auto;width: 98%;height: 420px;border: #eeeeee 1px solid;border-radius: 10px;margin-top: 5px">
+                <div>
+                    <ul id="istab" class="nav nav-tabs">
+                        <li class="active"><a href="#tu1" data-toggle="tab">伦敦桥</a></li>
+                        <li><a href="#tu2" data-toggle="tab">议会大厦</a></li>
+                        <li><a href="#tu3" data-toggle="tab">大本钟</a></li>
+                        <li><a href="#tu4" data-toggle="tab">大英博物馆</a></li>
+                        <li><a href="#tu5" data-toggle="tab">爱丁堡</a></li>
+                    </ul>
+                </div>
+                <div id="myistab" class="tab-content">
+                    <div class="tab-pane fade in active" id="tu1">
+                        <img src="http://oongrmtwi.bkt.clouddn.com/sights/%E4%BC%A6%E6%95%A6.jpg">
+                    </div>
+                    <div class="tab-pane fade" id="tu2">
+                        <img src="http://oongrmtwi.bkt.clouddn.com/details/1.jpg">
+                    </div>
+                    <div class="tab-pane fade" id="tu3">
+                        <img src="http://oongrmtwi.bkt.clouddn.com/details/2.jpg">
+                    </div>
+                    <div class="tab-pane fade" id="tu4">
+                        <img src="http://oongrmtwi.bkt.clouddn.com/details/3.png">
+                    </div>
+                    <div class="tab-pane fade" id="tu5">
+                        <img src="http://oongrmtwi.bkt.clouddn.com/details/4.jpg">
+                    </div>
+                    <div style="float: left;">
+                        <div style="float: left;margin-left: 97px">
+                            <h3 style="text-align: center">
+                                人文探秘·英国贵族庄园<br>
+                                七天八晚<br>
+                                四大经典城市·三个特色小镇<br>
+                            </h3>
+                            <p style="text-align: left;float: right;width: 350px;padding-left: 20px;margin-right: 10px;height: 30px;color: red;font-size: 18px;background-color: #fff9ed">
+                                ¥29901/人起&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.6分起
+                            </p>
+                        </div>
+                        <div style="text-align: left;padding-left: 100px;font-size: 18px;font-weight: 500;color: #565656;">
+                            零售商:
+                            <div style="float:right;margin-right: 40px">
+                                由<a href="#">SEAHELLO深度体验</a>直售<br>
+                                并提供咨询/预定/售后服务
+                            </div>
+                        </div>
+                        <div style="text-align: left;padding-left: 100px;padding-top: 40px;font-size: 18px;font-weight: 500;color: #565656;">
+                            行程概要:
+                            <div id="skan" style="float:right;margin-right: 0px;font-size: 15px;color: black;">
+                                <span>威斯敏斯特教堂</span><span class="glyphicon glyphicon-arrow-right"></span><span>议会大厦</span><span class="glyphicon glyphicon-arrow-right"></span><span>温德米尔</span><br>
+                                <span class="glyphicon glyphicon-arrow-right"></span><span>伦敦塔桥</span><span class="glyphicon glyphicon-arrow-right"></span><span>伦敦塔</span><span class="glyphicon glyphicon-arrow-right"></span>
+                                <span>霍华德城堡</span><span class="glyphicon glyphicon-arrow-right"></span><br><span>大本钟</span><span class="glyphicon glyphicon-arrow-right"></span>
+                                <span>大英博物馆</span><span class="glyphicon glyphicon-arrow-right"></span><span>约克大教堂</span><span class="glyphicon glyphicon-arrow-right"></span><br><span>国家足球博物馆</span><span class="glyphicon glyphicon-arrow-right"></span>
+                                <span><a href="#">更多……</a> </span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 80px;margin-left: 194px;">
+                            <button id="mybuuton" type="button" class="btn btn-primary" data-loading-text="皮皮虾我们走……" style="background-color: #acef1c;width: 200px; color: #9449cd"><b>马上预订</b></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12 column">
+            <div style="width: 98%;height: 45px;margin: auto;border: #eeeeee 1px solid;margin-top: 10px;border-radius: 10px;">
+                <form action="index_page.html" method="post">
+                    <ul id="comd">
+                        <li style="padding-left: 0px">出发：</li>
+                        <li><input type="text" name="years" value="2017" style="font-size: 10px;"> 年</li>
+                        <li><input type="text" name="months" value="6" style="font-size: 10px;"> 月</li>
+                        <li><input type="text" name="day" value="21" style="font-size: 10px;"> 日</li>
+                        <li>成人：<input id="tnt1" type="number" name="pep" value="1" min="0" style="font-size: 10px;"> 人</li>
+                        <li>儿童：<input id="tnt2" type="number" name="chil" value="0" min="0" style="font-size: 10px;"> 人</li>
+                        <li><button id="fat" type="button" class="btn btn-primary" style="height: 25px;">确定</button></li>
+                        <li>总价：</li>
+                        <li id="cccc" style="padding-left: 10px"></li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12 column">
+            <div style="width: 98%;margin: auto;border: #eeeeee 1px solid;border-radius: 10px;margin-top: 10px">
+                <div class="tabbable" id="tabs-381671">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#panel-1" data-toggle="tab">行程</a></li>
+                        <li><a href="#panel-2" data-toggle="tab">费 用</a></li>
+                        <li><a href="#panel-3" data-toggle="tab">须 知</a></li>
+                        <li><a href="#panel-4" data-toggle="tab">签 证</a></li>
+                        <li><a href="#panel-5" data-toggle="tab">点 评</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" style="padding: 30px;" id="panel-1">
+                            <h3>第一天&nbsp;&nbsp;伦敦->剑桥->约克</h3>
+                            <p>
+                                早上接团后，驱车前往英国乃至世界著名学府—剑桥大学抵达后游览圣玛利教堂、叹息桥、国王学院、皇后学院。
+                            </p>
+                            <p>
+                                下午会在约克小镇短暂停留，主要逛当地小商品市场，最后在利兹附近住宿。
+                            </p>
+                            <h3>第二天&nbsp;&nbsp;约克/利茲->爱丁堡->爱丁堡城堡</h3>
+                            <p>
+                                酒店早餐后前往苏格兰首府——爱丁堡，它是苏格兰的政治文化中心，也是英国最美丽的城市之一。古堡、宫殿、酒香和音乐围绕着整个城市，使爱丁堡充满了独特的魅力。
+                            </p>
+                            <p>
+                                首先游览城中最著名的普林西斯大街，街道的尽头是以希腊风格建筑闻名的卡尔顿山，圣十字架宫，皇家大道，传统纺织馆、威士忌展览厅、卡圣加尔斯教堂。山顶的爱丁城堡，是欧洲最有名的古堡之一，也是整个城市的象征和精神支柱。庄严肃穆的城堡见证了太多的英格兰和苏格兰的恩恩怨怨。
+                            </p>
+                            <p>
+                                行程结束后入住当地或附近酒店休息。
+                            </p>
+                            <h3>第三天&nbsp;&nbsp;爱丁堡->湖区->温德米尔湖->曼切斯特</h3>
+                            <p>
+                                酒店早餐后前往英国最大的国家森林公园——湖区国家公园。
+                            </p>
+                            <p>
+                                参观温德米尔小镇，城镇紧邻湖面周边风景秀丽，湖光山色相互映衬，餐饮及住宿都比较发达，是游客游览湖区必到之地。温德米尔湖是英国最大的天然湖泊，湖上共有18座岛屿。游客可以乘坐游船，在自东向西行驶途中欣赏湖区美妙的风光。也可选择沿着围绕湖泊的山间小径漫步，享受舒适惬意的湖滨体验。
+                            </p>
+                            <p>
+                                之后前往曼城，参观老特拉福德球场。了解英国足球的人一定不会对曼联队陌生，几十年来这支绰号“红魔”的球队缔造了无数荣誉和足坛传奇，堪称英国足球俱乐部中的经典代表。而作为曼联队的主场，老特拉福德球场也成为了许多球迷心中的圣地。参观结束后入住当地酒店休息。
+                            </p>
+                            <h3>第四天&nbsp;&nbsp;曼切斯特->丘吉尔庄园->比斯特购物村->牛津</h3>
+                            <p>
+                                酒店早餐后，前往位于牛津郡伍德斯托克镇的丘吉尔庄园。宫殿宏伟豪华的殿堂中，陈列着织锦、绘画、瓷器和家具等华丽的艺术收藏品。
+                            </p>
+                            <p>
+                                之后前往比斯特购物村。比斯特有90多个世界名牌均在这里设有折扣专卖店，商品价格低于市场价60%左右。主要品牌包括：Burberry、CK、unhill、DKNY等。其中Versace、Burberry、PoloRalphLauren价格尤其优惠。
+                            </p>
+                            <p>
+                                最后前往牛津大学，牛津因闻名于它的是世界一流学府的地位和遍布各地的古迹,使它成为人们极度梦想的城市。9世纪建立的，距今有1100多年历史的牛津城是英国皇族和学者的摇篮。参观牛津大学图书馆、校园及学院等。
+                            </p>
+                            <h3>第五天&nbsp;&nbsp;牛津->水上伯顿->科茨沃尔德</h3>
+                            <p>
+                                酒店早餐后前往最美丽的英格兰西南部的小村庄——水上伯顿。
+                            </p>
+                            <p>
+                                推荐到习大大用过餐的乡村酒吧小酌，品尝炸鱼薯条，这里也是英国首相卡梅伦常去的酒店之一。最后参观极具世界上最美丽的乡村——科茨沃尔德小镇。英国小村庄的原味就是雅静休闲、不管四季何时，来英国一定要品味！
+                            </p>
+                            <p>
+                                结束后入住当地酒店休息。
+                            </p>
+                            <h3>第六天&nbsp;&nbsp;科茨沃尔德->巴斯->温莎城堡->伦敦</h3>
+                            <p>
+                                酒店早餐后前往英国著名温泉小镇——巴斯，抵达后参观罗马古浴场/普尔特尼桥(二选一)、皇家新月楼。
+                            </p>
+                            <p>
+                                之后前往英国著名的城堡——温莎城堡参观，温莎城堡是英国女王的官方居所之一，也是世界上仍有人居住的城堡中最大、最古老的一座。与伦敦的白金汉宫、爱丁堡的荷里路德宫一样，温莎城堡也是女王主要的行政官邸，经常在此进行官方和私人的活动
+                            </p>
+                            <p>
+                                最后返程伦敦酒店休息。
+                            </p>
+                        </div>
+                        <div class="tab-pane" id="panel-2" style="padding: 30px;">
+                            <p><b>费用包含</b></p>
+                            <ul>
+                                <li>往返经济舱机票、燃油附加费（以实际收费标准为准）、机场建设费</li>
+                                <li>国内出发转机为主，可安排联运</li>
+                                <li>行程所列酒店住宿费用</li>
+                                <li>全程4星酒店+2晚私人庄园</li>
+                                <li>行程内所列餐食（行程中注明的自理餐除外，飞机餐是否收费请参照航空公司规定）</li>
+                                <li>当地中文导游服务</li>
+                                <li>安排当地专属用车(除部分特殊路段因当地规定及安全考量，则依规定派遣小型车)</li>
+                                <li>行程中所列景点首道大门票，西敏寺、彼得兔博物馆、爱丁堡城堡、霍华德城堡、约克大教堂、剑桥国王学院等</li>
+                                <li>市场价值1200-1800元的英国个人旅游签证费用，2年多次往返最长可停留6个月。服务包含签证基础费用、材料翻译服务、网申填报与预约服务</li>
+                                <li>此产品已包含个人出境旅游保险，一人一份</li>
+                                <li>若顾客在下单时自行准备保险，我司则不再退还保险费用</li>
+                                <li>儿童价特殊说明：不满12岁周岁的儿童报名，每人可优惠2000；超过12周岁，按照成人价格计算</li>
+                            </ul>
+                            <p><b>自理费用</b></p>
+                            <ul>
+                                <li>需要消费的自理项：本团不吃中式团餐，每日一餐特色餐包含，另一餐顾客可根据自己口味自理用餐，导游可帮助购买</li>
+                                <li>“费用包含”中不包含的其它项目</li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" id="panel-3" style="padding: 30px;">
+                            <p><b>预订限制</b></p>
+                            <ul>
+                                <li>本产品不接受85岁以上(含)客人预订，敬请原谅</li>
+                                <li>18岁以下未成年人需要至少一名家长或成年旅客全程陪同</li>
+                                <li>70周岁（含）以上老年人预订出行需确保身体健康适宜旅游，并有18周岁以上家属或朋友（因服务能力所限无法接待及限制接待的人除外）全程陪同出行</li>
+                                <li>报价是按照2人入住1间房计算的价格，如您的订单产生单房，我们将先向您收取单房差。您若是愿意拼房，我们会尽力安排，并在行程中确实拼房后给到您拼房证明，行程结束后您可以凭此证明联系我们退回相应单房差。携程不能保证一定拼房成功</li>
+                            </ul>
+                            <p><b>预订说明</b></p>
+                            <ul>
+                                <li>请您在预订时务必提供准确、完整的信息（姓名、性别、证件号码、国籍、联系方式、是否成人或儿童等），以免产生预订错误，影响出行。如因客人提供错误个人信息而造成损失，我社不承担任何责任</li>
+                                <li>联运航班最终是否预订成功，以航司确认为准，若无法配置联运，将退还联运费用。联运段交通客人自行解决</li>
+                            </ul>
+                            <p><b>产品说明</b></p>
+                            <ul>
+                                <li>最少成团人数6人，出发前30天如您未收到成团通知，携程会短信询问您是否愿意等待。如您预订时距出发日期已不足30天，携程不保证一定成团，下单后请您耐心等待是否成团的通知，您也可以选择已成团的班期或产品预订，以确保行程。宣布成团前，旅游者和出境社取消订单的，双方互不承担违约责任。宣布成团后，旅游者和出境社取消订单的，按照双方合同约定各自承担违约责任</li>
+                                <li>最终的航班信息请以出团说明会或出团通知书为准</li>
+                                <li>
+                                    欧洲团队酒店标准：
+                                    <ul>
+                                        <li>行程中所列酒店星级标准为当地酒店评定标准</li>
+                                        <li>欧洲习惯吃简单的早餐，酒店提供的早餐通常只有面包、咖啡、茶、果汁等</li>
+                                        <li>欧洲的三、四星级酒店大堂都比较小，电梯每次只能乘坐两个人和行李，有些酒店没有电梯</li>
+                                        <li>欧洲有些酒店的双人标准房会设置一大一小两张床，方便有小孩的家庭游客；还有些酒店双人房只设置一张大的双人大床，放置双份床上用品，有时是二张单人床拼在一起，用时可拉开</li>
+                                        <li>由于各种原因如环保、如历史悠久、如欧洲气候较温和等，较多酒店无空调设备</li>
+                                    </ul>
+                                </li>
+                                <li>注：旅游旺季可能会安排转机</li>
+
+                            </ul>
+                        </div>
+                        <div class="tab-pane" id="panel-4" style="padding: 30px;">
+                            <p><b>签证须知</b></p>
+                            <ul>
+                                <li>订单提交后请在7个工作日内提供网上所示的全部签证所需材料（距截止收材料日期不足7个工作日的，以截止收材料日期为准），逾期材料不齐全我们将取消订单。待您的材料齐全后，请重新下订单</li>
+                                <li>如果您为自备签证，请您选择签证自理的可选项，系统将会自动按选择人数在总卖价中扣除相应费用；由于产品中机票和酒店为团队预订，我公司不提供个人预订的相关证明材料。如因自备签证问题造成行程受阻，相应损失需自行承担</li>
+                                <li>在办理签证期间，我司会根据您的材料情况可能要求增补其他材料、担保金或予以劝退，若因劝退产生损失由旅游者自行承担，敬请配合与谅解</li>
+                                <li>未成年儿童预订说明：领馆不建议18周岁以下的未成年人与非直系亲属同行，请您斟酌。18周岁以下的未成年人，如父母双方均不出行，需额外再提供未成年人出生证明复印件，父母的身份证复印件以及父母双方的同意信、未成年人与同行人的亲属关系公证书原件（亲属提供）</li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" id="panel-5" style="padding: 30px;">
+                            <div style="padding: 60px;background-color: rgba(205,250,91,0.12);border-radius: 10px">
+                                体验了最特色的英国，享受了最完美的服务
+                                <ul>
+                                    <li>[导游讲解]接机那天魏导买了鲜花水果和巧克力，一到伦敦就有种很温馨的感觉，十几天来无微不至的照顾，一路上更像是老朋友一样介绍当地的风情风景，每顿饭都会安排英国特色餐。27号我们滞留机场之后又返回机场接我们，安排我们在酒店住下都已经凌晨两点魏导才回家。第二天一直送我们到安检口才放心，跟我们一同滞留的另外一对夫妇一直表扬我们魏导说真是个好人，哈哈哈。导回国请你吃火锅哦</li>
+                                    <li>[领队服务]赵导一直都很复责，从办签证开始一直很耐心的回答我们所有的疑问。27号因为BA系统故障我们滞留机场，第一时间帮我们订了第二天的航班，联系保险公司</li>
+                                    <li>[交通线路]行程安排很经典，伦敦地标景点，拜伯里、水上伯、莎士比亚小镇一路乡村风景美不胜收，伯明翰、曼城工业城市也别有韵味，爱丁堡威严的城堡和穿裙子的士兵搭配女王夏季行宫非常完美，约克的霍华德城堡美得无法形容，感受了约克大教堂的威严再登上教堂楼顶欣赏一下约克的风景简直完美。剑桥不愧是名校，连撑船的小哥都很帅，开放的环境，美如画的风景，只有羡慕的份儿了。自由行那天坐了伦敦眼，去了福尔摩斯博物馆，晚上的歌剧实在很震撼，配乐都是现场奏乐，很棒的体验。庄园的那两晚真的是太棒了，当初就因为看了唐顿选择了庄园线，体验了一把英国大地主的赶脚，庄园的设施面貌加上一眼望不到头的牧场都让我们惊叹不已。从爱丁堡回来那天，庄园主还带着两个小姑娘在门口迎接我们，妥妥的满足感</li>
+                                </ul>
+                                <p> 2017-06-07 15:39     来自：乐游APP </p>
+                                <div style="background-color: rgba(240,214,238,0.41);border-radius: 10px;padding: 20px;">
+                                    <p>
+                                        供应商：感谢您选择SEAHELLO深度体验，能够得到您的认可是我们的荣幸~我们安排的游览温莎小镇、马术体验、剑桥游船、霍华德城堡的参观、入住庄园和歌剧魅影的观看这些希望能帮助您对英国这个国家能有更深刻的理解~BA系统崩溃也让我们猝不及防，好在及时控制住了没有对您的出行体验造成过度影响~另外魏导已经加鸡腿啦！我们会更加努力，希望下一次还能为您带来优质的服务！（2017-06-20 10:49）
+                                    </p>
+                                </div>
+                                <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+                                <script>
+                                  var cloudTieConfig = {
+                                    url: document.location.href, 
+                                    sourceId: "",
+                                    productKey: "089dee40ad4e414496ed6fe137c1f132",
+                                    target: "cloud-tie-wrapper"
+                                  };
+                                </script>
+                                <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 column">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <div class="row clearfix" style="margin-top: 70px; border-radius: 5px;">
+                    <div class="col-xs-3 col-md-3 column" style="background-color: rgba(99,247,160,0.11); height: 30px;" align="center">
+                        <i class="fa fa-heart fa-2x" style="color: red; font-size: 20px; margin-top: 20px; margin-right: 20px;"> 全心的服务</i><br>
+                    </div>
+                    <div class="col-xs-3 col-md-3 column" style="background-color: rgba(99,247,160,0.11); height: 30px;" align="center">
+                        <i class="fa fa-rmb fa-2x" style="color: #ff901f; font-size: 20px; margin-top: 20px; margin-right: 20px;"> 放心的价格</i><br>
+                    </div>
+                    <div class="col-xs-3 col-md-3 column" style="background-color: rgba(99,247,160,0.11); height: 30px;" align="center">
+                        <i class="fa fa-group fa-2x" style="color: #52c123; font-size: 20px; margin-top: 20px; margin-right: 20px;"> 全力的保障</i><br>
+                    </div>
+                    <div class="col-xs-3 col-md-3 column" style="background-color: rgba(99,247,160,0.11); height: 30px; " align="center">
+                        <i class="fa fa-map-marker fa-2x" style="color: #3db9d7; font-size: 20px; margin-top: 20px; margin-right: 20px;"> 全面的网点</i><br>
+                    </div>
+                    <div class="col-md-12 column" style="background-color: rgba(99,247,160,0.11);">
+                        <div class="col-xs-2 col-md-2" align="center" style="margin-top: 30px; margin-left: 20px;">
+                            <h5>帮助中心</h5><br>
+                            <h6>账户中心</h6>
+                            <h6>购物指南</h6>
+                            <h6>订单操作</h6><br>
+                        </div>
+                        <div class="col-xs-2 col-md-2" align="center" style="margin-top: 30px;">
+                            <h5>服务支持</h5><br>
+                            <h6>售后政策</h6>
+                            <h6>自助服务</h6>
+                            <h6>相关下载</h6><br>
+                        </div>
+                        <div class="col-xs-2 col-md-2" align="center" style="margin-top: 30px;">
+                            <h5>线下门店</h5><br>
+                            <h6>乐游之家</h6>
+                            <h6>服务网点</h6>
+                            <h6>零售网点</h6><br>
+                        </div>
+                        <div class="col-xs-2 col-md-2" align="center" style="margin-top: 30px; border-right: 1px dimgrey solid;">
+                            <h5>关于乐游</h5><br>
+                            <h6>了解乐游</h6>
+                            <h6>加入乐游</h6>
+                            <h6>联系我们</h6>
+                        </div>
+                        <div class="col-xs-2 col-md-3" align="center" style="margin-top: 30px; margin-left: 40px;">
+                            <h3 style="color: #4abc1e">400-100-XXXX</h3>
+                            <h6>周一至周日 8:00-18:00</h6>
+                            <h6>（仅收市话费）</h6>
+                            <p><button type="button" class="btn btn-success btn-sm"><i class="fa fa-qq fa-lg"> 24小时在线客服</i></button></p>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-9 column">
+                        <div style="margin-top: 35px; margin-left: 20px; width: 80px; float: left; margin-left: 65px;">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/index_page/love_light_min.jpg" class="img-thumbnail">
+                        </div>
+                        <div style="margin-top: 35px; margin-left: 20px; width: 600px; float: left; font-size: 13px; margin-left: 50px;">
+                            乐游主页 | 乐游商城 |<a href="http://ningxy.cn" style="text-decoration: none; color: dimgrey;" target="_blank" rel="external"> nxy's Blog </a>| 爱是一道光 | 优秀的作品 | 您的旅行助手 | LeYou | 隐私政策<br>
+                            <br>@<a href="http://ningxy.cn" target="_blank" rel="external"> ningxy.cn </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;网站这么棒(la)棒(ji)，当然是选择不备案啦~
+                            <br><span class="yejiao">@ ↑最菜的我；</span> &nbsp;<span class="yejiao">@ 门dalao；</span>&nbsp;<span class="yejiao">@ 江dalao；</span>&nbsp;<span class="yejiao">@ 冯dalao；</span>&nbsp;<span class="yejiao">@ 成dalao .</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3 column">
+                        <br><br><i class="fa fa-github fa-5x" style="color: purple"></i> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fa fa-internet-explorer fa-5x" style="color: #3693d3"></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fa fa-html5 fa-5x" style="color: #ff5a4d"></i>
+                    </div>
+
+                </div>
+                <div class="row clearfix" align="center" style="font-weight: 200; font-weight: 100; color: rgba(129,126,131,0.43)">
+                    <br>
+                    @ 2017-2017
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        $('#mytab li:eq(0) a').tab('show');
+    });
+    function loadImage(){
+        $('#ajax-image>img').hide();
+        for(i=1;i<=4;++i){
+            $('#ajax-image>.spinner').eq(i-1).hide();
+            $('#ajax-image>img').eq(i-1).show()
+                .attr('src',"http://oongrmtwi.bkt.clouddn.com/ad/banner_ad_"+i+".jpg")
+                .attr({width:"100",height:"100"});
+        }
+    }
+    loadImage();
+    $(function() {
+        $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+        $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+    });
+    $(function(){
+        $("#fat").click(function(){
+            var summoney=0;
+            summoney+=$("#tnt1").val()*29901+$("#tnt2").val()*10000;
+            $("#cccc").html("<mark style='color: red;font-size: 18px'>"+summoney+"</mark>");
+        });
+    });
+    $(function(){
+        $("#mybuuton").click(function(){
+            $(this).button('loading').delay(1000).queue(function(){
+            });
+        });
+    });
+    $(function(){
+        $('#mytab li:eq(0) a').tab('show');
+    });
+    $(function(){
+        $("#tabst").tabs();
+    });
+</script>
+
+<script src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+
+
+<script type="text/javascript" color="0,0,255" opacity="0.7" zindex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+</html>
