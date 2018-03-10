@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>乐游·购物车</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="//lib.baomitu.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//lib.baomitu.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        ul.nav > li > a {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        div.spinner{
+            display: inline;
+            width: 100px;
+            height: 100px;
+            padding: 29px;
+        }
+    </style>
+
+    <style type="text/css">
+        *{margin:0;padding:0;list-style-type:none;}
+        a{color:#666;text-decoration:none;}
+        table{border-collapse:collapse;border-spacing:0;border:0;}
+        body{color:#666;font:12px/180% Arial, Helvetica, sans-serif, "新宋体";}
+        clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+        .clearfix{display:inline-table}
+        *html .clearfix{height:1%}
+        .clearfix{display:block}
+        *+html .clearfix{min-height:1%}
+        .fl{float:left;}
+        .fr{float:right;}
+        .catbox{width:900px;margin:auto ; }
+        .catbox table{text-align:center;width:100%;}
+        .catbox table th,.catbox table td{border:1px solid #adffad;}
+        .catbox table th{background: #c7ffc3;border-top:3px solid #99ffa7;height:30px;}
+        .catbox table td{padding:10px;color:#444;}
+        .catbox table tbody tr:hover{background:RGB(238,246,255);}
+        .checkbox{width:50px;height:50px;}
+        .check-all{ vertical-align:middle;}
+        .goods{width:100px;}
+        .goods span{width:180px;margin-top:20px;text-align:left;float:left;}
+        .goods img{width:100px;height:80px;margin-right:10px;float:left;}
+        .price{width:130px;}
+        .count{width:130px;}
+        .count .add, .count input, .count .reduce{float:left;margin-right:-1px;position:relative;z-index:0; }
+        .count .add, .count .reduce{height:23px;width:17px;border:1px solid #e5e5e5;background:#f0f0f0;text-align:center;line-height:23px;color:#444;}
+        .count .add:hover, .count .reduce:hover{color:#f50;z-index:3;border-color:#f60;cursor:pointer;}
+        .count input{width:50px;height:25px;line-height:15px;border:1px solid #aaa;color:#343434;text-align:center;padding:4px 0;background-color:#fff;z-index:2;}
+        .subtotal{width:150px;color:red;font-weight:bold;}
+        .operation span:hover,a:hover{cursor:pointer;color:red;text-decoration:underline;}
+
+        .foot{margin-top:0px;color:#666;height:48px;border:1px solid #c8c8c8;border-top:0;background-color:#eaeaea;background-image:linear-gradient(RGB(241,241,241),RGB(226,226,226));position:relative;z-index:8;}
+        .foot div, .foot a{line-height:48px;height:48px;}
+        .foot .select-all{width:80px;height:48px;line-height:48px;color:#666;text-align:center;}
+        .foot .delete{padding-left:10px;}
+        .foot .closing{border-left:1px solid #c8c8c8;width:103px;text-align:center;color:#666;font-weight:bold;cursor:pointer;background-image:linear-gradient(RGB(241,241,241),RGB(226,226,226));}
+        .foot .closing:hover{background-image:linear-gradient(RGB(226,226,226),RGB(241,241,241));color:#333;}
+        .foot .total{margin:0 20px;cursor:pointer;}
+        .foot  #priceTotal, .foot #selectedTotal{color:red;font-family:"Microsoft Yahei";font-weight:bold;}
+        .foot .selected{cursor:pointer;}
+        .foot .selected .arrow{position:relative;top:-3px;margin-left:3px;}
+        .foot .selected .down{position:relative;top:3px;display:none;}
+        .show .selected .down{display:inline;}
+        .show .selected .up{display:none;}
+        .foot .selected:hover .arrow{color:red;}
+        .foot .selected-view{width:938px;border:1px solid #c8c8c8;position:absolute;height:auto;background:#ffffff;z-index:9;bottom:48px;left:-1px;display:none;}
+        .show .selected-view{display:block;}
+        .foot .selected-view div{height:auto;}
+        .foot .selected-view .arrow{font-size:16px;line-height:100%;color:#c8c8c8;position:absolute;right:330px;bottom:-9px;}
+        .foot .selected-view .arrow span{color:#ffffff;position:absolute;left:0px;bottom:1px;}
+
+        #selectedViewList{padding:10px 20px 10px 20px;}
+        #selectedViewList div{display:inline-block;position:relative;width:100px;height:80px;border:1px solid #ccc;margin:10px;float:left;}
+        #selectedViewList div img{width:100px;height:80px;margin-right:10px;float:left;}
+        #selectedViewList div span{display:none;color:#ffffff;font-size:12px;position:absolute;top:0px;right:0px;width:60px;height:18px;line-height:18px;text-align:center;background:#000;cursor:pointer;}
+        #selectedViewList div:hover span{display:block;}
+    </style>
+
+</head>
+<body>
+<div align="center">
+    <div id="myCarousel" class="carousel slide" style="width: 800px; height: 130px; margin-left: 13px; margin-right: 13px; margin-top: 53px; margin-bottom: 10px;">
+        <!-- 轮播（Carousel）指标 -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+        </ol>
+        <!-- 轮播（Carousel）项目 -->
+        <div class="carousel-inner" align="center" style="height: 130px">
+            <div class="item active">
+                <img src="https://ooo.0o0.ooo/2017/06/21/594a6a9bd177c.jpg" alt="First slide">
+            </div>
+            <div class="item">
+                <img src="https://ooo.0o0.ooo/2017/06/21/594a6a9c27ad1.jpg" alt="Second slide">
+            </div>
+            <div class="item">
+                <img src="https://ooo.0o0.ooo/2017/06/21/594a6bd006d56.jpg" alt="Third slide">
+            </div>
+            <div class="item">
+                <img src="https://ooo.0o0.ooo/2017/06/21/594a6c4f4c637.jpg" alt="Third slide">
+            </div>
+        </div>
+        <!-- 轮播（Carousel）导航 -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div>
+    <div style="width: 800px;">
+        <ul id="mytab" class="nav nav-tabs nav-justified">
+            <li class="active"><a href="#home1" data-toggle="tab">出境游</a></li>
+            <li><a href="#home2" data-toggle="tab">国内游</a></li>
+            <li><a href="#home3" data-toggle="tab">周边游</a></li>
+            <li><a href="#home4" data-toggle="tab">购物</a></li>
+            <li><a href="#home5" data-toggle="tab">门票</a></li>
+            <li><a href="#home6" data-toggle="tab">高端游</a></li>
+        </ul>
+        <div id="mytabcontent" class="tab-content">
+            <div class="tab-pane fade in active" id="home1">
+                <div class="panel panel-default">
+                    <ul class="nav nav-justified">
+                        <li><a href="####">日本</a></li>
+                        <li><a href="####">韩国</a></li>
+                        <li><a href="####">欧洲</a></li>
+                        <li><a href="####">美国</a></li>
+                        <li><a href="####">澳洲</a></li>
+                        <li><a href="####">东南亚</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="home2">
+                <div class="panel panel-default">
+                    <ul class="nav nav-justified">
+                        <li><a href="####">故宫</a></li>
+                        <li><a href="####">武夷山</a></li>
+                        <li><a href="####">乐山大佛</a></li>
+                        <li><a href="####">布达拉宫</a></li>
+                        <li><a href="####">兵马俑</a></li>
+                        <li><a href="####">横店/象山</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="home3">
+                <div class="panel panel-default">
+                    <ul class="nav nav-justified">
+                        <li><a href="####">美食</a></li>
+                        <li><a href="####">美景</a></li>
+                        <li><a href="####">跟团</a></li>
+                        <li><a href="####">自驾游</a></li>
+                        <li><a href="####">农家乐</a></li>
+                        <li><a href="####">果树采摘</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="home4">
+                <div class="panel panel-default">
+                    <ul class="nav nav-justified">
+                        <li><a href="####">国内火车票</a></li>
+                        <li><a href="####">国际火车票</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="home5">
+                <div class="panel panel-default">
+                    <ul class="nav nav-justified">
+                        <li><a href="####">国内门票</a></li>
+                        <li><a href="####">海外门票</a></li>
+                        <li><a href="####">出境WiFi</a></li>
+                        <li><a href="####">迪士尼</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="home6">
+                <div class="panel panel-default">
+                    <ul class="nav nav-justified">
+                        <li><a href="####">名店购</a></li>
+                        <li><a href="####">退税</a></li>
+                        <li><a href="####">银联特惠</a></li>
+                        <li><a href="####">外币兑换</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="width: 800px;">
+        <hr>
+    </div>
+</div>
+
+<div class="catbox" style="width: 800px;height: ">
+    <table id="cartTable">
+        <thead>
+        <tr>
+            <th><label>
+                <input class="check-all check" type="checkbox">&nbsp;&nbsp;全选</label></th>
+            <th>商品</th>
+            <th>单价</th>
+            <th>人数</th>
+            <th>小计</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="on">
+            <td><input class="check-one check" type="checkbox"></td>
+            <td class="goods"><img src="http://oongrmtwi.bkt.clouddn.com/sights/%E5%9C%A3%E6%89%98%E9%87%8C%E5%B0%BC.jpg" alt=""><span>圣托里尼独行者的狂欢</span></td>
+            <td class="price">28888</td>
+            <td class="count"><span class="reduce"></span>
+                <input class="count-input" type="text" value="1">
+                <span class="add">+</span></td>
+            <td class="subtotal">28888.00</td>
+            <td class="operation"><span class="delete">删除</span></td>
+        </tr>
+        <tr class="on">
+            <td><input class="check-one check" type="checkbox"></td>
+            <td class="goods"><img src="http://oongrmtwi.bkt.clouddn.com/sights/%E4%BC%A6%E6%95%A6.jpg" alt=""><span>伦敦七日游</span></td>
+            <td class="price">32999</td>
+            <td class="count"><span class="reduce"></span>
+                <input class="count-input" type="text" value="1">
+                <span class="add">+</span></td>
+            <td class="subtotal">32999.00</td>
+            <td class="operation"><span class="delete">删除</span></td>
+        </tr>
+        <tr class="on">
+            <td><input class="check-one check" type="checkbox"></td>
+            <td class="goods"><img src="http://oongrmtwi.bkt.clouddn.com/sights/%E4%B8%8A%E6%B5%B7.jpg" alt=""><span>上海迪士尼度假区</span></td>
+            <td class="price">999</td>
+            <td class="count"><span class="reduce"></span>
+                <input class="count-input" type="text" value="1">
+                <span class="add">+</span></td>
+            <td class="subtotal">999.00</td>
+            <td class="operation"><span class="delete">删除</span></td>
+        </tr>
+        <tr class="on">
+            <td><input class="check-one check" type="checkbox"></td>
+            <td class="goods"><img src="http://oongrmtwi.bkt.clouddn.com/sights/%E5%8E%A6%E9%97%A8%E9%BC%93%E6%B5%AA%E5%B1%BF.jpg" alt=""><span>厦门鼓浪屿一日游</span></td>
+            <td class="price">480</td>
+            <td class="count"><span class="reduce"></span>
+                <input class="count-input" type="text" value="1">
+                <span class="add">+</span></td>
+            <td class="subtotal">480.00</td>
+            <td class="operation"><span class="delete">删除</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="foot" id="foot">
+        <label class="fl select-all"><input type="checkbox" class="check-all check">&nbsp;&nbsp;全选</label>
+        <a class="fl delete" id="deleteAll" href="javascript:;" target="_blank" rel="external">删除</a>
+        <div style="float: right"><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">结算</button></div>
+        <input type="hidden" id="cartTotalPrice">
+        <div class="fr total">合计：￥<span id="priceTotal">11957.48</span></div>
+        <div class="fr selected" id="selected">已选商品<span id="selectedTotal">4</span>件<span class="arrow up">︽</span><span class="arrow down">︾</span></div>
+        <div class="selected-view">
+            <div id="selectedViewList" class="clearfix"><div><img src="http://www.jq22.com/demo/jquery-guc20151105/images/1.jpg"><span class="del" index="0">取消选择</span></div><div><img src="http://www.jq22.com/demo/jquery-guc20151105/images/2.jpg"><span class="del" index="1">取消选择</span></div><div><img src="http://www.jq22.com/demo/jquery-guc20151105/images/3.jpg"><span class="del" index="2">取消选择</span></div><div><img src="http://www.jq22.com/demo/jquery-guc20151105/images/4.jpg"><span class="del" index="3">取消选择</span></div></div>
+            <span class="arrow">◆<span>◆</span></span> </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    请确认你的收货人信息
+                </h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>姓名 :小乌嘎</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th>地址：滨水西道399号</th>
+
+                    </tr>
+                    <tr>
+                        <th>联系方式 ：13821670677</th>
+
+                    </tr>
+                    <tr>
+                        <th>邮编：300380</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip" data-placement="top" title="别走啊！老铁">
+                    取消订单
+                </button>
+                <button type="submit" class="btn btn-primary" id="xiao" data-toggle="tooltip" data-placement="top" title="皮皮虾，我们走……">
+                    确认下单
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal --><br><br>
+<script>
+    $(function () { $('#myModal').modal({
+        keyboard: true,
+        show:false,
+    })});
+</script>
+
+
+<script>
+    $(function () { $("[data-toggle='tooltip']").tooltip(); });
+</script>
+
+<script>
+    $("#xiao").click(function (){
+        alert('下单成功，祝您旅途愉快');
+        window.location.href='index.html';
+    })
+</script>
+
+
+
+
+
+<script>
+    /**
+     * Created by an www.jq22.com
+     */
+    window.onload = function () {
+        if (!document.getElementsByClassName) {
+            document.getElementsByClassName = function (cls) {
+                var ret = [];
+                var els = document.getElementsByTagName('*');
+                for (var i = 0, len = els.length; i < len; i++) {
+
+                    if (els[i].className.indexOf(cls + ' ') >=0 || els[i].className.indexOf(' ' + cls + ' ') >=0 || els[i].className.indexOf(' ' + cls) >=0) {
+                        ret.push(els[i]);
+                    }
+                }
+                return ret;
+            }
+        }
+
+        var table = document.getElementById('cartTable'); // 购物车表格
+        var selectInputs = document.getElementsByClassName('check'); // 所有勾选框
+        var checkAllInputs = document.getElementsByClassName('check-all') // 全选框
+        var tr = table.children[1].rows; //行
+        var selectedTotal = document.getElementById('selectedTotal'); //已选商品数目容器
+        var priceTotal = document.getElementById('priceTotal'); //总计
+        var deleteAll = document.getElementById('deleteAll'); // 删除全部按钮
+        var selectedViewList = document.getElementById('selectedViewList'); //浮层已选商品列表容器
+        var selected = document.getElementById('selected'); //已选商品
+        var foot = document.getElementById('foot');
+
+        // 更新总数和总价格，已选浮层
+        function getTotal() {
+            var seleted = 0;
+            var price = 0;
+            var HTMLstr = '';
+            for (var i = 0, len = tr.length; i < len; i++) {
+                if (tr[i].getElementsByTagName('input')[0].checked) {
+                    tr[i].className = 'on';
+                    seleted += parseInt(tr[i].getElementsByTagName('input')[1].value);
+                    price += parseFloat(tr[i].cells[4].innerHTML);
+                    HTMLstr += '<div><img src="' + tr[i].getElementsByTagName('img')[0].src + '"><span class="del" index="' + i + '">取消选择</span></div>'
+                }
+                else {
+                    tr[i].className = '';
+                }
+            }
+            selectedTotal.innerHTML = seleted;
+            priceTotal.innerHTML = price.toFixed(2);
+            selectedViewList.innerHTML = HTMLstr;
+
+            if (seleted == 0) {
+                foot.className = 'foot';
+            }
+        }
+        // 计算单行价格
+        function getSubtotal(tr) {
+            var cells = tr.cells;
+            var price = cells[2]; //单价
+            var subtotal = cells[4]; //小计td
+            var countInput = tr.getElementsByTagName('input')[1]; //数目input
+            var span = tr.getElementsByTagName('span')[1]; //-号
+            //写入HTML
+            subtotal.innerHTML = (parseInt(countInput.value) * parseFloat(price.innerHTML)).toFixed(2);
+            //如果数目只有一个，把-号去掉
+            if (countInput.value == 1) {
+                span.innerHTML = '-';
+            }else{
+                span.innerHTML = '-';
+            }
+        }
+
+        // 点击选择框
+        for(var i = 0; i < selectInputs.length; i++ ){
+            selectInputs[i].onclick = function () {
+                if (this.className.indexOf('check-all') >= 0) { //如果是全选，则吧所有的选择框选中
+                    for (var j = 0; j < selectInputs.length; j++) {
+                        selectInputs[j].checked = this.checked;
+                    }
+                }
+                if (!this.checked) { //只要有一个未勾选，则取消全选框的选中状态
+                    for (var i = 0; i < checkAllInputs.length; i++) {
+                        checkAllInputs[i].checked = false;
+                    }
+                }
+                getTotal();//选完更新总计
+            }
+        }
+
+        // 显示已选商品弹层
+        selected.onclick = function () {
+            if (selectedTotal.innerHTML != 0) {
+                foot.className = (foot.className == 'foot' ? 'foot show' : 'foot');
+            }
+        }
+
+        //已选商品弹层中的取消选择按钮
+        selectedViewList.onclick = function (e) {
+            var e = e || window.event;
+            var el = e.srcElement;
+            if (el.className=='del') {
+                var input =  tr[el.getAttribute('index')].getElementsByTagName('input')[0]
+                input.checked = false;
+                input.onclick();
+            }
+        }
+
+        //为每行元素添加事件
+        for (var i = 0; i < tr.length; i++) {
+            //将点击事件绑定到tr元素
+            tr[i].onclick = function (e) {
+                var e = e || window.event;
+                var el = e.target || e.srcElement; //通过事件对象的target属性获取触发元素
+                var cls = el.className; //触发元素的class
+                var countInout = this.getElementsByTagName('input')[1]; // 数目input
+                var value = parseInt(countInout.value); //数目
+                //通过判断触发元素的class确定用户点击了哪个元素
+                switch (cls) {
+                    case 'add': //点击了加号
+                        countInout.value = value + 1;
+                        getSubtotal(this);
+                        break;
+                    case 'reduce': //点击了减号
+                        if (value > 1) {
+                            countInout.value = value - 1;
+                            getSubtotal(this);
+                        }
+                        break;
+                    case 'delete': //点击了删除
+                        var conf = confirm('确定删除此商品吗？');
+                        if (conf) {
+                            this.parentNode.removeChild(this);
+                        }
+                        break;
+                }
+                getTotal();
+            }
+            // 给数目输入框绑定keyup事件
+            tr[i].getElementsByTagName('input')[1].onkeyup = function () {
+                var val = parseInt(this.value);
+                if (isNaN(val) || val <= 0) {
+                    val = 1;
+                }
+                if (this.value != val) {
+                    this.value = val;
+                }
+                getSubtotal(this.parentNode.parentNode); //更新小计
+                getTotal(); //更新总数
+            }
+        }
+        // 点击全部删除
+        deleteAll.onclick = function () {
+            if (selectedTotal.innerHTML != 0) {
+                var con = confirm('确定删除所选商品吗？'); //弹出确认框
+                if (con) {
+                    for (var i = 0; i < tr.length; i++) {
+                        // 如果被选中，就删除相应的行
+                        if (tr[i].getElementsByTagName('input')[0].checked) {
+                            tr[i].parentNode.removeChild(tr[i]); // 删除相应节点
+                            i--; //回退下标位置
+                        }
+                    }
+                }
+            } else {
+                alert('请选择商品！');
+            }
+            getTotal(); //更新总数
+        }
+        console.log("\u767e\u5ea6\u641c\u7d22\u3010\u7d20\u6750\u5bb6\u56ed\u3011\u4e0b\u8f7d\u66f4\u591aJS\u7279\u6548\u4ee3\u7801");
+        // 默认全选
+        checkAllInputs[0].checked = true;
+        checkAllInputs[0].onclick();
+    }
+</script>
+<script>
+    $(function(){
+        $('#mytab li:eq(0) a').tab('show');
+    });
+    
+</script>
+<script src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+</body>
+<script type="text/javascript" color="0,0,255" opacity="0.7" zindex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+</html>

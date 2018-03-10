@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>乐游, 您的旅行助手</title>
+    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    <link href="//lib.baomitu.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="//lib.baomitu.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="//lib.baomitu.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/try/demo_source/jqueryui/style.css">
+
+    <style>
+        ul.nav > li > a {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        div.spinner{
+            display: inline;
+            width: 100px;
+            height: 100px;
+            padding: 29px;
+        }
+        .yejiao{
+            border: 1px dimgrey solid;
+            border-radius: 5px;
+        }
+
+        .ui-tabs-vertical { width: 100%; }
+        .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 23%; background-color: rgba(39, 167, 176, 0.3);}
+        .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 99%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; border-radius: 5px 5px 5px 5px; }
+        .ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+        .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
+        .ui-tabs-vertical .ui-tabs-panel { padding: 0.5em; float: right; width: 75%;background-color: rgba(0, 155, 149, 0.13);}
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div id="myCarousel" class="carousel slide" style="height: 130px; margin-left: 13px; margin-right: 13px; margin-top: 53px; margin-bottom: 10px;">
+                <!-- 轮播（Carousel）指标 -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                    <li data-target="#myCarousel" data-slide-to="3"></li>
+                </ol>
+                <!-- 轮播（Carousel）项目 -->
+                <div class="carousel-inner" align="center" style="height: 130px">
+                    <div class="item active">
+                        <img src="https://ooo.0o0.ooo/2017/06/21/594a6a9bd177c.jpg" alt="First slide">
+                    </div>
+                    <div class="item">
+                        <img src="https://ooo.0o0.ooo/2017/06/21/594a6a9c27ad1.jpg" alt="Second slide">
+                    </div>
+                    <div class="item">
+                        <img src="https://ooo.0o0.ooo/2017/06/21/594a6bd006d56.jpg" alt="Third slide">
+                    </div>
+                    <div class="item">
+                        <img src="https://ooo.0o0.ooo/2017/06/21/594a6c4f4c637.jpg" alt="Third slide">
+                    </div>
+                </div>
+                <!-- 轮播（Carousel）导航 -->
+                <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+            </div>
+            <div style="width: 98%; margin-left: 11px;">
+                <div style="width: 100%; float: left;">
+                    <div>
+                        <ul id="mytab" class="nav nav-tabs nav-justified">
+                            <!--<li><a href="index_page.html" data-toggle="tab">乐游网</a></li>-->
+                            <li class="active"><a href="#home1" data-toggle="tab">酒店</a></li>
+                            <li><a href="#home2" data-toggle="tab">旅游</a></li>
+                            <li><a href="#home3" data-toggle="tab">机票</a></li>
+                            <li><a href="#home4" data-toggle="tab">火车</a></li>
+                            <li><a href="#home5" data-toggle="tab">门票</a></li>
+                            <li><a href="#home6" data-toggle="tab">全球购</a></li>
+                        </ul>
+                    </div>
+                    <div id="mytabcontent" class="tab-content">
+                        <div class="tab-pane fade in active" id="home1">
+                            <div class="panel panel-default">
+                                <ul class="nav nav-justified">
+                                    <li><a href="####">国内酒店</a></li>
+                                    <li><a href="####">海外酒店</a></li>
+                                    <li><a href="####">海外民宿</a></li>
+                                    <li><a href="####">特价酒店</a></li>
+                                    <li><a href="####">途家酒店</a></li>
+                                    <li><a href="####">客栈民宿</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="home2">
+                            <div class="panel panel-default">
+                                <ul class="nav nav-justified">
+                                    <li><a href="####">旅游首页</a></li>
+                                    <li><a href="####">周末游</a></li>
+                                    <li><a href="####">跟团游</a></li>
+                                    <li><a href="####">自由行</a></li>
+                                    <li><a href="####">主题游</a></li>
+                                    <li><a href="####">当地玩乐</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="home3">
+                            <div class="panel panel-default">
+                                <ul class="nav nav-justified">
+                                    <li><a href="####">国内机票</a></li>
+                                    <li><a href="####">国际机票</a></li>
+                                    <li><a href="####">特价机票</a></li>
+                                    <li><a href="####">航班动态</a></li>
+                                    <li><a href="####">退票改签</a></li>
+                                    <li><a href="####">机场攻略</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="home4">
+                            <div class="panel panel-default">
+                                <ul class="nav nav-justified">
+                                    <li><a href="####">国内火车票</a></li>
+                                    <li><a href="####">国际火车票</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="home5">
+                            <div class="panel panel-default">
+                                <ul class="nav nav-justified">
+                                    <li><a href="####">国内门票</a></li>
+                                    <li><a href="####">海外门票</a></li>
+                                    <li><a href="####">出境WiFi</a></li>
+                                    <li><a href="####">迪士尼</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="home6">
+                            <div class="panel panel-default">
+                                <ul class="nav nav-justified">
+                                    <li><a href="####">名店购</a></li>
+                                    <li><a href="####">退税</a></li>
+                                    <li><a href="####">银联特惠</a></li>
+                                    <li><a href="####">外币兑换</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html" style="margin-left: 10px; margin-right: 8px; color: #0daa7d">乐游网</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="index.html"><i class="fa fa-home fa-2x" style="color: #0daa7d"></i></a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown" style="margin-top: 5px;">Select language<strong class="caret"></strong></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#">简体中文</a>
+                                </li>
+                                <li>
+                                    <a href="#">繁體中文</a>
+                                </li>
+                                <li class="divider">
+                                </li>
+                                <li>
+                                    <a href="#">English</a>
+                                </li>
+                                <li class="divider">
+                                </li>
+                                <li>
+                                    <a href="#">Français </a>
+                                </li>
+                                <li class="divider">
+                                </li>
+                                <li>
+                                    <a href="#">한국어</a>
+                                </li>
+                                <li class="divider">
+                                </li>
+                                <li>
+                                    <a href="#">日本语</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-left">
+
+                    </form>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            &nbsp;&nbsp;&nbsp;<i class="fa fa-search fa-2x" style="color: #cbcdcb; margin-top: 4px;"></i>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text">
+                        </div> <button class="btn btn-default" type="submit">立刻搜索！</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="shopping_cart.html"><i class="fa fa-shopping-cart fa-1x" style="color: #0daa7d; margin-top: 9px;"> 我的购物车</i>&nbsp;&nbsp;&nbsp;</a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                <i class="fa fa-user-o fa-1x" style="color: #0daa7d; margin-top: 9px;"> 个人中心</i>
+                                <strong class="caret"></strong></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="Login.html">登录</a>
+                                </li>
+                                <li>
+                                    <a href="#">注册</a>
+                                </li>
+                                <li class="divider">
+                                </li>
+                                <li>
+                                    <a href="per_info.html">账号信息</a>
+                                </li>
+                                <li>
+                                    <a href="Safety_center.html">密码更改</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+            </nav>
+            <div class="col-md-8 column">
+                <!--这是垂直标签页-->
+                <div style="margin-left: -1px;" id="tabs">
+                    <ul>
+                        <li><a href="#tabs-1">机票</a></li>
+                        <li><a href="#tabs-2">火车</a></li>
+                        <li><a href="#tabs-3">酒店</a></li>
+                        <li><a href="">旅游</a></li>
+                        <li><a href="">用车</a></li>
+                        <li><a href="">门票</a></li>
+                    </ul>
+                    <div id="tabs-1">
+                        <h2 style="color: #2148df; margin-left: 200px;">机&nbsp;&nbsp;&nbsp;&nbsp;票</h2>
+                        <form method="post" action="">
+                            <table style="border-collapse:separate; border-spacing:0px 10px; height: 166px" border="0">
+                                <tr>
+                                    <th style="width: 100px; text-align: center;">出发</th>
+                                    <td style="width: 220px;"><input type="text" placeholder="城市名/拼音" name="start_city" style="width: 100%;"></td>
+                                    <th style="width: 100px; text-align: center;">出发日期</th>
+                                    <td style="width: 220px;"><input type="date" name="day1" style="width: 100%;"></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 100px; text-align: center">到达</th>
+                                    <td><input type="text" placeholder="城市名/拼音" name="end_city" style="width: 100%;"></td>
+                                    <th style="width: 100px; text-align: center;">返回日期</th>
+                                    <td style="width: 220px;"><input type="date" name="day2" style="width: 100%;"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"> </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td colspan="3" style="text-align: left;"><input type="submit" value="立 即 预 定" style="background-color: #88ef9b; width: 100%; height: 32px;"></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div id="tabs-2">
+                        <h2 style="color: #2148df; margin-left: 200px;">火&nbsp;&nbsp;&nbsp;&nbsp;车</h2>
+                        <form method="post" action="">
+                            <table style="border-collapse:separate; border-spacing:0px 10px; height: 166px" border="0">
+                                <tr>
+                                    <th style="width: 100px; text-align: center;">出发</th>
+                                    <td style="width: 220px;"><input type="text" placeholder="城市名/拼音" name="start_city"></td>
+                                    <th style="width: 100px; text-align: center;">出发日期</th>
+                                    <td style="width: 220px;"><input type="date" name="day1"></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 100px; text-align: center">到达</th>
+                                    <td><input type="text" placeholder="城市名/拼音" name="end_city"></td>
+                                    <th style="width: 100px; text-align: center;">返回日期</th>
+                                    <td style="width: 220px;"><input type="date" name="day2"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"> </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td colspan="3" style="text-align: left;"><input type="submit" value="立 即 预 定" style="background-color: #88ef9b; width: 100%; height: 32px;"></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div id="tabs-3">
+                        <h2 style="color: #2148df; margin-left: 200px;">酒&nbsp;&nbsp;&nbsp;&nbsp;店</h2>
+                        <form method="post" action="">
+                            <table style="border-collapse:separate; border-spacing:0px 10px; height: 166px" border="0">
+                                <tr>
+                                    <th style="width: 100px; text-align: center;">城&nbsp;&nbsp;市</th>
+                                    <td style="width: 220px;"><input type="text" placeholder="城市名/拼音" name="start_city"></td>
+                                    <th style="width: 100px; text-align: center;">入住日期</th>
+                                    <td style="width: 220px;"><input type="date" name="day1"></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 100px; text-align: center">等&nbsp;&nbsp;级</th>
+                                    <td><select style="width: 182px">
+                                        <option value="class 1">五星级/豪华型</option>
+                                        <option value="class 1">四星级/高档型</option>
+                                        <option value="class 1">三星级/舒适型</option>
+                                        <option value="class 1">二星级以下/经济型</option>
+                                    </select></td>
+                                    <th style="width: 100px; text-align: center;">退房日期</th>
+                                    <td style="width: 220px;"><input type="date" name="day2"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"> </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td colspan="3" style="text-align: left;"><input type="submit" value="立 即 预 定" style="background-color: #88ef9b; width: 100%; height: 32px;"></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 column">
+                <!--<div id="myCarousel" class="carousel slide" style="height: 250px;">-->
+                    <!--&lt;!&ndash; 轮播（Carousel）指标 &ndash;&gt;-->
+                    <!--<ol class="carousel-indicators">-->
+                        <!--<li data-target="#myCarousel" data-slide-to="0" class="active"></li>-->
+                        <!--<li data-target="#myCarousel" data-slide-to="1"></li>-->
+                        <!--<li data-target="#myCarousel" data-slide-to="2"></li>-->
+                        <!--<li data-target="#myCarousel" data-slide-to="3"></li>-->
+                    <!--</ol>-->
+                    <!--&lt;!&ndash; 轮播（Carousel）项目 &ndash;&gt;-->
+                    <!--<div class="carousel-inner" align="center" style="height: 120px">-->
+                        <!--<div class="item active">-->
+                            <!--<img src="http://oongrmtwi.bkt.clouddn.com/ad/banner_ad_4.jpg" alt="First slide">-->
+                        <!--</div>-->
+                        <!--<div class="item">-->
+                            <!--<img src="http://oongrmtwi.bkt.clouddn.com/ad/banner_ad_3.jpg" alt="Second slide">-->
+                        <!--</div>-->
+                        <!--<div class="item">-->
+                            <!--<img src="http://oongrmtwi.bkt.clouddn.com/ad/banner_ad_2_min.jpg" alt="Third slide">-->
+                        <!--</div>-->
+                        <!--<div class="item">-->
+                            <!--<img src="http://oongrmtwi.bkt.clouddn.com/ad/banner_ad_1_min.jpg" alt="Third slide">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; 轮播（Carousel）导航 &ndash;&gt;-->
+                    <!--<a class="carousel-control left" href="#myCarousel"-->
+                       <!--data-slide="prev">&lsaquo;</a>-->
+                    <!--<a class="carousel-control right" href="#myCarousel"-->
+                       <!--data-slide="next">&rsaquo;</a>-->
+                <!--</div>-->
+                <div class="tabbable" id="tabs-381671">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#panel-722337" data-toggle="tab">超值套餐1</a>
+                        </li>
+                        <li>
+                            <a href="#panel-53523" data-toggle="tab">超值套餐2</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" style="height: 230px;">
+                        <div class="tab-pane active" id="panel-722337">
+                            <div style="float: left;width: 60%;"><img src="http://oongrmtwi.bkt.clouddn.com/ad/adx1.jpg" class="img-responsive" alt="Cinque Terre" style="height: 210px;"></div>
+                            <div style="float: left; width: 39%;"><h4 style="color: red">北京4日3晚</h4><h4 style="color: #3266d7">跟团·好评如潮</h4><h4>全国连锁酒店</h4><h4>北京经典全景</h4><h4>不可错过</h4><h4 style="color: #d730cc">价格超实惠！</h4><h4 style="color: #d730cc">超五星服务！</h4></div>
+                        </div>
+                        <div class="tab-pane" id="panel-53523">
+                            <div style="float: left;width: 60%;"><img src="https://ooo.0o0.ooo/2017/06/21/594a7580a89fb.jpg" class="img-responsive" alt="Cinque Terre" style="height: 210px;"></div>
+                            <div style="float: left; width: 39%;"><h4 style="color: red">九寨沟5日4晚</h4><h4 style="color: #3266d7">跟团·好评如潮</h4><h4>全程4星酒店</h4><h4>超经典线路！</h4><h4>机会难得</h4><h4 style="color: #d730cc">价格超实惠！</h4><h4 style="color: #d730cc">超五星服务！</h4></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div style="text-align: left; margin-left: 10px; margin-top: 50px; margin-right: 10px; font-size: 23px; color: rgba(13,11,13,0.84)">
+                    &nbsp;&nbsp;<br>&nbsp;&nbsp;明星产品<hr>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-md-3">
+                        <a href="details.html" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/sights/%E4%BC%A6%E6%95%A6.jpg" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>英国高端7日游</h3>
+                            <p>
+                                这里拥有英超的激情和田园牧歌，这里拥有前卫时尚和绅士风度，这是值得品味的英伦世界。
+                            </p>
+                            <p>
+                                <a href="details.html" class="btn btn-info">点击了解更多！</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/20%282%29.png" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>台湾5日自由行</h3>
+                            <p>
+                                原始美丽的海滩、连接天与海的瀑布，在台湾，有足够的风景可以浏览，有太多的事情值得去做。  </p>
+                            <p>
+                                <a href="##" class="btn btn-info">点击了解更多！</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/22%283%29.png" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>泰国纯玩6日游</h3>
+                            <p>
+                                摩天大楼、石库门、老洋房在这座摩登之都中交融与辉映，演绎着过去与未来的华丽篇章。 </p>
+                            <p>
+                                <a href="##" class="btn btn-info">点击了解更多！</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/20%282%29.png" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>台湾5日自由行</h3>
+                            <p>
+                                原始美丽的海滩、连接天与海的瀑布，在台湾，有足够的风景可以浏览，有太多的事情值得去做。  </p>
+                            <p>
+                                <a href="##" class="btn btn-info">点击了解更多！</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div style="text-align: left; margin-left: 10px; margin-top: 50px; margin-right: 10px; font-size: 23px; color: rgba(13,11,13,0.84)">
+                    &nbsp;&nbsp;国内游&nbsp;&nbsp;|&nbsp;&nbsp;周边游&nbsp;&nbsp;|&nbsp;&nbsp;自驾游<hr>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/sights/%E6%9D%AD%E5%B7%9E.jpg" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>杭州10日自由行</h3>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/sights/%E6%BE%B3%E9%97%A8.jpg" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>澳门乐园4日游</h3>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/sights/%E9%A6%99%E6%B8%AF.jpg" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>香港5日自由行</h3>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/sights/%E6%96%B0%E5%8A%A0%E5%9D%A1.jpg" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>新加坡6日自由行</h3>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/sights/%E5%8E%A6%E9%97%A8%E9%BC%93%E6%B5%AA%E5%B1%BF.jpg" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>厦门鼓浪屿7日游</h3>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/sights/%E9%BB%84%E5%B1%B1.jpg" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>黄山7日自由行</h3>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/sights/%E8%A5%BF%E5%8F%8C%E7%89%88%E7%BA%B3.jpg" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>西双版纳6日游</h3>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/20%282%29.png" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>台湾5日自由行</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div style="text-align: left; margin-left: 10px; margin-top: 50px; margin-right: 10px; font-size: 23px; color: rgba(13,11,13,0.84)">
+                    &nbsp;&nbsp;出境游&nbsp;&nbsp;|&nbsp;&nbsp;邮轮游&nbsp;&nbsp;|&nbsp;&nbsp;高端游<hr>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/sights/%E7%BA%BD%E7%BA%A6.jpg" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>纽约7日精品游</h3>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/sights/%E7%BD%97%E9%A9%AC.jpg" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>罗马6日自由行</h3>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/sights/%E6%AF%9B%E9%87%8C%E6%B1%82%E6%96%AF.jpg" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>毛里求斯惬意7日游</h3>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/sights/%E8%BF%AA%E6%8B%9C.jpg" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>迪拜8日豪华游</h3>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="https://dimg04.c-ctrip.com/images/310m0b0000005z2boFE6A_R_580_375.png" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>【海洋赞礼号】福冈5晚</h3>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="https://dimg04.c-ctrip.com/images/fd/cruise/g2/M07/17/15/CghzgVVrxBqAZPBnAAjnwokQQGk811_R_580_375.jpg" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>皇家加勒比邮轮5晚</h3>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/sights/%E5%A4%8F%E5%A8%81%E5%A4%B7.jpg" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>夏威夷热带6日游</h3>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/sights/%E4%BC%A6%E6%95%A6.jpg" style="height: 180px; width: 100%; display: block;" alt="">
+                        </a>
+                        <div class="caption">
+                            <h3>伦敦6日高端游</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div style="text-align: left; margin-left: 10px; margin-top: 50px; margin-right: 10px; font-size: 23px; color: rgba(13,11,13,0.84)">
+                    &nbsp;&nbsp;国内机票&nbsp;&nbsp;|&nbsp;&nbsp;国际机票<hr>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5 col-md-6">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20170621113618.png" style="height: 248px; width: 100%; display: block;" alt="">
+                        </a>
+                    </div>
+                    <div class="col-xs-5 col-md-6">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20170621113600.png" style="height: 248px; width: 100%; display: block;" alt="">
+                        </a>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20170621113717.png" style="height: 220px; width: 100%; display: block;" alt="">
+                        </a>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20170621113644.png" style="height: 220px; width: 100%; display: block;" alt="">
+                        </a>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20170621113708.png" style="height: 220px; width: 100%; display: block;" alt="">
+                        </a>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://oongrmtwi.bkt.clouddn.com/TIM%E6%88%AA%E5%9B%BE20170621113629.png" style="height: 220px; width: 100%; display: block;" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix" style="margin-top: 70px; border-radius: 5px;">
+        <div class="col-xs-3 col-md-3 column" style="background-color: rgba(99,247,160,0.11); height: 30px;" align="center">
+            <i class="fa fa-heart fa-2x" style="color: red; font-size: 20px; margin-top: 20px; margin-right: 20px;"> 全心的服务</i><br>
+        </div>
+        <div class="col-xs-3 col-md-3 column" style="background-color: rgba(99,247,160,0.11); height: 30px;" align="center">
+            <i class="fa fa-rmb fa-2x" style="color: #ff901f; font-size: 20px; margin-top: 20px; margin-right: 20px;"> 放心的价格</i><br>
+        </div>
+        <div class="col-xs-3 col-md-3 column" style="background-color: rgba(99,247,160,0.11); height: 30px;" align="center">
+            <i class="fa fa-group fa-2x" style="color: #52c123; font-size: 20px; margin-top: 20px; margin-right: 20px;"> 全力的保障</i><br>
+        </div>
+        <div class="col-xs-3 col-md-3 column" style="background-color: rgba(99,247,160,0.11); height: 30px; " align="center">
+            <i class="fa fa-map-marker fa-2x" style="color: #3db9d7; font-size: 20px; margin-top: 20px; margin-right: 20px;"> 全面的网点</i><br>
+        </div>
+        <div class="col-md-12 column" style="background-color: rgba(99,247,160,0.11);">
+            <div class="col-xs-2 col-md-2" align="center" style="margin-top: 30px; margin-left: 20px;">
+                <h5>帮助中心</h5><br>
+                <h6>账户中心</h6>
+                <h6>购物指南</h6>
+                <h6>订单操作</h6><br>
+            </div>
+            <div class="col-xs-2 col-md-2" align="center" style="margin-top: 30px;">
+                <h5>服务支持</h5><br>
+                <h6>售后政策</h6>
+                <h6>自助服务</h6>
+                <h6>相关下载</h6><br>
+            </div>
+            <div class="col-xs-2 col-md-2" align="center" style="margin-top: 30px;">
+                <h5>线下门店</h5><br>
+                <h6>乐游之家</h6>
+                <h6>服务网点</h6>
+                <h6>零售网点</h6><br>
+            </div>
+            <div class="col-xs-2 col-md-2" align="center" style="margin-top: 30px; border-right: 1px dimgrey solid;">
+                <h5>关于乐游</h5><br>
+                <h6>了解乐游</h6>
+                <h6>加入乐游</h6>
+                <h6>联系我们</h6>
+            </div>
+            <div class="col-xs-2 col-md-3" align="center" style="margin-top: 30px; margin-left: 40px;">
+                <h3 style="color: #4abc1e">400-100-XXXX</h3>
+                <h6>周一至周日 8:00-18:00</h6>
+                <h6>（仅收市话费）</h6>
+                <p><button type="button" class="btn btn-success btn-sm"><i class="fa fa-qq fa-lg"> 24小时在线客服</i></button></p>
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-9 column">
+            <div style="margin-top: 35px; margin-left: 20px; width: 80px; float: left; margin-left: 65px;">
+                <img src="http://oongrmtwi.bkt.clouddn.com/index_page/love_light_min.jpg" class="img-thumbnail">
+            </div>
+            <div style="margin-top: 35px; margin-left: 20px; width: 600px; float: left; font-size: 13px; margin-left: 50px;">
+                乐游主页 | 乐游商城 |<a href="http://ningxy.cn" style="text-decoration: none; color: dimgrey;" target="_blank" rel="external"> nxy's Blog </a>| 爱是一道光 | 优秀的作品 | 您的旅行助手 | LeYou | 隐私政策<br>
+                <br>@<a href="http://ningxy.cn" target="_blank" rel="external"> ningxy.cn </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;网站这么棒(la)棒(ji)，当然是选择不备案啦~
+                <br><span class="yejiao">@ ↑最菜的我；</span> &nbsp;<span class="yejiao">@ 门dalao；</span>&nbsp;<span class="yejiao">@ 江dalao；</span>&nbsp;<span class="yejiao">@ 冯dalao；</span>&nbsp;<span class="yejiao">@ 成dalao .</span>
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-3 column">
+            <br><br><i class="fa fa-github fa-5x" style="color: purple"></i> &nbsp;&nbsp;&nbsp;&nbsp;
+            <i class="fa fa-internet-explorer fa-5x" style="color: #3693d3"></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <i class="fa fa-html5 fa-5x" style="color: #ff5a4d"></i>
+        </div>
+
+    </div>
+    <div class="row clearfix" align="center" style="font-weight: 200; font-weight: 100; color: rgba(129,126,131,0.43)">
+        <br>
+        @ 2017-2017
+        <hr>
+    </div>
+</div>
+<script src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+<script>
+    $(function(){
+        $('#mytab li:eq(0) a').tab('show');
+    });
+    function loadImage(){
+        $('#ajax-image>img').hide();
+        for(i=1;i<=4;++i){
+            $('#ajax-image>.spinner').eq(i-1).hide();
+            $('#ajax-image>img').eq(i-1).show()
+                .attr('src',"http://oongrmtwi.bkt.clouddn.com/ad/banner_ad_"+i+".jpg")
+                .attr({width:"100",height:"100"});
+        }
+    }
+    loadImage();
+    $(function() {
+        $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+        $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+    });
+</script>
+</body>
+<script type="text/javascript" color="0,0,255" opacity="0.7" zindex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+</html>

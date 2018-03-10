@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>乐游安全中心</title>
+    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    <link href="//lib.baomitu.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="//lib.baomitu.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="//lib.baomitu.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/try/demo_source/jqueryui/style.css">
+    <style>
+        .code
+        {
+            background:url(code_bg.jpg);
+            font-family:Arial;
+            font-style:italic;
+            color:blue;
+            font-size:18px;
+            border:0;
+            letter-spacing:5px;
+            font-weight:bolder;
+            float:left;
+            cursor:pointer;
+            width:100px;
+            height:25px;
+            text-align:center;
+            vertical-align:middle;
+            background-color: #c9c9c9;
+            text-decoration: line-through;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body onload="createCode()">
+<div class="container">
+    <br><br><br>
+    <div style="width: 100px; margin:auto"><img src="http://oongrmtwi.bkt.clouddn.com/login_image/logo_min.png"></div>
+    <table class="table table-hover" style="width: 60%;margin: auto">
+    <form class="form-horizontal" role="form" onsubmit="validateCode()" action="index.html">
+    <table class="table table-hover" style="margin: auto;margin-top: 30px;width: 80%;">
+        <caption><h1><b>提交登录密码</b></h1></caption>
+        <tr>
+            <th style="text-align: right"><b><h4>新秘密：</h4></b></th>
+            <th><input class="form-control" type="password" id="input1" name="name1" autofocus></th>
+            <th><h5>密码长度必须为6-20位字符或数</h5></th>
+        </tr>
+        <tbody>
+        <tr>
+            <th style="text-align: right"><b><h4>确认新秘密：</h4></b></th>
+            <th><input class="form-control" type="password" id="input2" name="name2" onblur="chick()"></th>
+            <th></th>
+        </tr>
+        <tr>
+            <th style="text-align: right"><b><h4>验证码：</h4></b></th>
+            <th><input class="form-control" id="inputCode" type="text" name="name3"></th>
+            <th>
+                <span class="code" id="checkCode" onclick="createCode()"></span>
+                <h5>
+                    <a href="####" onclick="createCode()"> 看不清?换一张</a>
+                </h5>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+        <div style="margin-top: 40px" align="center">
+            <button type="submit" class="btn btn-success" style="width: 200px;background-color: #7de311;color: black">
+                提交信息
+            </button>
+        </div>
+    </form>
+</table></div>
+<script>
+    function chick(){
+        if(document.getElementById("input1").value!=document.getElementById("input2").value){
+            alert("密码不一致请重新确认");
+            document.getElementById("input1").value=document.getElementById("input2").value="";
+        }
+    }
+    var code;
+    function createCode() {
+        code = "";
+        var codeLength = 5; //验证码的长度
+        var checkCode = document.getElementById("checkCode");
+        var codeChars = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); //所有候选组成验证码的字符，当然也可以用中文的
+        for (var i = 0; i < codeLength; i++)
+        {
+            var charNum = Math.floor(Math.random() * 52);
+            code += codeChars[charNum];
+        }
+        if (checkCode)
+        {
+            checkCode.className = "code";
+            checkCode.innerHTML = code;
+        }
+    }
+    function validateCode()
+    {
+        var inputCode = document.getElementById("inputCode").value;
+        if (inputCode.length <= 0)
+        {
+            alert("请输入验证码！");
+        }
+        else if (inputCode.toUpperCase() != code.toUpperCase())
+        {
+            alert("验证码输入有误！");
+            createCode();
+        }
+        else if(document.getElementById("input1").value==""){
+            alert("密码不能为空！");
+        }
+        else
+        {
+            alert("提交成功！");
+        }
+    }
+</script>
+<script src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+</body>
+<script type="text/javascript" color="0,0,255" opacity="0.7" zindex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+</html>

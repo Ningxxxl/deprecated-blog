@@ -1,0 +1,1118 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="LAMP,Linux," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/Blog_logo.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="介绍如何在CentOS 6系统中搭建LAMP + phpMyAdmin">
+<meta name="keywords" content="LAMP,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于CentOS6的LAMP搭建">
+<meta property="og:url" content="http://www.ningxy.cn/基于CentOS6的LAMP搭建.html">
+<meta property="og:site_name" content="Ningxy&#39;s Blog">
+<meta property="og:description" content="介绍如何在CentOS 6系统中搭建LAMP + phpMyAdmin">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-10T05:18:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于CentOS6的LAMP搭建">
+<meta name="twitter:description" content="介绍如何在CentOS 6系统中搭建LAMP + phpMyAdmin">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.ningxy.cn/基于CentOS6的LAMP搭建.html"/>
+
+
+
+
+
+  <title> 基于CentOS6的LAMP搭建 | Ningxy's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?96a73edfe43f12d78e645e51e6764500";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+<div style="display:none">
+  <script src="http://s11.cnzz.com/z_stat.php?id=1261758418&web_id=1261758418" language="JavaScript"></script>
+</div>
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ningxy's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">十分简陋，但已尽量</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            全部
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.ningxy.cn/基于CentOS6的LAMP搭建.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Designed by ningxiangyi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oongrmtwi.bkt.clouddn.com/ooo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ningxy's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                基于CentOS6的LAMP搭建
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-10T11:30:30+08:00">
+                2017-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技巧/" itemprop="url" rel="index">
+                    <span itemprop="name">技巧</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/基于CentOS6的LAMP搭建.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o">   被翻了</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次牌子
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                   分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>介绍如何在CentOS 6系统中搭建LAMP + phpMyAdmin</p>
+<a id="more"></a>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><h2 id="OS"><a href="#OS" class="headerlink" title="OS"></a>OS</h2><p>CentOS 6</p>
+<h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><h3 id="设置防火墙"><a href="#设置防火墙" class="headerlink" title="设置防火墙"></a>设置防火墙</h3><p>编辑文件:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/sysconfig/iptables</div></pre></td></tr></table></figure>
+<p>打开80端口(Apache);</p>
+<p>打开3306端口(MySQL);</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-A INPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT</div><div class="line">-A INPUT -p tcp -m state --state NEW -m tcp --dport 3306 -j ACCEPT</div></pre></td></tr></table></figure>
+<h3 id="重启防火墙"><a href="#重启防火墙" class="headerlink" title="重启防火墙"></a>重启防火墙</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/iptables restart</div></pre></td></tr></table></figure>
+<p>进行修改的时候务必注意语法正确性。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h2><h3 id="安装Apache"><a href="#安装Apache" class="headerlink" title="安装Apache"></a>安装Apache</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install httpd</div></pre></td></tr></table></figure>
+<h3 id="启动Apache"><a href="#启动Apache" class="headerlink" title="启动Apache"></a>启动Apache</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/httpd start</div></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>编辑配置文件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/httpd/conf/httpd.conf</div></pre></td></tr></table></figure>
+<p>找到  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#ServerName www.example.com:80</div></pre></td></tr></table></figure>
+<p>修改为 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ServerName www.abc.com:80</div></pre></td></tr></table></figure>
+<p>这里设置为自己的域名，如果没有域名，可以设置为localhost</p>
+<h3 id="设为开机启动"><a href="#设为开机启动" class="headerlink" title="设为开机启动"></a>设为开机启动</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chkconfig httpd on</div></pre></td></tr></table></figure>
+<h3 id="重启Apache"><a href="#重启Apache" class="headerlink" title="重启Apache"></a>重启Apache</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/httpd restart</div></pre></td></tr></table></figure>
+<h3 id="Apache默认目录"><a href="#Apache默认目录" class="headerlink" title="Apache默认目录"></a>Apache默认目录</h3><p><strong>apache默认的程序目录是 /var/www/html</strong></p>
+<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><h3 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install mysql mysql-server</div></pre></td></tr></table></figure>
+<h3 id="启动MySQL"><a href="#启动MySQL" class="headerlink" title="启动MySQL"></a>启动MySQL</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/mysqld start</div></pre></td></tr></table></figure>
+<h3 id="设为开机启动-1"><a href="#设为开机启动-1" class="headerlink" title="设为开机启动"></a>设为开机启动</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chkconfig mysqld on</div></pre></td></tr></table></figure>
+<h3 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h3><p>拷贝配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp /usr/share/mysql/my-medium.cnf   /etc/my.cnf</div></pre></td></tr></table></figure>
+<p> （注意：如果/etc目录下面默认有一个my.cnf，直接覆盖即可）</p>
+<p>为root账户设置密码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql_secure_installation</div></pre></td></tr></table></figure>
+<p>输入两次密码之后一直输入Y，直到出现：<strong>Thanks for using MySQL!</strong> 表示安装结束</p>
+<h3 id="MySQL操控"><a href="#MySQL操控" class="headerlink" title="MySQL操控"></a>MySQL操控</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/mysqld restart #重启</div><div class="line">/etc/init.d/mysqld stop    #停止</div><div class="line">/etc/init.d/mysqld start   #启动</div></pre></td></tr></table></figure>
+<h2 id="PHP5"><a href="#PHP5" class="headerlink" title="PHP5"></a>PHP5</h2><h3 id="安装PHP5"><a href="#安装PHP5" class="headerlink" title="安装PHP5"></a>安装PHP5</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install php</div></pre></td></tr></table></figure>
+<h3 id="安装PHP组件"><a href="#安装PHP组件" class="headerlink" title="安装PHP组件"></a>安装PHP组件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install php-mysql php-gd libjpeg* php-imap php-ldap php-odbc php-pear php-xml php-xmlrpc php-mbstring php-mcrypt php-bcmath php-mhash libmcrypt</div></pre></td></tr></table></figure>
+<p>安装完成之后:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/mysqld restart  #重启MySql</div><div class="line">/etc/init.d/httpd restart   #重启Apche</div></pre></td></tr></table></figure>
+<h2 id="phpMyAdmin"><a href="#phpMyAdmin" class="headerlink" title="phpMyAdmin"></a>phpMyAdmin</h2><h3 id="安装phpmyadmin"><a href="#安装phpmyadmin" class="headerlink" title="安装phpmyadmin"></a>安装phpmyadmin</h3><p>首先去<a href="https://www.phpmyadmin.net/downloads/" target="_blank" rel="external">phpMyAdmin官网下载页</a>下载最新的版本zip文件，</p>
+<p>例如我选择的是phpMyAdmin-4.7.4-all-languages.zip</p>
+<p>右键拷贝其下载链接: 例如我的是<a href="https://files.phpmyadmin.net/phpMyAdmin/4.7.4/phpMyAdmin-4.7.4-all-languages.zip" target="_blank" rel="external">https://files.phpmyadmin.net/phpMyAdmin/4.7.4/phpMyAdmin-4.7.4-all-languages.zip</a></p>
+<p>进入/var/www/html目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd /var/www/html</div></pre></td></tr></table></figure>
+<p>执行命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget https://files.phpmyadmin.net/phpMyAdmin/4.7.4/phpMyAdmin-4.7.4-all-languages.zip</div></pre></td></tr></table></figure>
+<p>wget之后的替换成自己的链接</p>
+<p>解压缩</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">unzip phpMyAdmin-4.7.4-all-languages.zip</div></pre></td></tr></table></figure>
+<p>同样文件名注意修改成对应的</p>
+<p>移动解压后的文件夹并改名为phpmyadmin</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mv phpMyAdmin-4.7.4-all-languages phpmyadmin</div></pre></td></tr></table></figure>
+<p>进入phpmyadmin文件夹</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd ./phpmyadmin/</div></pre></td></tr></table></figure>
+<p>将libraries/config.default.php复制到phpmyadmin目录下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp libraries/config.default.php config.inc.php</div></pre></td></tr></table></figure>
+<p>重新启动mysqld服务及httpd服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">service mysqld restart</div><div class="line">service httpd restart</div></pre></td></tr></table></figure>
+<p>访问验证是否安装成功</p>
+<p><a href="http://本机IP/phpmyadmin/" target="_blank" rel="external">http://本机IP/phpmyadmin/</a></p>
+<h3 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a>可能遇到的问题</h3><p>可能会出现:</p>
+<p><strong>You don’t have permission to access/on this server.</strong></p>
+<p>这种提示</p>
+<p>修改phpmyadmin.conf</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/httpd/conf.d/phpMyAdmin.conf</div></pre></td></tr></table></figure>
+<p>将以下部分</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;Directory "F:/Software/wamp/alias/phpmyadmin3.5.1/"&gt;</div><div class="line">Options Indexes FollowSymLinks MultiViews</div><div class="line">AllowOverride all</div><div class="line">Order Deny,Allow</div><div class="line">Deny from all</div><div class="line">Allow from 127.0.0.1</div><div class="line">&lt;/Directory&gt;</div></pre></td></tr></table></figure>
+<p>修改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;Directory &quot;F:/Software/wamp/apps/phpmyadmin3.5.1/&quot;&gt;</div><div class="line">Options Indexes FollowSymLinks MultiViews</div><div class="line">AllowOverride all</div><div class="line">Order Deny,Allow</div><div class="line">Allow from all &lt;--- 主要就是这里</div><div class="line">&lt;/Directory&gt;</div></pre></td></tr></table></figure>
+<h2 id="一些配置"><a href="#一些配置" class="headerlink" title="一些配置"></a>一些配置</h2><p>不是必须的配置，选取部分修改就好</p>
+<h3 id="Apache-1"><a href="#Apache-1" class="headerlink" title="Apache"></a>Apache</h3><p>编辑文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/httpd/conf/httpd.conf</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">ServerTokens OS　    在44行  修改为：ServerTokens Prod （在出现错误页的时候不显示服务器操作系统的名称）</div><div class="line">ServerSignature On　 在536行 修改为：ServerSignature Off （在错误页中不显示Apache的版本）</div><div class="line">Options Indexes FollowSymLinks　 在331行 修改为：Options Includes ExecCGI FollowSymLinks（允许服务器执行CGI及SSI，禁止列出目录）</div><div class="line">#AddHandler cgi-script .cgi　在796行 修改为：AddHandler cgi-script .cgi .pl （允许扩展名为.pl的CGI脚本运行）</div><div class="line">AllowOverride None　 在338行 修改为：AllowOverride All （允许.htaccess）</div><div class="line">AddDefaultCharset UTF-8　在759行 修改为：AddDefaultCharset GB2312　（添加GB2312为默认编码）</div><div class="line">Options Indexes MultiViews FollowSymLinks  在554行 修改为 Options MultiViews FollowSymLinks（不在浏览器上显示树状目录结构）</div><div class="line">DirectoryIndex index.html index.html.var  在402行 修改为：DirectoryIndex index.html index.htm Default.html Default.htm</div><div class="line"></div><div class="line">index.php Default.php index.html.var  （设置默认首页文件，增加index.php）</div><div class="line">KeepAlive Off   在76行 修改为：KeepAlive On （允许程序性联机）</div><div class="line">MaxKeepAliveRequests 100   在83行 修改为：MaxKeepAliveRequests 1000 （增加同时连接数）</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/httpd restart  #重启</div></pre></td></tr></table></figure>
+<h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><p>编辑文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/php.ini</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">date.timezone = PRC     #在946行 把前面的分号去掉，改为date.timezone = PRC</div><div class="line">disable_functions = passthru,exec,system,chroot,scandir,chgrp,chown,shell_exec,proc_open,proc_get_status,ini_alter,ini_alter,ini_restore,dl,openlog,syslog,readlink,symlink,popepassthru,stream_socket_server,escapeshellcmd,dll,popen,disk_free_space,checkdnsrr,checkdnsrr,getservbyname,getservbyport,disk_total_space,posix_ctermid,posix_get_last_error,posix_getcwd, posix_getegid,posix_geteuid,posix_getgid, posix_getgrgid,posix_getgrnam,posix_getgroups,posix_getlogin,posix_getpgid,posix_getpgrp,posix_getpid, posix_getppid,posix_getpwnam,posix_getpwuid, posix_getrlimit, posix_getsid,posix_getuid,posix_isatty, posix_kill,posix_mkfifo,posix_setegid,posix_seteuid,posix_setgid, posix_setpgid,posix_setsid,posix_setuid,posix_strerror,posix_times,posix_ttyname,posix_uname</div><div class="line"></div><div class="line">#在386行 列出PHP可以禁用的函数，如果某些程序需要用到这个函数，可以删除，取消禁用。</div><div class="line">expose_php = Off        #在432行 禁止显示php版本的信息</div><div class="line">magic_quotes_gpc = On   #在745行 打开magic_quotes_gpc来防止SQL注入</div><div class="line">short_open_tag = ON     #在229行支持php短标签</div><div class="line">open_basedir = .:/tmp/  #在380行 设置表示允许访问当前目录(即PHP脚本文件所在之目录)和/tmp/目录,可以防止php木马跨站,如果改了之后安装程序有问题(例如：织梦内容管理系统)，可以注销此行，或者直接写上程序的目录/data/www.osyunwei.com/:/tmp/</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/mysqld restart  #重启MySql</div><div class="line">/etc/init.d/httpd restart   #重启Apche</div></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd  /var/www/html</div><div class="line">vi index.php</div></pre></td></tr></table></figure>
+<p>键入:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">    phpinfo();</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>浏览器输入服务器IP地址，应该就能看到phpinfo了。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="http://www.osyunwei.com/archives/5884.html" target="_blank" rel="external">CentOS 6.4安装配置LAMP服务器</a></li>
+<li><a href="https://jingyan.baidu.com/article/425e69e6fb7a87be15fc16e4.html" target="_blank" rel="external">实战centos6.7下安装phpmyadmin</a></li>
+</ul>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div></div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://oongrmtwi.bkt.clouddn.com/alipay.jpg" alt="Designed by ningxiangyi Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LAMP/" rel="tag"># LAMP</a>
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/算法训练mod的副本.html" rel="next" title="ZOJ 3829 [贪心]">
+                <i class="fa fa-chevron-left"></i> ZOJ 3829 [贪心]
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/终端上传文件到远程服务器.html" rel="prev" title="终端上传文件到Linux服务器">
+                终端上传文件到Linux服务器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oongrmtwi.bkt.clouddn.com/ooo.png"
+               alt="Designed by ningxiangyi" />
+          <p class="site-author-name" itemprop="name">Designed by ningxiangyi</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://codinray.github.io/" title="陈帅哥的Blog" target="_blank">陈帅哥的Blog</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#OS"><span class="nav-number">1.1.</span> <span class="nav-text">OS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防火墙"><span class="nav-number">1.2.</span> <span class="nav-text">防火墙</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置防火墙"><span class="nav-number">1.2.1.</span> <span class="nav-text">设置防火墙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重启防火墙"><span class="nav-number">1.2.2.</span> <span class="nav-text">重启防火墙</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Apache"><span class="nav-number">2.1.</span> <span class="nav-text">Apache</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Apache"><span class="nav-number">2.1.1.</span> <span class="nav-text">安装Apache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动Apache"><span class="nav-number">2.1.2.</span> <span class="nav-text">启动Apache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">2.1.3.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设为开机启动"><span class="nav-number">2.1.4.</span> <span class="nav-text">设为开机启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重启Apache"><span class="nav-number">2.1.5.</span> <span class="nav-text">重启Apache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Apache默认目录"><span class="nav-number">2.1.6.</span> <span class="nav-text">Apache默认目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL"><span class="nav-number">2.2.</span> <span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装MySQL"><span class="nav-number">2.2.1.</span> <span class="nav-text">安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动MySQL"><span class="nav-number">2.2.2.</span> <span class="nav-text">启动MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设为开机启动-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">设为开机启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL操控"><span class="nav-number">2.2.5.</span> <span class="nav-text">MySQL操控</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP5"><span class="nav-number">2.3.</span> <span class="nav-text">PHP5</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装PHP5"><span class="nav-number">2.3.1.</span> <span class="nav-text">安装PHP5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装PHP组件"><span class="nav-number">2.3.2.</span> <span class="nav-text">安装PHP组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#phpMyAdmin"><span class="nav-number">2.4.</span> <span class="nav-text">phpMyAdmin</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装phpmyadmin"><span class="nav-number">2.4.1.</span> <span class="nav-text">安装phpmyadmin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可能遇到的问题"><span class="nav-number">2.4.2.</span> <span class="nav-text">可能遇到的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些配置"><span class="nav-number">2.5.</span> <span class="nav-text">一些配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Apache-1"><span class="nav-number">2.5.1.</span> <span class="nav-text">Apache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP"><span class="nav-number">2.5.2.</span> <span class="nav-text">PHP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">2.6.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Designed by ningxiangyi</span>
+</div>
+
+
+<div class="powered-by">
+  由超级无敌螺旋棒棒的 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  采用还算低调有内涵的主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "089dee40ad4e414496ed6fe137c1f132",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
