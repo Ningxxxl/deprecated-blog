@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[Win10安装Oracle11g]]></title>
+    <url>%2F%E5%9F%BA%E4%BA%8EWin10%E7%9A%84Oracle11g%E5%AE%89%E8%A3%85.html</url>
+    <content type="text"><![CDATA[基于Win10的Oracle11g安装记录一下安装过程。 本文安装是在Win10虚拟机下进行 一、安装环境 宿主机 macOS 10.13.3 虚拟机 Parallels Desktop 13 for Mac 13.2.0 （强烈安利！！！这真的是个超级好用的虚拟机，针对win10特别优化，支持DirectX 10，更是支持将Boot Camp 安装的Windows转换成虚拟机使用。） 系统 Windows10 1709 数据库 Oracle_x64_11gR2 Oracle client 32位 （因为据说PL/SQL 支持32位较好，总之还是不折腾） PL/SQL Developer 12 (32位) 二、安装前准备1. 欺骗Oracle安装程序：​ 修改文件cvu_prereq，使之能够通过Oracle的环境检查 ​ 文件位置：Database\stage\cvu ​ 文件名称：cvu_prereq.xml ​ 在的前边添加以下内容 12345678&lt;OPERATING_SYSTEM RELEASE="6.2"&gt; &lt;VERSION VALUE="3"/&gt; &lt;ARCHITECTURE VALUE="64-bit"/&gt; &lt;NAME VALUE="Windows 10"/&gt; &lt;ENV_VAR_LIST&gt; &lt;ENV_VAR NAME="PATH" MAX_LENGTH="1023" /&gt; &lt;/ENV_VAR_LIST&gt; &lt;/OPERATING_SYSTEM&gt; 2. JDK安装JDK下载 Oracle Java SE Download 通常教程安装的都是JDK8，其实9也是OK的。 安装Oracle1. 解压将下载的两个zip包解压到同一个database文件夹中。 2. 执行数据库安装程序运行database下的setup.exe 不出意外的话一切都会很顺利。。。相较于Ubuntu下真的好太多。 中途可能会提示安装一个环境，点下载并安装就OK 如果安装成功，访问 https://192.168.1.114:1158/em 哦哦对了，可能IE / Edge浏览器都无法访问，但是Chrome能访问… 3. 安装客户端 解压zip包到product/11.2.0/client 运行安装文件 不出意外会弹出窗口显示环境不满足最低要求 继续即可 安装类型我选的是管理员。 不过似乎安装最精简的也ok。 之后一路下一步直到安装完成 4. PL/SQL Developer 安装Easy 啦，不说了。 5. PL/SQL Developer 配置 打开plsql，登录界面可能只有三个文本框，而没有下拉菜单，这说明plsql还没有配置好。点击cancel，进入plsql。点击菜单栏的【工具】-【首选项】 配置Oracle主目录，和OCI库，正常的话点击下拉按钮就会有选项供选择。 然后应用，确定，关闭PL/SQL 找到PL/SQL 的tnsnames.ora文件在最后添加自己的orcl服务的配置 例如我的： 123456789orcl = (DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = 127.0.0.1)(PORT = 1521)) ) (CONNECT_DATA = (SERVICE_NAME = orcl) ) ) 重启PL/SQL，不出意外就完成啦。 参考资料 win10 关于oracle和PLSQL Developer的安装、配置，以及常见问题解决 Win10 64位系统下安装Oracle11g详细教程]]></content>
+      <categories>
+        <category>技巧</category>
+      </categories>
+      <tags>
+        <tag>Oracle</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Ubuntu安装Oracle11g]]></title>
+    <url>%2F%E5%9F%BA%E4%BA%8EUbuntu%E7%9A%84Oracle11g%E5%AE%89%E8%A3%85.html</url>
+    <content type="text"><![CDATA[基于Ubuntu16.04的Oracle11g安装实在才识浅薄，难得遇见一个软件在Linux环境下安装比Windows下麻烦太多。 本文安装是在Ubuntu虚拟机下进行 一、安装环境 宿主机 macOS 10.13.3 虚拟机 Parallels Desktop 13 for Mac 13.2.0 （强烈安利！！！这真的是个超级好用的虚拟机，针对win10特别优化，支持DirectX 10，更是支持将Boot Camp 安装的Windows转换成虚拟机使用。） 系统 Ubuntu 16.04 LTS x64 数据库 Oracle_linux_x64_11gR2 注意Oracle对于Linux的swap分区大小有要求，似乎是1.5G，通常swap至少也要4GB以上为好，但是现实是虚拟机快速安装Ubuntu之后，交换分区大小十分的小，我的系统实际可用空间大概为950MB，很尴尬。 所以要么选择手动安装，自己决定分区大小，要么后期增大也是OK的。 二、安装前准备1. 确保swap有足够空间： 命令free查看Swap分区大小，现在是已经更改之后了，总共5GB。 1234$ free total used free shared buff/cache availableMem: 2035964 1094436 81732 477824 859796 272496Swap: 5240824 857856 4382968 找一个空间足够的目录用来存放swap文件 123mkdir /swap cd /swap sudo dd if=/dev/zero of=swapfile bs=1024 count=2000000 count代表文件大小 把生成的文件转换成 Swap 文件 1sudo mkswap -f swapfile 激活Swap文件 1sudo swapon swapfile 再次free一下，应该是空间变大了。 ​ 2. JDK安装JDK下载 Oracle Java SE Download 通常教程安装的都是JDK8，其实9也是OK的。 解压到目录、设置环境变量：JAVA_HOME自行修改 1234export JAVA_HOME=/usr/jdk-9.0.4export JRE_HOME=$&#123;JAVA_HOME&#125;/jreexport CLASSPATH=.:$&#123;JAVA_HOME&#125;/lib:$&#123;JRE_HOME&#125;/libexport PATH=$&#123;JAVA_HOME&#125;/bin:$PATH 3. 安装Oracle所需要的依赖包需要的包非常非常多，但是为了顺利安装，还是都执行一遍比较好。 123456789101112131415161718192021222324252627282930313233343536373839404142#!/bin/shsudo apt-get install automake sudo apt-get install autotools-devsudo apt-get install binutilssudo apt-get install bzip2sudo apt-get install elfutilssudo apt-get install expatsudo apt-get install gawksudo apt-get install gccsudo apt-get install gcc-multilibsudo apt-get install g++-multilibsudo apt-get install ia32-libssudo apt-get install kshsudo apt-get install lesssudo apt-get install lesstif2sudo apt-get install lesstif2-devsudo apt-get install lib32z1sudo apt-get install libaio1sudo apt-get install libaio-devsudo apt-get install libc6-devsudo apt-get install libc6-dev-i386sudo apt-get install libc6-i386 sudo apt-get install libelf-devsudo apt-get install libltdl-devsudo apt-get install libmotif4sudo apt-get install libodbcinstq4-1 libodbcinstq4-1:i386sudo apt-get install libpth-devsudo apt-get install libpthread-stubs0sudo apt-get install libpthread-stubs0-devsudo apt-get install libstdc++5sudo apt-get install lsb-cxxsudo apt-get install makesudo apt-get install openssh-serversudo apt-get install pdkshsudo apt-get install rlwrapsudo apt-get install rpmsudo apt-get install sysstatsudo apt-get install unixodbcsudo apt-get install unixodbc-devsudo apt-get install unzipsudo apt-get install x11-utilssudo apt-get install zlibc 偷个懒，把上面这些复制到一个.sh里头，脚本的方式执行轻松很多。 部分安装不成功就算了….反正我记得我也不是都成功了。 3. 检查系统变量123456789/sbin/sysctl -a | grep sem/sbin/sysctl -a | grep shm/sbin/sysctl -a | grep file-max/sbin/sysctl -a | grep aio-max/sbin/sysctl -a | grep ip_local_port_range/sbin/sysctl -a | grep rmem_default/sbin/sysctl -a | grep rmem_max/sbin/sysctl -a | grep wmem_default/sbin/sysctl -a | grep wmem_max 执行上面的命令，得到参数后，在/etc/sysctl.conf中增加对应数据。（格式按照下面那样） 建议开两个终端同时进行比较方便。 1234567891011fs.aio-max-nr = 1048576fs.file-max = 6815744kernel.shmall = 2097152kernel.shmmax = 536870912kernel.shmmni = 4096kernel.sem = 250 32000 100 128net.ipv4.ip_local_port_range = 9000 65500net.core.rmem_default = 262144net.core.rmem_max = 4194304net.core.wmem_default = 262144net.core.wmem_max = 1048586 更新内核参数： 1sysctl –p 4. 创建一个Oracle用户emmm…我是直接在系统用户设置中创建的用户。 我创建的是名为Oracle的普通用户。 然后执行下： 12sudo groupadd oinstallsudo groupadd dba 5. 添加对用户的内核限制修改/etc/security/limits.conf 注意我的账户是oracle所以下面写的是oracle，根据实际进行改动。 12345oracle soft nproc 2047oracle hard nproc 16384oracle soft nofile 1024oracle hard nofile 65536oracle soft stack 10240 修改/etc/pam.d/login增加以下内容 12session required /lib/security/pam_limits.sosession required pam_limits.so 6. 创建安装文件夹自己创建就好，我的目录是/home/oracle/oracle11g/ 7. 配置Oracle环境变量1234567891011121314#Oracle#这个写刚刚创建的文件夹export ORACLE_BASE=/home/oracle/oracle11g#这个后面可以随便填写#说是说随便填，但其实最后那个dbhome_1一定要是最终安装的位置#不然会出现问题，等会安装的时候会再次提到export ORACLE_HOME=$ORACLE_BASE/product/11.2.0/dbhome_1#数据库的sidexport ORACLE_SID=orclexport ORACLE_UNQNAME=orcl#默认字符集export NLS_LANG=.AL32UTF8#环境变量export PATH=$&#123;PATH&#125;:$&#123;ORACLE_HOME&#125;/bin/; source .profile让变量生效，最好是再确定一遍：echo $ORACLE_HOME 8. 欺骗Oracle安装程序Oracle其实是不支持Ubuntu的，我们这属于强行操作。 1234567891011mkdir /usr/lib64 ln -s /etc /etc/rc.d ln -s /lib/x86_64-linux-gnu/libgcc_s.so.1 /lib64/ ln -s /usr/bin/awk /bin/awk ln -s /usr/bin/basename /bin/basename ln -s /usr/bin/rpm /bin/rpm ln -s /usr/lib/x86_64-linux-gnu/libc_nonshared.a /usr/lib64/libc_nonshared.a ln -s /usr/lib/x86_64-linux-gnu/libpthread_nonshared.a /usr/lib64/libpthread_nonshared.a ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /lib64/ ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /usr/lib64/ echo 'Red Hat Linux release 5' &gt; /etc/redhat-release 安装Oracle上面的系统配置完成之后，最好重启一下服务器，使用oracle用户登陆系统。 1. 解压及授权 上传下载好的oracle压缩文件到/home/oracle目录下。 进入/home/oracle目录，执行# unzip linux.x64_11gR2_database_1of2.zip和# unzip linux.x64_11gR2_database_2of2.zip，解压的文件在/home/oracle/database目录中。 设置/home/oracle/database目录的权限： 12# chown oracle:oinstall /home/oracle/database -R# chmod 775 /home/oracle/database -R 2. 设定字符集直接运行安装会导致安装程序出现乱码。 1export LANG=US 3. 执行安装程序要cd到database文件夹中 1./runInstaller 注意下面几个步骤 email的那个勾去掉，不要发送。 然后一步一步走下去，当你到需要输入密码的那个界面输入123456，123456，可能会违反oracle的加密规范，不用管，继续下去。 这里最好将character Set:AL32UTF8 有一个步骤选择安装位置的时候，一定注意那个文件夹（一般默认是dbhome_1）要跟环境变量中设置的一致！非常重要！ 安装到倒数几步的时候，会检查出许多包没有安装，其实都已经安装了，只是版本更新或者是32、64位不符合，可以选择右上角的ignore继续安装。 安装到68%时，ins_ctx.mk的错误提示，直接contiue跳过去 安装全程也就只跳过这一个错误提示。 后面还回报错： make file ‘/……emagent.mk’出错，解决方法： 另开一个终端，键入命令行： 12sed -i 's/^\(\s*\$(MK_EMAGENT_NMECTL)\)\s*$/\1 -lnnz11/g' $ORACLE_HOME/sysman/lib/ins_emagent.mk 12 sed: 无法读取 /sysman/lib/ins_emagent.mk: 没有那个文件或目录 当执行上一个命令出现这个错误的时候，说明你没有将$ORACLE_HOME生效。 点击安装界面的retry,就可以继续了完了以后，又回报错 ins_rdbms.mk的错误提示，这时，在终端，输入如下四个命令： 1234sed -i 's/^\(TNSLSNR_LINKLINE.*\$(TNSLSNR_OFILES)\) \(\$(LINKTTLIBS)\)/\1 -Wl,--no-as-needed \2/g' $ORACLE_HOME/network/lib/env_network.mksed -i 's/^\(ORACLE_LINKLINE.*\$(ORACLE_LINKER)\) \(\$(PL_FLAGS)\)/\1 -Wl,--no-as-needed \2/g' $ORACLE_HOME/rdbms/lib/env_rdbms.mksed -i 's/^\(\$LD \$LD_RUNTIME\) \(\$LD_OPT\)/\1 -Wl,--no-as-needed \2/g' $ORACLE_HOME/bin/genorasdkshsed -i 's/^\(\s*\)\(\$(OCRLIBS_DEFAULT)\)/\1 -Wl,--no-as-needed \2/g' $ORACLE_HOME/srvm/lib/ins_srvm.mk 然后在图形界面点击Retry就能继续安装了。 最后应该就顺利完成了，按照安装程序提示最后执行两个脚本: 从网络上摘抄的，以实际显示的和自己账户为准。 123sudo /home/jovi/doc/oraInventory/orainstRoot.sh sudo /home/jovi/doc/oracle/product/11.2.0/dbhome_1/root.sh123 至此安装成功。 验证安装如果安装成功，访问 https://192.168.1.114:1158/em 常用命令12345678910111213141516$ ps -ef|grep ora_|grep -v grep --&gt;查看oracle进程$ ps -ef|grep tnslsnr|grep -v grep --&gt;查看oracle的监听进程$ lsnrctl start --&gt;启动监听$ dbstart --&gt;启动数据库$ dbstop --&gt;停止数据库$ emctl start dbconsole --&gt;启动em控制台$ isqlplusctl start --&gt;启动pl/sql$ sqlplus '/as sysdba' --&gt;登录sqlplus$ env --&gt;输出当前用户的环境变量$ netca --&gt;启用监听配置程序#如果是使用sqlplus登录sys口令需要输入 "密码" + "as sysdba"例如密码是"1234" 那么需要输入 "1234 as sysdba" 参考资料 Ubuntu16.04安装Oracle11g ubuntu16.04安装Oracle_linux_x64_11gR2 ubuntu16.04安装oracle11g]]></content>
+      <categories>
+        <category>技巧</category>
+      </categories>
+      <tags>
+        <tag>Oracle</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[终端上传文件到Linux服务器]]></title>
+    <url>%2F%E7%BB%88%E7%AB%AF%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%88%B0%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8.html</url>
+    <content type="text"><![CDATA[一些基本的文件传输操作 1、mac上传文件到Linux服务器 12scp 文件名 用户名@服务器ip:目标路径如：scp /Users/test/testFile test@www.linuxidc.com:/test/ 2、mac上传文件夹到Linux服务器，与上传文件相比多加了-r 1scp -r 文件夹目录 用户名@服务器ip:目标路径 1如：scp -r /Users/test/testFolder test@www.linuxidc.com:/test/ 3、Linux服务器下载文件到mac 12scp 用户名@服务器ip:文件路径 目标路径如：scp test@www.linuxidc.com:/test/testFile /Users/test/ 4、Linux服务器下载文件夹到mac，与下载文件相比多加了-r 12scp -r 用户名@服务器ip:文件路径 目标路径如：scp -r test@www.linuxidc.com:/test/testFolder /Users/test/ MAC 技巧: 在finder里，对选中的文件，cmd+opt+c，就复制文件路径到剪贴板了。 参考资料 Mac/Linux/Centos终端中上传文件到Linux云服务器]]></content>
+      <categories>
+        <category>技巧</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[基于CentOS6的LAMP搭建]]></title>
+    <url>%2F%E5%9F%BA%E4%BA%8ECentOS6%E7%9A%84LAMP%E6%90%AD%E5%BB%BA.html</url>
+    <content type="text"><![CDATA[介绍如何在CentOS 6系统中搭建LAMP + phpMyAdmin 准备OSCentOS 6 防火墙设置防火墙编辑文件: 1vi /etc/sysconfig/iptables 打开80端口(Apache); 打开3306端口(MySQL); 12-A INPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT-A INPUT -p tcp -m state --state NEW -m tcp --dport 3306 -j ACCEPT 重启防火墙1/etc/init.d/iptables restart 进行修改的时候务必注意语法正确性。 安装Apache安装Apache1yum install httpd 启动Apache1/etc/init.d/httpd start 配置编辑配置文件: 1vi /etc/httpd/conf/httpd.conf 找到 1#ServerName www.example.com:80 修改为 1ServerName www.abc.com:80 这里设置为自己的域名，如果没有域名，可以设置为localhost 设为开机启动1chkconfig httpd on 重启Apache1/etc/init.d/httpd restart Apache默认目录apache默认的程序目录是 /var/www/html MySQL安装MySQL1yum install mysql mysql-server 启动MySQL1/etc/init.d/mysqld start 设为开机启动1chkconfig mysqld on 配置拷贝配置文件 1cp /usr/share/mysql/my-medium.cnf /etc/my.cnf （注意：如果/etc目录下面默认有一个my.cnf，直接覆盖即可） 为root账户设置密码 1mysql_secure_installation 输入两次密码之后一直输入Y，直到出现：Thanks for using MySQL! 表示安装结束 MySQL操控123/etc/init.d/mysqld restart #重启/etc/init.d/mysqld stop #停止/etc/init.d/mysqld start #启动 PHP5安装PHP51yum install php 安装PHP组件1yum install php-mysql php-gd libjpeg* php-imap php-ldap php-odbc php-pear php-xml php-xmlrpc php-mbstring php-mcrypt php-bcmath php-mhash libmcrypt 安装完成之后: 12/etc/init.d/mysqld restart #重启MySql/etc/init.d/httpd restart #重启Apche phpMyAdmin安装phpmyadmin首先去phpMyAdmin官网下载页下载最新的版本zip文件， 例如我选择的是phpMyAdmin-4.7.4-all-languages.zip 右键拷贝其下载链接: 例如我的是https://files.phpmyadmin.net/phpMyAdmin/4.7.4/phpMyAdmin-4.7.4-all-languages.zip 进入/var/www/html目录 1cd /var/www/html 执行命令: 1wget https://files.phpmyadmin.net/phpMyAdmin/4.7.4/phpMyAdmin-4.7.4-all-languages.zip wget之后的替换成自己的链接 解压缩 1unzip phpMyAdmin-4.7.4-all-languages.zip 同样文件名注意修改成对应的 移动解压后的文件夹并改名为phpmyadmin 1mv phpMyAdmin-4.7.4-all-languages phpmyadmin 进入phpmyadmin文件夹 1cd ./phpmyadmin/ 将libraries/config.default.php复制到phpmyadmin目录下 1cp libraries/config.default.php config.inc.php 重新启动mysqld服务及httpd服务 12service mysqld restartservice httpd restart 访问验证是否安装成功 http://本机IP/phpmyadmin/ 可能遇到的问题可能会出现: You don’t have permission to access/on this server. 这种提示 修改phpmyadmin.conf 1vi /etc/httpd/conf.d/phpMyAdmin.conf 将以下部分 1234567&lt;Directory "F:/Software/wamp/alias/phpmyadmin3.5.1/"&gt;Options Indexes FollowSymLinks MultiViewsAllowOverride allOrder Deny,AllowDeny from allAllow from 127.0.0.1&lt;/Directory&gt; 修改为 123456&lt;Directory &quot;F:/Software/wamp/apps/phpmyadmin3.5.1/&quot;&gt;Options Indexes FollowSymLinks MultiViewsAllowOverride allOrder Deny,AllowAllow from all &lt;--- 主要就是这里&lt;/Directory&gt; 一些配置不是必须的配置，选取部分修改就好 Apache编辑文件 1vi /etc/httpd/conf/httpd.conf 123456789101112ServerTokens OS 在44行 修改为：ServerTokens Prod （在出现错误页的时候不显示服务器操作系统的名称）ServerSignature On 在536行 修改为：ServerSignature Off （在错误页中不显示Apache的版本）Options Indexes FollowSymLinks 在331行 修改为：Options Includes ExecCGI FollowSymLinks（允许服务器执行CGI及SSI，禁止列出目录）#AddHandler cgi-script .cgi 在796行 修改为：AddHandler cgi-script .cgi .pl （允许扩展名为.pl的CGI脚本运行）AllowOverride None 在338行 修改为：AllowOverride All （允许.htaccess）AddDefaultCharset UTF-8 在759行 修改为：AddDefaultCharset GB2312 （添加GB2312为默认编码）Options Indexes MultiViews FollowSymLinks 在554行 修改为 Options MultiViews FollowSymLinks（不在浏览器上显示树状目录结构）DirectoryIndex index.html index.html.var 在402行 修改为：DirectoryIndex index.html index.htm Default.html Default.htmindex.php Default.php index.html.var （设置默认首页文件，增加index.php）KeepAlive Off 在76行 修改为：KeepAlive On （允许程序性联机）MaxKeepAliveRequests 100 在83行 修改为：MaxKeepAliveRequests 1000 （增加同时连接数） 1/etc/init.d/httpd restart #重启 PHP编辑文件 1vi /etc/php.ini 12345678date.timezone = PRC #在946行 把前面的分号去掉，改为date.timezone = PRCdisable_functions = passthru,exec,system,chroot,scandir,chgrp,chown,shell_exec,proc_open,proc_get_status,ini_alter,ini_alter,ini_restore,dl,openlog,syslog,readlink,symlink,popepassthru,stream_socket_server,escapeshellcmd,dll,popen,disk_free_space,checkdnsrr,checkdnsrr,getservbyname,getservbyport,disk_total_space,posix_ctermid,posix_get_last_error,posix_getcwd, posix_getegid,posix_geteuid,posix_getgid, posix_getgrgid,posix_getgrnam,posix_getgroups,posix_getlogin,posix_getpgid,posix_getpgrp,posix_getpid, posix_getppid,posix_getpwnam,posix_getpwuid, posix_getrlimit, posix_getsid,posix_getuid,posix_isatty, posix_kill,posix_mkfifo,posix_setegid,posix_seteuid,posix_setgid, posix_setpgid,posix_setsid,posix_setuid,posix_strerror,posix_times,posix_ttyname,posix_uname#在386行 列出PHP可以禁用的函数，如果某些程序需要用到这个函数，可以删除，取消禁用。expose_php = Off #在432行 禁止显示php版本的信息magic_quotes_gpc = On #在745行 打开magic_quotes_gpc来防止SQL注入short_open_tag = ON #在229行支持php短标签open_basedir = .:/tmp/ #在380行 设置表示允许访问当前目录(即PHP脚本文件所在之目录)和/tmp/目录,可以防止php木马跨站,如果改了之后安装程序有问题(例如：织梦内容管理系统)，可以注销此行，或者直接写上程序的目录/data/www.osyunwei.com/:/tmp/ 12/etc/init.d/mysqld restart #重启MySql/etc/init.d/httpd restart #重启Apche 测试12cd /var/www/htmlvi index.php 键入: 123&lt;?php phpinfo();?&gt; 浏览器输入服务器IP地址，应该就能看到phpinfo了。 参考资料 CentOS 6.4安装配置LAMP服务器 实战centos6.7下安装phpmyadmin]]></content>
+      <categories>
+        <category>技巧</category>
+      </categories>
+      <tags>
+        <tag>LAMP</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ZOJ 3829 [贪心]]]></title>
+    <url>%2F%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83mod%E7%9A%84%E5%89%AF%E6%9C%AC.html</url>
+    <content type="text"><![CDATA[题目Known Notation 题意题目给出一个字符串，其由非零的数字(1~9)和*号组成。 现在有两种操作： Insert:可以在字符串中任意位置插入一个1~9的数字。 Swap:可以交换字符串中任意两个字符。 现在要求是对于给定字符串进行以上两种操作，使得字符串符合逆波兰表达式。 例如2*3*4可以先在最前面Insert一个1，构成字符串12*3*4，然后swap最后两个数，得到字符串12*34*，这个字符串就符合逆波兰表达式(RNP)。 输入第一行给出测试组数T 接下来是T行，每行一个字符串。 输出输出最小所需的操作数 样例输入3 1*1 11*234** * 样例输出1 0 2 题解分析其实当时比赛的时候看到这道题，觉得很亲切，因为之前学栈的时候有专门学习了一下逆波兰，不过这道题不需要用到栈，很可惜比赛没做出来，自己还是太菜了。 思路就是逆波兰跟原式相比，只少了括号以及改变了操作符的顺序，那么意味着： 操作符的数量一定是小于数字的数量的。 其次就是分情况讨论，当数字的数量 ≤ 操作符数量的时候，肯定至少要Insert缺少的数量。 然后当数字数量足够的时候，只需要进行Swap操作。 所以流程就是，首先统计一下数量，然后用一个add变量储存Insert操作的数量，之后遍历一遍字符串，如果遇到数字，那么数字的数量+1，如果遇到的是*号，那么星号的数量+1，如果数字数量≤星号的数量，并且能够Insert，那么就直接Insert，这时候数字的数量+1，add变量-1，如果Insert操作数量用光了，那就只能Swap了，交换当前遇到的星号和之后的某个数字，相当于目前遍历到的数字+1，遇到的星号数量-1。 AC代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657#include&lt;iostream&gt;#include&lt;cstdio&gt;#include&lt;cstring&gt;using namespace std;int main(void)&#123; int T; char s[2000]; scanf("%d",&amp;T); getchar(); while(T--) &#123; scanf("%s",s); int len = strlen(s); int op=0, num=0; int res=0; for(int i=0;i&lt;len;i++) &#123; if(s[i]=='*') op++; else num++; &#125; int add=0; if(num&lt;=op) &#123; add = (op-num)+1; res+=add; &#125; op = num = 0; for(int i=0;i&lt;len;i++) &#123; if(s[i]!='*') num++; else &#123; op++; if(num&lt;=op) &#123; if(add) &#123; add--; num++; &#125; else &#123; res++; num++; op--; &#125; &#125; &#125; &#125; cout&lt;&lt;res&lt;&lt;endl; &#125; return 0；&#125;]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>贪心</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[生成SS二维码]]></title>
+    <url>%2FSS%E8%8A%82%E7%82%B9%E4%BA%8C%E7%BB%B4%E7%A0%81.html</url>
+    <content type="text"><![CDATA[许多ss运营商会给出ss节点的二维码，其实ss有定义一套规则生成。 例如这个节点： 1234地址: 192.168.1.1端口: 5678加密: chacha20密码: password 那么可以先按规则写成下面这样: 1chacha20:password@192.168.1.1:5678 之后进行base64编码: 1Y2hhY2hhMjA6cGFzc3dvcmRAMTkyLjE2OC4xLjE6NTY3OA 在最前面加上 ss://: 1ss://Y2hhY2hhMjA6cGFzc3dvcmRAMTkyLjE2OC4xLjE6NTY3OA 这就是完整的url了。 所以变成二维码就很简单了，将url生成二维码就好。]]></content>
+      <categories>
+        <category>杂</category>
+      </categories>
+      <tags>
+        <tag>杂七杂八</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[快速读入挂]]></title>
+    <url>%2F%E8%BE%93%E5%85%A5%E6%8C%82.html</url>
+    <content type="text"><![CDATA[大概是比cin/scanf更快速的玩意儿 快速读入挂一下只适用于整数: 12345678910111213141516171819202122232425262728const int MAXBUF = 10000;char buf[MAXBUF], *ps = buf, *pe = buf+1;inline void rnext()&#123; if(++ps == pe) pe = (ps = buf)+fread(buf,sizeof(char),sizeof(buf)/sizeof(char),stdin);&#125;template &lt;class T&gt;inline bool rin(T &amp;res)&#123; res = 0; T f = 1; if(ps == pe) return false;//EOF do&#123; rnext(); if('-' == *ps) f = -1; &#125;while(!isdigit(*ps) &amp;&amp; ps != pe); if(ps == pe) return false;//EOF do &#123; res = (res&lt;&lt;1)+(res&lt;&lt;3)+*ps-48; rnext(); &#125;while(isdigit(*ps) &amp;&amp; ps != pe); res *= f; return true;&#125;]]></content>
+      <categories>
+        <category>技巧</category>
+      </categories>
+      <tags>
+        <tag>杂七杂八</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[自主科学上网]]></title>
+    <url>%2F%E8%87%AA%E4%B8%BB%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91.html</url>
+    <content type="text"><![CDATA[最近G·F·W貌似变得越来越强大了，之前一直使用的ss跑路了(被强了)，庆幸自己是月付费用户。 自己种了[红杏]给祖国妈妈庆生，写下一些注意的东西。 关于VPSOS: CentOS 6 X64 Location: [US] L.A. 日本和新加坡节点有点坑所以没有选… 部署SS服务器端使用的是 teddysun 的Shadowsocks Python版一键安装脚本。 脚本默认创建单用户。 SS配置文件: 1nano /etc/shadowsocks.json 单端口配置格式: 12345678910&#123; "server":"0.0.0.0", "server_port":443, "local_address": "127.0.0.1", "local_port":1080, "password":"123456", "timeout":300, "method":"aes-256-cfb", "fast_open": false&#125; 多端口配置格式: 123456789101112&#123; "server":"0.0.0.0", "local_address": "127.0.0.1", "local_port":1080, "port_password": &#123; "443": "443", "8888": "8888" &#125;, "timeout":300, "method":"aes-256-cfb", "fast_open": false&#125; 命令: 1234启动：/etc/init.d/shadowsocks start停止：/etc/init.d/shadowsocks stop重启：/etc/init.d/shadowsocks restart状态：/etc/init.d/shadowsocks status 修改配置文件之后请务必重启。 开启锐速一键安装脚本: 1wget -N --no-check-certificate https://raw.githubusercontent.com/91yun/serverspeeder/master/serverspeeder-all.sh &amp;&amp; bash serverspeeder-all.sh 但是很可能会因为内核版本原因安装失败(自动脚本检测比较严苛) 所以可以先更换内核: 12wget --no-check-certificate https://blog.asuhu.com/sh/ruisu.shbash ruisu.sh 然后再执行上面的脚本。 安装完成后，输入以下命令打开配置文件。 1nano /serverspeeder/etc/config 将 advinacc 的 0 改为 1，保存并退出。 CentOS 防火墙设定打开文档: 1vi /etc/sysconfig/iptables 打开端口: 12打开端口： -A INPUT -p tcp -m state --state NEW -m tcp --dport 3306 -j ACCEPT 关闭端口： -A INPUT -p tcp -m state --state NEW -m tcp --dport 7777 -j DROP 重启防火墙: 1/etc/init.d/iptables restart 进行修改的时候务必注意语法正确性。 不过好像重启防火墙之后，无法出墙，目前重启服务器能解决。 关于偶尔ping失败上 console 用 service network restart 参考资料科学上网的终极姿势 teddysun ss一键脚本 锐速:CentOS 6/7 一键更换内核脚本]]></content>
+      <categories>
+        <category>杂</category>
+      </categories>
+      <tags>
+        <tag>杂七杂八</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[循环队列]]></title>
+    <url>%2F%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97.html</url>
+    <content type="text"><![CDATA[循环队列为充分利用向量空间，克服”假溢出”现象的方法是：将向量空间想象为一个首尾相接的圆环，并称这种向量为循环向量。存储在其中的队列称为循环队列（Circular Queue）。这种循环队列可以以单链表的方式来在实际编程应用中来实现。 几个要点 图中有两个指针(其实就是两个整数型变量，因为在这里有指示作用，所以这里理解为指针)front、rear,一个指示队头，一个指示队尾。 rear和front互相追赶着，这个追赶过程就是队列添加和删除的过程，如果rear追到head说明队列满了，如果front追到rear说明队列为空。 令队列空间中的一个单元闲置，使得队列非空时，Q.rear与Q.front之间至少间隔一个空闲单。 我们把它掰弯，用的是求余，这样两个值就不会跑出最大范围，并且可以实现弯曲的效果，所以说对于循环队列我们必须给定最大值Maxsize。这其实是我们臆想的，反正我们要做的就是利用循环来解决空间浪费的问题。 ( rear + 1 ) % maxsize == front 时，队列满 rear == front 时，队列空 结构定义12345678#define Queue_size 5typedef struct&#123; int *base; int front; int rear; int maxsize;&#125;SqQueue; 初始化123456789void InitQueue(SqQueue &amp;q)&#123; q.maxsize = Queue_size; //元素最大个数是maxsize-1 q.base = (int *)malloc(q.maxsize * sizeof(int)); if(!q.base) exit(10); q.front = q.rear = NULL; return;&#125; 求队列元素个数1234int QueueLength(SqQueue q)&#123; return (q.rear - q.front + q.maxsize) % q.maxsize;&#125; 入队列12345678int EnQueue(SqQueue &amp;q,int num)&#123; if((q.rear + 1) % q.maxsize == q.front) return -1; //队列满 q.base[q.rear] = num; q.rear = (q.rear + 1) % q.maxsize; return 0;&#125; 出队列12345678int DeQueue(SqQueue &amp;q,int &amp;e)&#123; if(q.front == q.rear) return -1; //队列空 e = q.base[q.front]; q.front = (q.front + 1) % q.maxsize; return 0;&#125; 遍历队列123456789101112void TraverseQueue(SqQueue q)&#123; int i=q.front; printf("队中的元素是:\n"); while(i!=q.rear) &#123; printf("%d ",q.base[i]); // i++; i = (i + 1) % q.maxsize; &#125; printf("\n");&#125;]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>队列</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[重写队列]]></title>
+    <url>%2F%E9%87%8D%E5%86%99%E9%98%9F%E5%88%97.html</url>
+    <content type="text"><![CDATA[##序 以前写【初学队列】那篇文章的时候偷了点懒，没有写循环队列，之前那个代码也写的不太好，索性重写了一遍，这里把代码直接贴上来。 ##节点定义 123456789101112typedef struct Qnode&#123; int data; struct Qnode *next;&#125;node;typedef struct Queue&#123; node *front; node *rear; int count;&#125;queue; 初始化12345void InitQueue(queue *q)&#123; q-&gt;front = q-&gt;rear = NULL; q-&gt;count = 0;&#125; 入队列123456789101112131415161718int Enqueue(queue *q,int num)&#123; node *t; if(q-&gt;count == maxsize) return 0; t = (node *)malloc(sizeof(node)); if(!q) exit(10); //OVERFLOW t-&gt;data = num; t-&gt;next = NULL; if(q-&gt;count == 0) q-&gt;front = t; else q-&gt;rear-&gt;next = t; q-&gt;rear = t; q-&gt;count++; return 1;&#125; ##创建队列 12345678910void create_queue(queue *q,int n)&#123; int i,t; for(i=0;i&lt;n;i++) &#123; scanf("%d",&amp;t); Enqueue(q,t); &#125; return;&#125; 出队列123456789101112131415//e用来返回删除元素的值int Dequeue(queue *q,int *e)&#123; node *t; if(!q-&gt;count) return -1; *e = q-&gt;front-&gt;data; t = q-&gt;front; q-&gt;front = q-&gt;front-&gt;next; free(t); q-&gt;count--; if(!q-&gt;count) q-&gt;rear = NULL; return 1;&#125; ##打印队列 123456789101112void Print_queue(queue *q)&#123; node *p = q-&gt;front; int i; for(i=0;i&lt;q-&gt;count;i++) &#123; printf("%d ",p-&gt;data); p = p-&gt;next; &#125; printf("\n"); return;&#125; 主函数1234567891011int main(void)&#123; queue q; int n,e; InitQueue(&amp;q); scanf("%d",&amp;n); create_queue(&amp;q,n); Print_queue(&amp;q); Dequeue(&amp;q,&amp;e); Print_queue(&amp;q);&#125;]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>队列</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[二叉排序树]]></title>
+    <url>%2F%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91.html</url>
+    <content type="text"><![CDATA[二叉排序树二叉排序树(Binary Sort Tree)又称二叉查找树。 它或是一棵空树，或者是具有下列性质的二叉树。 一些基本性质 若其左子树不空，则左子树上所有节点的值均小于它的根结构的值 若其右子树不空，则右子树上所有节点的值均大于它的根节点的值 它的左、右子树也分别为二叉树 构造二叉排序树的目的主要在于提高查找和插入删除关键字的速度。 然而查找的时间复杂度十分不稳定，最坏的情况是O(n)，因此更好的办法是构造平衡二叉树(AVL树)（大概下篇文章就是AVL树？）。 搜索节点实现的方式有很多种，这里是使用的递归方式。 1234567891011121314//递归查找二叉排序树T中是否存在key//指针f指向T的双亲，其初始调用值为NULL//找到了返回NULL，否则返回符合插入条件的地址node *SearchBST(node *T, int key, node *f)&#123; if (!T) return f; if (key == T-&gt;data) return NULL; else if (key &lt; T-&gt;data) return SearchBST(T-&gt;lchild, key, T); else return SearchBST(T-&gt;rchild, key, T);&#125; 插入节点先判断一下是不是空树，是空树的话直接插入，否则： 判断一下是不是树中已经存在值为key的节点， 如果已经存在，直接返回，否则进行插入操作。 12345678910111213141516171819202122232425//当二叉排序树中不存在关键字等于key的数据元素时插入node *InsertBST(node *T, int key)&#123; node *p, *t, *c; if (!T) //空树 &#123; T = (node *)malloc(sizeof(node)); T-&gt;data = key; T-&gt;lchild = T-&gt;rchild = NULL; return T; &#125; t = T; //指针t指向当前节点 p = SearchBST(T, key, NULL); if (p) &#123; c = (node *)malloc(sizeof(node)); c-&gt;data = key; c-&gt;lchild = c-&gt;rchild = NULL; if (p-&gt;data &lt; key) p-&gt;rchild = c; else p-&gt;lchild = c; &#125; return T;&#125; 删除节点删除节点需要仔细分析一下： 首先如果是空树，自然直接返回。 接下来应该是在二叉树中寻找键值等于key的节点 如果该节点左右子树至少有一个不为空，那么只需要将该节点的右/左子树接上就好； 反之如果左右孩子都不为空： 要取到中序遍历中该节点的直接前驱(直接后驱也是OK的)，然后进行进一步的判断进行删除操作。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556int DeleteNode(node *T,int key)&#123; if(!T) return 0; else &#123; node *p = T; node *f = NULL; node *t; while((p != NULL) &amp;&amp; (p-&gt;data != key)) &#123; f = p; if(p-&gt;data &lt; key) p = p-&gt;rchild; else p = p-&gt;lchild; &#125; //左、右孩子至少有一个为空 if(p-&gt;lchild==NULL||p-&gt;rchild==NULL) &#123; if(f-&gt;lchild == p) &#123; if(!p-&gt;lchild) f-&gt;lchild = p-&gt;rchild; else f-&gt;lchild = p-&gt;lchild; &#125; else &#123; if(!p-&gt;lchild) f-&gt;rchild = p-&gt;rchild; else f-&gt;rchild = p-&gt;lchild; &#125; free(p); &#125; //左、右孩子均不为空 else &#123; f = p; t = p-&gt;lchild; //转左 while(t-&gt;rchild)//一直往右到底，取到中序遍历的直接前驱 &#123; f = t; t = t-&gt;rchild; &#125; p-&gt;data = t-&gt;data; if(f!=p) f-&gt;rchild = t-&gt;lchild; else f-&gt;lchild = t-&gt;lchild; free(t); &#125; &#125; return 0;&#125; 主函数12345678910111213int main(void)&#123; node *T = NULL; int a[11] = &#123;62, 88, 58, 47, 51, 35, 29, 37, 36, 49, 56&#125;; for (int i = 0; i &lt; 11; i++) &#123; T = InsertBST(T, a[i]); &#125; PreOrderTraverse(T); printf("\n"); DeleteNode(T,47); PreOrderTraverse(T);&#125; 懒得画图了: ( 下面是个极其粗糙的演示： 123456789101112二叉树原始形态: 删除节点之后： 62 62 / \ / \ 58 88 58 88 / / 47 37 / \ / \ 35 51 35 51 / \ / \ / \ / \ 29 37 49 56 29 36 49 56 / 36]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>树</tag>
+        <tag>查找</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[初学树Ⅱ-二叉树非递归遍历]]></title>
+    <url>%2F%E5%88%9D%E5%AD%A6%E6%A0%91%E2%85%A1.html</url>
+    <content type="text"><![CDATA[栈的应用——二叉树的非递归遍历递归遍历实现起来比较简单，但是后序遍历无法实现。 结合栈可以实现二叉树的非递归遍历。 PreOrderTraverse对于每一个深度为2的二叉树，先把根节点入栈，之后等根节点出栈之后，将右孩子跟左孩子依次入栈。 再pop左孩子，同时左孩子作为另一颗深度为2的子树的根节点，将右孩子和左孩子依次入栈，重复上述过程直到栈空。 1234567891011121314151617void PreOrderTraverse(node *T)&#123; if(!T) return; stack&lt;node*&gt; s; s.push(T); while(!s.empty()) &#123; node *t = s.top(); cout&lt;&lt;t-&gt;data; s.pop(); if(t-&gt;rchild) s.push(t-&gt;rchild); if(t-&gt;lchild) s.push(t-&gt;lchild); &#125; return;&#125; InOrderTraverse一直沿着左边走，将每一个节点入栈，直到叶子也入栈。 然后pop栈顶节点，pop完之后检查是否还有右孩子。 有的话，重复刚刚的操作。 重复上述操作直到栈空。 12345678910111213141516171819void InOrderTraverse(node *T)&#123; if(!T) return; stack&lt;node*&gt; s; s.push(T); node *t = T-&gt;lchild; while(t!=NULL||!s.empty()) &#123; while(t!=NULL) //一直向左走 &#123; s.push(t); t = t-&gt;lchild; &#125; t = s.top(); s.pop(); cout&lt;&lt;t-&gt;data; t = t-&gt;rchild; &#125;&#125; PostOrderTraverse后序遍历相对来说麻烦一点，这里用的双栈实现。 可以这么理解： 对于下面这样一个二叉树： 123 A / \B C 后序遍历是BCA；前序遍历是ABC。 那么入栈顺序就应该是ACB 刚好是个左右反转的前序遍历，那就很棒棒了对不对。 前序遍历的入栈顺序是 根节点-&gt;右孩子-&gt;左孩子 那么这里反过来变成 左孩子-&gt;右孩子 就OK了 所以第一个栈就是用来解决左右镜像的前序遍历 然后第二个栈就是用来存储镜像前序遍历的结果 最后pop第二个栈直到其为空就好了。 123456789101112131415161718192021void PostOrderTraverse(node *T)&#123; stack&lt;node*&gt; s1,s2; node *t; s1.push(T); while(!s1.empty()) &#123; t = s1.top(); s1.pop(); s2.push(t); if(t-&gt;lchild) s1.push(t-&gt;lchild); if(t-&gt;rchild) s1.push(t-&gt;rchild); &#125; while(!s2.empty()) &#123; cout&lt;&lt;s2.top()-&gt;data; s2.pop(); &#125;&#125; 主函数12345678int main(void)&#123; node *Tree; Tree = CreateBiTree(); PostOrderTraverse(Tree); printf("\n"); return 0;&#125;]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>栈</tag>
+        <tag>数据结构</tag>
+        <tag>树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[初学树Ⅰ]]></title>
+    <url>%2F%E5%88%9D%E5%AD%A6%E6%A0%91%E2%85%A0.html</url>
+    <content type="text"><![CDATA[二叉树的一些性质 在二叉树的第i层上至多有\(2^{i-1}\)个节点(i≥1) 深度为k的二叉树至多有\(2^{k-1}\)个节点(k≥1) 对任何一棵二叉树T，如果其终端节点数为n0，度为2的节点数为n2，则n0=n2+1 具有n个节点的完全二叉树的深度为[log2n]+1 如果一棵有n个节点的完全二叉树，对任意一个节点i有： 如果i&gt;1，双亲是[i/2] 如果2*i&gt;n，无左孩子 否则左孩子是节点2*i 如果2*i+1&gt;n，无右孩子 否则右孩子是节点[2*i+1] 二叉树的建立和一些操作二叉树的二叉链表的节点结构定义12345typedef struct BiTnode&#123; char data; struct BiTnode *lchild, *rchild;&#125;node; ###建立： 12345678910111213141516node* CreateBiTree()&#123; char ch; node *T; scanf("%c",&amp;ch); if(ch=='#') T = NULL; else &#123; T = (node *)malloc(sizeof(node)); T-&gt;data = ch; T-&gt;lchild = CreateBiTree(); T-&gt;rchild = CreateBiTree(); &#125; return T;&#125; ###前序遍历（递归实现） 12345678910void InOrderTraverse(node *T)&#123; if(T) &#123; InOrderTraverse(T-&gt;lchild); printf("%c",T-&gt;data); InOrderTraverse(T-&gt;rchild); &#125; return;&#125; ###中序遍历（递归实现） 12345678910void InOrderTraverse(node *T)&#123; if(T) &#123; InOrderTraverse(T-&gt;lchild); printf("%c",T-&gt;data); InOrderTraverse(T-&gt;rchild); &#125; return;&#125; 后序遍历（递归实现）12345678910void PostOrderTraverse(node *T)&#123; if(T) &#123; PostOrderTraverse(T-&gt;lchild); printf("%c",T-&gt;data); PostOrderTraverse(T-&gt;rchild); &#125; return;&#125; 主函数123456789101112int main(void)&#123; node *Tree; Tree = CreateBiTree(); PreOrderTraverse(Tree); printf("\n"); InOrderTraverse(Tree); printf("\n"); PostOrderTraverse(Tree); printf("\n"); return 0;&#125;]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[初学Python 小总结Ⅰ]]></title>
+    <url>%2F%E5%88%9D%E5%AD%A6Python%20%E5%B0%8F%E6%80%BB%E7%BB%93%E2%85%A0.html</url>
+    <content type="text"><![CDATA[em…在廖雪峰那儿看了些blog感觉讲的有点小快，自己还是弄了本书来稍微巩固一下，阅读速度比较快，梳理过程中也发现了许多blog上没有的东西，一并补充进来，作为一个小总结。 这里暂时是《Python编程从入门到实践》的前四个章节。 字符串修改字符串大小.title() 表示首字母大写 .upper() 表示全部字母大写 .lower() 表示全部字母小写 删除指定字符1str.strip([chars]) .strip() 移除字符串头尾指定的字符 .lstrip() 移除字符串头部指定的字符 .rstrip() 移除字符串尾部指定的字符 连续**表示乘方12&gt;&gt;&gt; 3 ** 29 ##The Zen of Python 1&gt;&gt;&gt; import this List添加元素.append() 在最后插入一个数据项 .extend() 在最后增加一组数据集合 .insert() 可指定插入位置 删除元素del 根据引索删除某个元素 .remove() 删除首个符合条件的元素 .pop() 弹出指定的元素，默认是最后一个，并不是真正删除 排序.sort() 正序 .sort(reverse = True) 反序 .sorted() 临时排序 貌似这个sorted有很多高端用法，例如配合Lambda表达式之类的 ##列表解析 是个很能精简代码的东西 123&gt;&gt;&gt; L = [i**2 for i in range(1,11) if i&gt;4]&gt;&gt;&gt; print(L)[25, 36, 49, 64, 81, 100] 12345&gt;&gt;&gt; L1 = ['a','b','c']&gt;&gt;&gt; L2 = [1,2,3]&gt;&gt;&gt; L3 = [(a,b)for a in L1 for b in L2]&gt;&gt;&gt; print(L3)[('a', 1), ('a', 2), ('a', 3), ('b', 1), ('b', 2), ('b', 3), ('c', 1), ('c', 2), ('c', 3)] 九九乘法表： 1print('\n'.join([''.join(['%s*%s=%-2s '%(y,x,x*y)for y in range(1,x+1)])for x in range(1,10)])) 使用列表的一部分切片序列切片地址可以写为[开始：结束：步长] 步长step=n;代表从start开始（start也算）每隔step间隔，取一个数，一直到结尾end 12range(20)[::3] [0,3,6,9,12,15,18] ​ 当step等于负数的时候，从右向左取数。 12345range(10)[::-1] [9,8,7,6,5,4,3,2,1,0]range(10)[::-2] [9,7,5,3,1] 遍历切片循环中也可以遍历切片 复制列表123&gt;&gt;&gt; L_new = L[:]&gt;&gt;&gt; print(L_new)[1, 2, 3] 注意： 12345678&gt;&gt;&gt; L = [1,2,3]#这样是不对的，这样相当于是将L做了个副本给L_new&gt;&gt;&gt; L_new = L&gt;&gt;&gt; L.append(4)&gt;&gt;&gt; print(L)[1, 2, 3, 4]&gt;&gt;&gt; print(L_new)[1, 2, 3, 4]]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[初学Python Ⅲ]]></title>
+    <url>%2F%E5%88%9D%E5%AD%A6Python%20%E2%85%A2.html</url>
+    <content type="text"><![CDATA[函数调用函数Python内置了很多有用的函数，我们可以直接调用。 具体参见 官方文档 - Built-in Functions 定义函数在Python中，定义一个函数要使用def语句，依次写出函数名、括号、括号中的参数和冒号:，然后，在缩进块中编写函数体，函数的返回值用return语句返回。 例如自定义一个求绝对值的my_abs函数： 12345def my_abs(x): if x &gt;= 0: return x else: return -x 运行： 12345678&gt;&gt;&gt; def fn(x):... if x&gt;=0:... return x... else:... return -x...&gt;&gt;&gt; print(fn(-1))1 如果没有return语句，函数执行完毕后也会返回结果，只是结果为None。 return None可以简写为return。 函数的参数位置参数调用函数时根据函数定义的参数位置来传递参数。 参数的顺序必须一一对应，且少一个参数都不可以。 例如： 123def print_hello(name, sex): sex_dict = &#123;1: u'先生', 2: u'女士'&#125; print 'hello %s %s, welcome to python world!' %(name, sex_dict.get(sex, u'先生')) 默认参数用于定义函数，为参数提供默认值，调用函数时可传可不传该默认参数的值. 123456def power(x, n=2): s = 1 while n &gt; 0: n = n - 1 s = s * x return s 这样，当我们调用power(5)时，相当于调用power(5, 2)： 1234&gt;&gt;&gt; power(5)25&gt;&gt;&gt; power(5, 2)25 而对于n &gt; 2的其他情况，就必须明确地传入n，比如power(5, 3)。 注意：所有位置参数必须出现在默认参数前，包括函数定义和调用 可以看下面这个错误的例子： 12def wrong_function(a, b, d=None, c, e=0): pass 当调用函数wrong_function(1, 2, 4, 5)时，我们传入了什么参数？ 是d=4, c=5 还是c=4, e=5？ 使用默认参数有什么好处？最大的好处是能降低调用函数的难度。 大部分共同的参数可以设置为默认参数，只有少量不同的单独设置，可以简化很多操作。 默认参数很有用，但使用不当，也会掉坑里。默认参数有个最大的坑，演示如下： 先定义一个函数，传入一个list，添加一个END再返回： 123def add_end(L=[]): L.append(&apos;END&apos;) return L 当你正常调用时，结果似乎不错： 1234&gt;&gt;&gt; add_end([1, 2, 3])[1, 2, 3, &apos;END&apos;]&gt;&gt;&gt; add_end([&apos;x&apos;, &apos;y&apos;, &apos;z&apos;])[&apos;x&apos;, &apos;y&apos;, &apos;z&apos;, &apos;END&apos;] 当你使用默认参数调用时，一开始结果也是对的： 12&gt;&gt;&gt; add_end()[&apos;END&apos;] 但是，再次调用add_end()时，结果就不对了： 1234&gt;&gt;&gt; add_end()[&apos;END&apos;, &apos;END&apos;]&gt;&gt;&gt; add_end()[&apos;END&apos;, &apos;END&apos;, &apos;END&apos;] 很多初学者很疑惑，默认参数是[]，但是函数似乎每次都“记住了”上次添加了&#39;END&#39;后的list。 原因解释如下： Python函数在定义的时候，默认参数L的值就被计算出来了，即[]，因为默认参数L也是一个变量，它指向对象[]，每次调用该函数，如果改变了L的内容，则下次调用时，默认参数的内容就变了，不再是函数定义时的[]了。 所以，定义默认参数要牢记一点：默认参数必须指向不变对象！ 要修改上面的例子，我们可以用None这个不变对象来实现： 12345def add_end(L=None): if L is None: L = [] L.append('END') return L 现在，无论调用多少次，都不会有问题： 1234&gt;&gt;&gt; add_end()['END']&gt;&gt;&gt; add_end()['END'] 为什么要设计str、None这样的不变对象呢？因为不变对象一旦创建，对象内部的数据就不能修改，这样就减少了由于修改数据导致的错误。此外，由于对象不变，多任务环境下同时读取对象不需要加锁，同时读一点问题都没有。我们在编写程序时，如果可以设计一个不变对象，那就尽量设计成不变对象。 可变参数可变参数意味着传入的参数个数是可变的，可以是0个、1个、2个到任意个。； 例如下面这个例子： 12345def calc(numbers): sum = 0 for n in numbers: sum = sum + n * n return sum 很明显是一个求和的函数， 传入参数是一个list或者tuple 1234&gt;&gt;&gt; calc([1, 2, 3])14&gt;&gt;&gt; calc((1, 3, 5, 7))84 如果采用可变参数： 12345def calc(*numbers): sum = 0 for n in numbers: sum = sum + n * n return sum 函数代码不会变，参数前加个*就好了。 1234&gt;&gt;&gt; calc(1, 2)5&gt;&gt;&gt; calc()0 如果已经有一个list或者tuple，要调用一个可变参数怎么办？可以这样做： 123&gt;&gt;&gt; nums = [1, 2, 3]&gt;&gt;&gt; calc(nums[0], nums[1], nums[2])14 这种写法当然是可行的，问题是太繁琐，所以Python允许你在list或tuple前面加一个*号，把list或tuple的元素变成可变参数传进去： 123&gt;&gt;&gt; nums = [1, 2, 3]&gt;&gt;&gt; calc(*nums)14 *nums表示把nums这个list的所有元素作为可变参数传进去。这种写法相当有用，而且很常见。 关键字参数关键字参数允许你传入0个或任意个含参数名的参数，这些关键字参数在函数内部自动组装为一个dict。 例如： 12def person(name, age, **kw): print('name:', name, 'age:', age, 'other:', kw) 函数person除了必选参数name和age外，还接受关键字参数kw。 可以传入任意个数的关键字参数： 1234&gt;&gt;&gt; person('Bob', 35, city='Beijing')name: Bob age: 35 other: &#123;'city': 'Beijing'&#125;&gt;&gt;&gt; person('Adam', 45, gender='M', job='Engineer')name: Adam age: 45 other: &#123;'gender': 'M', 'job': 'Engineer'&#125; 和可变参数类似，也可以先组装出一个dict，然后，把该dict转换为关键字参数传进去： 123&gt;&gt;&gt; extra = &#123;'city': 'Beijing', 'job': 'Engineer'&#125;&gt;&gt;&gt; person('Jack', 24, city=extra['city'], job=extra['job'])name: Jack age: 24 other: &#123;'city': 'Beijing', 'job': 'Engineer'&#125; 当然，上面复杂的调用可以用简化的写法： 123&gt;&gt;&gt; extra = &#123;'city': 'Beijing', 'job': 'Engineer'&#125;&gt;&gt;&gt; person('Jack', 24, **extra)name: Jack age: 24 other: &#123;'city': 'Beijing', 'job': 'Engineer'&#125; **extra表示把extra这个dict的所有key-value用关键字参数传入到函数的**kw参数，kw将获得一个dict，注意kw获得的dict是extra的一份拷贝，对kw的改动不会影响到函数外的extra。 命名关键字参数命名关键字参数需要一个特殊分隔符*，*后面的参数被视为命名关键字参数。 调用方式如下： 12&gt;&gt;&gt; person('Jack', 24, city='Beijing', job='Engineer')Jack 24 Beijing Engineer 如果函数定义中已经有了一个可变参数，后面跟着的命名关键字参数就不再需要一个特殊分隔符*了： 12def person(name, age, *args, city, job): print(name, age, args, city, job) 命名关键字参数必须传入参数名。 命名关键字参数可以有缺省值，从而简化调用： 12def person(name, age, *, city='Beijing', job): print(name, age, city, job) 使用命名关键字参数时，要特别注意，如果没有可变参数，就必须加一个*作为特殊分隔符。如果缺少*，Python解释器将无法识别位置参数和命名关键字参数： 123def person(name, age, city, job): # 缺少 *，city和job被视为位置参数 pass 参数组合在Python中定义函数，可以用必选参数、默认参数、可变参数、关键字参数和命名关键字参数，这5种参数都可以组合使用。但是请注意： 参数定义的顺序必须是：必选参数、默认参数、可变参数、命名关键字参数和关键字参数。 小结对于任意函数，都可以通过类似func(*args, **kw)的形式调用它，无论它的参数是如何定义的。 *args是可变参数，args接收的是一个tuple； **kw是关键字参数，kw接收的是一个dict。 使用*args和**kw是Python的习惯写法，当然也可以用其他参数名，但最好使用习惯用法。 命名的关键字参数是为了限制调用者可以传入的参数名，同时可以提供默认值。 定义命名的关键字参数在没有可变参数的情况下不要忘了写分隔符*，否则定义的将是位置参数。 参考资料廖雪峰的官方网站]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[并查集模板]]></title>
+    <url>%2F%E5%B9%B6%E6%9F%A5%E9%9B%86%E6%A8%A1%E6%9D%BF.html</url>
+    <content type="text"><![CDATA[最近做了一道题，需要用到并查集的相关知识点。突然发现太久没用有点不记得了。。。 可能自己确实太菜了。 把模板放上来一下。 不过还是要画几个重点！！ 找爸爸的那个getf()函数，千万不要用三元运算符！！！ HDU 1856 9发TLE换来的教训。 垃圾表达式毁我青春。 代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556#include&lt;iostream&gt;#include&lt;cstdio&gt;using namespace std;int f[5005];int num[5050];int getf(int x) &#123;// return f[x]==x?x:getf(f[x]); //再也不会用这种辣鸡运算符了 if(f[x]!=x) f[x] = getf(f[x]); return f[x];&#125;void merge(int x,int y) &#123; int b1,b2; b1 = getf(x); b2 = getf(y); if(b1!=b2) &#123; f[b2] = b1; num[b1] += num[b2]; //合并集合同时合并集合的个数 &#125; return;&#125;int main(void)&#123; int n,m; while(~scanf("%d %d",&amp;n, &amp;m)) &#123; int res=0; for(int i=1; i&lt;=n; i++) &#123; f[i] = i; num[i] = 1; &#125; for(int i=1; i&lt;=m; i++) &#123; int t1,t2; scanf("%d %d",&amp;t1,&amp;t2); merge(t1,t2); &#125; for(int i=1;i&lt;=n;i++) &#123; if(f[i]==i) res++; &#125; printf("%d\n",num[getf(1)]); &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[HDOJ 1558 [并查集][线段相交]]]></title>
+    <url>%2FHDOJ%201558%20%5B%E5%B9%B6%E6%9F%A5%E9%9B%86%5D%5B%E7%BA%BF%E6%AE%B5%E7%9B%B8%E4%BA%A4%5D.html</url>
+    <content type="text"><![CDATA[题目Segment Set 题意给你一些操作，输入P时，后边的四个值分别代表一条线段的起点、终点坐标， 输入Q时，后边输入一个整形值K，输出第k条线段所在的集合中包含的线段的个数。 样例输入1 10 P 1.00 1.00 4.00 2.00 P 1.00 -2.00 8.00 4.00 Q 1 P 2.00 3.00 3.00 1.00 Q 1 Q 3 P 1.00 4.00 8.00 2.00 Q 2 P 3.00 3.00 6.00 -2.00 Q 5 样例输出1 2 2 2 5 题解分析线段相交 + 并查集 每加入一条线段，就马上遍历一遍之前的所有线段，如果与之前的某条线段相交，merge一下。 输入Q之后，直接输出线段K所在集合包含的线段数量。 这里我也是才知道将merge函数这样写可以计算集合元素数量： 123456789101112void merge(int x,int y)&#123; int b1,b2; b1 = getf(x); b2 = getf(y); if(b1!=b2) &#123; son[b2] = b1; num[b1]+=num[b2]; //该集合元素数量 &#125; return;&#125; 初始化的时候也稍微修改一下： 12345for(int i=1; i&lt;=n; i++) &#123; son[i] = i; num[i] = 1; &#125; 最后注意格式！！！ There is a blank line between test cases. 意味着两组数据之间有空行！而且最后一组之后不用换行！！ AC代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697#include&lt;iostream&gt;#include&lt;cstdio&gt;#include&lt;cstring&gt;using namespace std;typedef struct&#123; double x,y;&#125; Point;int son[1001];int num[1001];Point p1[1001],p2[1001];double cal(Point a,Point b,Point c)&#123; return (c.x-a.x)*(b.y-a.y)-(b.x-a.x)*(c.y-a.y);&#125;int check(Point a,Point b,Point c,Point d)&#123; if(min(a.x,b.x)&gt;max(c.x,d.x)||min(c.x,d.x)&gt;max(a.x,b.x) ||min(a.y,b.y)&gt;max(c.y,d.y)||min(c.y,d.y)&gt;max(a.y,b.y)) return 0; //先简单筛一下，防止(0,0)(1,1)/(2,2)(3,3)这种 double d1,d2,d3,d4; d1 = cal(a,b,c); d2 = cal(a,b,d); d3 = cal(c,d,a); d4 = cal(c,d,b); if(d1*d2&lt;=0&amp;&amp;d3*d4&lt;=0) return 1; else return 0;&#125;int getf(int x)&#123; return son[x]==x?x:getf(son[x]);&#125;void merge(int x,int y)&#123; int b1,b2; b1 = getf(x); b2 = getf(y); if(b1!=b2) &#123; son[b2] = b1; num[b1]+=num[b2]; //该集合元素数量 &#125; return;&#125;int main(void)&#123; int T; scanf("%d",&amp;T); while(T--) &#123; int n; scanf("%d",&amp;n); for(int i=1; i&lt;=n; i++) &#123; son[i] = i; num[i] = 1; &#125; int i=1,k; char mode; while(n--) &#123; getchar(); scanf("%c",&amp;mode); if(mode=='P') &#123; scanf(" %lf %lf %lf %lf",&amp;p1[i].x,&amp;p1[i].y,&amp;p2[i].x,&amp;p2[i].y); if(i&gt;1) &#123; for(int j=1; j&lt;i; j++) &#123; if(check(p1[j],p2[j],p1[i],p2[i])) &#123; merge(j,i); &#125; &#125; &#125; i++; &#125; else if(mode=='Q') &#123; scanf("%d",&amp;k); printf("%d\n",num[getf(k)]); &#125; &#125; if(T) printf("\n"); &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+        <tag>线段相交</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[判断线段是否相交]]></title>
+    <url>%2F%E5%88%A4%E6%96%AD%E7%BA%BF%E6%AE%B5%E7%9B%B8%E4%BA%A4.html</url>
+    <content type="text"><![CDATA[连续线段的左转和右转的问题 上图分别代表 左转(&lt;0) 和 右转(&gt;0) 根据这个性质可以判断点C是在线段AB的左边还是右边，这是判断两条线段是否相交的一个重要性质。 判断线段是否相交 如果\((\underset{AB}{\rightarrow}\times \underset{AC}{\rightarrow}\:)\, \ast\, (\underset{AB}{\rightarrow}\times \underset{AD}{\rightarrow}\: )\leq 0\)并且\((\underset{CD}{\rightarrow}\times \underset{CA}{\rightarrow}\:)\, \ast\, (\underset{CD}{\rightarrow}\times \underset{CB}{\rightarrow}\: )\leq 0\)那么线段AB和线段CD相交。 关于有向面积的计算设有三角形ABC面积为A 则有： 很遗憾，这个行列式MathJax貌似不支持，或者我没有get正确方法？ 如果A&gt;0，有向面积为正，ABC为逆时针排列； 如果A&lt;0，ABC为顺时针排列。 所以具体来说，就是有向面积计算函数可以这么写： 1234double cal(Point a,Point b,Point c)&#123; return (c.x-a.x)*(b.y-a.y)-(b.x-a.x)*(c.y-a.y);//化简一下就跟上面辣个差不多啦&#125; 判断函数代码123456789101112131415int check(Point a,Point b,Point c,Point d)&#123; if(min(a.x,b.x)&gt;max(c.x,d.x)||min(c.x,d.x)&gt;max(a.x,b.x) ||min(a.y,b.y)&gt;max(c.y,d.y)||min(c.y,d.y)&gt;max(a.y,b.y)) return 0; //先简单筛一下，防止(0,0)(1,1)/(2,2)(3,3)这种 double d1,d2,d3,d4; d1 = cal(a,b,c); d2 = cal(a,b,d); d3 = cal(c,d,a); d4 = cal(c,d,b); if(d1*d2&lt;=0&amp;&amp;d3*d4&lt;=0) return 1; else return 0;&#125; 完整代码1234567891011121314151617181920212223242526272829303132333435363738#include&lt;iostream&gt;using namespace std;typedef struct&#123; double x,y;&#125; Point;double cal(Point a,Point b,Point c)&#123; return (c.x-a.x)*(b.y-a.y)-(b.x-a.x)*(c.y-a.y);&#125;int check(Point a,Point b,Point c,Point d)&#123; if(min(a.x,b.x)&gt;max(c.x,d.x)||min(c.x,d.x)&gt;max(a.x,b.x) ||min(a.y,b.y)&gt;max(c.y,d.y)||min(c.y,d.y)&gt;max(a.y,b.y)) return 0; //先简单筛一下，防止(0,0)(1,1)/(2,2)(3,3)这种 double d1,d2,d3,d4; d1 = cal(a,b,c); d2 = cal(a,b,d); d3 = cal(c,d,a); d4 = cal(c,d,b); if(d1*d2&lt;=0&amp;&amp;d3*d4&lt;=0) return 1; else return 0;&#125;int main(void)&#123; Point p1,p2,p3,p4; cin&gt;&gt;p1.x&gt;&gt;p1.y&gt;&gt;p2.x&gt;&gt;p2.y; cin&gt;&gt;p3.x&gt;&gt;p3.y&gt;&gt;p4.x&gt;&gt;p4.y; if(check(p1,p2,p3,p4)) cout&lt;&lt;"YES"&lt;&lt;endl; else cout&lt;&lt;"NO"&lt;&lt;endl; return 0;&#125; 相关题目哈理工OJ 1559 Code 纯粹的裸题 HDU 1147 Code 这道题做得想哭，一直TLE (开了加速)，最后把cin全部换成scanf瞬间过了… HDU 1086 Code 比上面那道更水。 HDU 2150 Code 简单题，变成了折线]]></content>
+      <categories>
+        <category>技巧</category>
+      </categories>
+      <tags>
+        <tag>线段相交</tag>
+        <tag>几何</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Markdown公式插入]]></title>
+    <url>%2FMarkdown%E5%85%AC%E5%BC%8F%E6%8F%92%E5%85%A5.html</url>
+    <content type="text"><![CDATA[使用MathJax引擎插入公式在Markdown中插入公式有很多方法。 例如使用Google Chart的服务器或者forkosh服务器。 不过这两种插入之后均显示图片，MathJax引擎插入的公式不是图片（能在公式上右键），相比之下不知道高到哪里去了 MathJax引擎的添加在Markdown中添加MathJax引擎： 1&lt;script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"&gt;&lt;/script&gt; 公式的书写添加引擎之后，再使用 LeTex 写公式。$$公式$$表示行间公式，本来Tex中使用\(公式\)表示行内公式，但因为Markdown中\是转义字符，所以在Markdown中输入行内公式使用\\(公式\\)，如下代码： 12$$x=\frac&#123;-b\pm\sqrt&#123;b^2-4ac&#125;&#125;&#123;2a&#125;$$\\(x=\frac&#123;-b\pm\sqrt&#123;b^2-4ac&#125;&#125;&#123;2a&#125;\\) 样例这是一个行间公式： $$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$ 这是行内\(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)公式]]></content>
+      <categories>
+        <category>技巧</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Codeforces 839C [DFS]]]></title>
+    <url>%2FCodeforces%20839C%20%5BDFS%5D.html</url>
+    <content type="text"><![CDATA[题目839C 题意有n个城市，n-1条路连通这些城市。骑马从城市1出发，沿道路走到底。 每个分叉点各条路概率相等，不能回头。 求走路长度的期望… 输入4 1 2 1 3 2 4 输出1.500000000000000 样例输入5 1 2 1 3 3 4 2 5 样例输出2.000000000000000 题解分析em… 好尴尬，一开始题意理解错了，以为每个根的概率都一样… 做法很简单，简单的DFS而已。 AC代码1234567891011121314151617181920212223242526272829303132333435363738394041424344#include&lt;bits/stdc++.h&gt;using namespace std;vector&lt;int&gt; g[100000+3];int vis[100000+3];int n;double res;void dfs(int x,int s,double d)&#123; int len = g[x].size(); int k=0; for(int i=0;i&lt;len;i++) &#123; if(g[x][i]&amp;&amp;!vis[g[x][i]]) &#123; vis[x] = 1; dfs(g[x][i],s+1,d/(x==1?len:(len-1)));k=1; vis[x] = 0; &#125; &#125; if(!k) &#123; res += s*d; return; &#125;&#125;int main(void)&#123; ios::sync_with_stdio(false); cin.tie(0); cin&gt;&gt;n; n--; while(n--) &#123; int a,b; cin&gt;&gt;a&gt;&gt;b; g[a].push_back(b); g[b].push_back(a); &#125; dfs(1,0,1); printf("%.15lf\n",res);&#125;]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>Codeforces</tag>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[初学Python Ⅱ]]></title>
+    <url>%2F%E5%88%9D%E5%AD%A6Python%20%E2%85%A1.html</url>
+    <content type="text"><![CDATA[Python 基础使用list和tuplelistlist是一种有序的集合，可以随时添加和删除其中的元素。 比如，列出班里所有同学的名字，就可以用一个list表示： 123&gt;&gt;&gt; classmates = ['Michael', 'Bob', 'Tracy']&gt;&gt;&gt; classmates['Michael', 'Bob', 'Tracy'] list的成员可以通过类似下标访问： 1234&gt;&gt;&gt; classmates[0]'Michael'&gt;&gt;&gt; classmates[1]'Bob' 如果要取最后一个元素，除了计算索引位置外，还可以用-1做索引，直接获取最后一个元素： 1234&gt;&gt;&gt; classmates[-1]'Tracy'&gt;&gt;&gt; classmates[-2]'Bob' list是一个可变的有序表，所以，可以往list中追加元素到末尾： 123&gt;&gt;&gt; classmates.append('Adam')&gt;&gt;&gt; classmates['Michael', 'Bob', 'Tracy', 'Adam'] 也可以把元素插入到指定的位置，比如索引号为1的位置： 123&gt;&gt;&gt; classmates.insert(1, 'Jack')&gt;&gt;&gt; classmates['Michael', 'Jack', 'Bob', 'Tracy', 'Adam'] 要删除list末尾的元素，用pop()方法： 1234&gt;&gt;&gt; classmates.pop()'Adam'&gt;&gt;&gt; classmates['Michael', 'Jack', 'Bob', 'Tracy'] 要删除指定位置的元素，用pop(i)方法，其中i是索引位置： 1234&gt;&gt;&gt; classmates.pop(1)'Jack'&gt;&gt;&gt; classmates['Michael', 'Bob', 'Tracy'] list内的成员类型可以不同，甚至成员可以是另一个list 123456&gt;&gt;&gt; L = ['apple', 123, True]&gt;&gt;&gt; s = ['python', 'java', ['asp', 'php'], 'scheme']&gt;&gt;&gt; len(s)4&gt;&gt;&gt; s[2][1]'php' tuple另一种有序列表叫元组：tuple。tuple和list非常类似，但是tuple一旦初始化就不能修改. 1&gt;&gt;&gt; classmates = ('Michael', 'Bob', 'Tracy') tuple代码更安全。如果可能，能用tuple代替list就尽量用tuple。 当tuple内只有一个元素的时候，要这么定义： 123&gt;&gt;&gt; t = (1,)&gt;&gt;&gt; t(1,) 只有1个元素的tuple定义时必须加一个逗号,，来消除括号表达式带来的歧义。 Python在显示只有1个元素的tuple时，也会加一个逗号,，以免你误解成数学计算意义上的括号。 当然，如果tuple内有元素是list类型，那么依旧能够改变list里的元素： 12345&gt;&gt;&gt; t = ('a', 'b', ['A', 'B'])&gt;&gt;&gt; t[2][0] = 'X'&gt;&gt;&gt; t[2][1] = 'Y'&gt;&gt;&gt; t('a', 'b', ['X', 'Y']) 条件判断条件判断条件判断当然是if语句。 1234567age = 3if age &gt;= 18: print('your age is', age) print('adult')else: print('your age is', age) print('teenager') 注意！！！ else 之后有个冒号: 用elif 可以细分判断，其实elif 就是else if 的缩写。例如： 1234567age = 3if age &gt;= 18: print('adult')elif age &gt;= 6: print('teenager')else: print('kid') elif 之后是没有冒号:的 再议inputinput() 函数的返回值是str 类型的。例如： 1234567&gt;&gt;&gt; s = input("birth:")birth:19&gt;&gt;&gt; s'19'&gt;&gt;&gt; s = int(s)&gt;&gt;&gt; s19 int() 函数发现传入的字符串不是合法的数字的时候会报错！ 循环for…in 循环12345678&gt;&gt;&gt;languages = ["C", "C++", "Perl", "Python"] &gt;&gt;&gt; for x in languages:... print (x)... CC++PerlPython 注意 for...in 结尾有冒号: 重点记得缩进！！！ 所以for x in ...循环就是把每个元素代入变量x，然后执行缩进块的语句。 再比如我们想计算1-10的整数之和，可以用一个sum变量做累加： 1234sum = 0for x in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]: sum = sum + xprint(sum) 如果要计算1-100的整数之和，从1写到100有点困难，幸好Python提供一个range()函数，可以生成一个整数序列，再通过list()函数可以转换为list。比如range(5)生成的序列是从0开始小于5的整数： 12&gt;&gt;&gt; list(range(5))[0, 1, 2, 3, 4] range(101)就可以生成0-100的整数序列，计算如下： 12345&gt;&gt;&gt; sum = 0&gt;&gt;&gt; for x in range(101):... sum = sum + x...&gt;&gt;&gt; print(sum) range 函数123456789list(range(5))# 表示[0,1,2,3,4]list(range(5,9))# 表示[5,6,7,8]list(range(0,10,3))# 表示[0,3,6,9]# 第三个参数代表步长 可以结合range()和len()函数以遍历一个序列的索引,例如： 123456789&gt;&gt;&gt; a = ['Google', 'Baidu', 'IBM', 'Taobao', 'QQ']&gt;&gt;&gt; for i in range(len(a)):... print(i, a[i])... 0 Google1 Baidu2 IBM3 Taobao4 QQ enumerate 函数以下是 enumerate() 方法的语法: 1enumerate(sequence, [start=0]) 上面那个循环输出可以用内置的enumerate()函数来写： 123456789&gt;&gt;&gt; a = ['Google', 'Baidu', 'IBM', 'Taobao', 'QQ']&gt;&gt;&gt; for i,j in enumerate(a,2):... print(i,j)...2 Google3 Baidu4 IBM5 Taobao6 QQ 第二个参数代表下标起始的序号。 while 循环123456789&gt;&gt;&gt; n = 100&gt;&gt;&gt; sum = 0&gt;&gt;&gt; ct = 1&gt;&gt;&gt; while ct &lt;= n:... sum = sum + ct... ct += 1...&gt;&gt;&gt; print(sum)5050 注意while语句最后同样有个冒号: 然后Python不支持类似i++这种自增运算 然后+=这种运算符貌似也有一些要求，具体之后再学习吧（哭泣T ^ T） (刚学Python对于语法好不适应，各种冒号以及种种……) 当然，操作可以更骚一点 例如这样： 12&gt;&gt;&gt; print(sum(range(101)))5050 无限循环可以通过Ctrl + C结束无限循环。 pass 语句Python pass是空语句，是为了保持程序结构的完整性。 pass 不做任何事情，一般用做占位语句。 使用dict和setdictPython内置了字典：dict的支持，dict全称dictionary，在其他语言中也称为map，使用键-值（key-value）存储，具有极快的查找速度。 用Python写一个dict如下： 123&gt;&gt;&gt; d = &#123;'Michael': 95, 'Bob': 75, 'Tracy': 85&#125;&gt;&gt;&gt; d['Michael']95 要避免key不存在的错误，有两种办法，一是通过in判断key是否存在： 12&gt;&gt;&gt; 'Thomas' in dFalse 二是通过dict提供的get方法，如果key不存在，可以返回None，或者自己指定的value： 123&gt;&gt;&gt; d.get('Thomas')&gt;&gt;&gt; d.get('Thomas', -1)-1 注意：返回None的时候Python的交互式命令行不显示结果。 要删除一个key，用pop(key)方法，对应的value也会从dict中删除： 1234&gt;&gt;&gt; d.pop('Bob')75&gt;&gt;&gt; d&#123;'Michael': 95, 'Tracy': 85&#125; 请务必注意，dict内部存放的顺序和key放入的顺序是没有关系的。 dict是用空间来换取时间的一种方法。 dict的key必须是不可变对象。 这是因为dict根据key来计算value的存储位置，如果每次计算相同的key得出的结果不同，那dict内部就完全混乱了。这个通过key计算位置的算法称为哈希算法（Hash）。 要保证hash的正确性，作为key的对象就不能变。在Python中，字符串、整数等都是不可变的，因此，可以放心地作为key。而list是可变的，就不能作为key。 set大体跟C++ STL中的set差不多，不过不默认排序。 要创建一个set，需要提供一个list作为输入集合： 123&gt;&gt;&gt; s = set([1, 2, 3])&gt;&gt;&gt; s&#123;1, 2, 3&#125; 通过add(key)方法可以添加元素到set中，可以重复添加，但不会有效果： 123456&gt;&gt;&gt; s.add(4)&gt;&gt;&gt; s&#123;1, 2, 3, 4&#125;&gt;&gt;&gt; s.add(4)&gt;&gt;&gt; s&#123;1, 2, 3, 4&#125; 通过remove(key)方法可以删除元素： 123&gt;&gt;&gt; s.remove(4)&gt;&gt;&gt; s&#123;1, 2, 3&#125; set可以看成数学意义上的无序和无重复元素的集合，因此，两个set可以做数学意义上的交集、并集等操作： 123456&gt;&gt;&gt; s1 = set([1, 2, 3])&gt;&gt;&gt; s2 = set([2, 3, 4])&gt;&gt;&gt; s1 &amp; s2&#123;2, 3&#125;&gt;&gt;&gt; s1 | s2&#123;1, 2, 3, 4&#125; (曾经想起用c语言手动模拟交并等等各种操作的恐惧，泪流满面) 参考资料廖雪峰的官方网站]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[初学Python Ⅰ]]></title>
+    <url>%2F%E5%88%9D%E5%AD%A6Python%20%E2%85%A0.html</url>
+    <content type="text"><![CDATA[序章简要说明初学Python。 还未购入相关书籍，主要通过 廖雪峰的官方网站 学习。 版本 Python 3.5 。 第一个程序1&gt;&gt;&gt; print('hello, world') Py2 的输出print之后的括号可加可不加，Py3 就强制要加了。 Python 基础数据类型和变量整型我看到了这么一句话： Python可以处理任意大小的整数，当然包括负整数，在程序中的表示方法和数学上的写法一模一样。 看到之后很好奇这任意大小是多少，据说是Python支持大数，所以可以无限大？ 先留个空等待论证。 浮点型浮点型由整数部分与小数部分组成，浮点型也可以使用科学计数法表示。 复数复数由实数部分和虚数部分构成，可以用a + bj,或者complex(a,b)表示， 复数的实部a和虚部b都是浮点型。 12345&gt;&gt;&gt; c = 2 - 3j&gt;&gt;&gt; c.real2.0&gt;&gt;&gt; c.imag-3.0 12345&gt;&gt;&gt; c = complex(4,-5)&gt;&gt;&gt; c.real4.0&gt;&gt;&gt; c.imag-5.0 字符串如果字符串内部既包含&#39;又包含&quot;，可以用转义字符\来标识，例如： 1'I\'m \"OK\"!' 输出的结果为： 1I'm "OK"! 如果字符串里面有很多字符都需要转义，就需要加很多\，为了简化，Python还允许用r&#39;&#39;表示&#39;&#39;内部的字符串默认不转义： 1234&gt;&gt;&gt; print('\\\t\\')\ \&gt;&gt;&gt; print(r'\\\t\\')\\\t\\ 如果字符串内部有很多换行，用\n写在一行里不好阅读，为了简化，Python允许用&#39;&#39;&#39;...&#39;&#39;&#39;的格式表示多行内容，可以试试： 123456&gt;&gt;&gt; print('''line1... line2... line3''')line1line2line3 当然，&#39;&#39;&#39;...&#39;&#39;&#39; 的前面也可以加上r。 布尔值注意大小写：True False 。 空值空值是Python里一个特殊的值，用None表示。None不能理解为0，因为0是有意义的，而None是一个特殊的空值。 变量Python是动态语言，意味着同一个变量可以反复赋值为不同类型的数据，例如： 1234567&gt;&gt;&gt; a = 'hello'&gt;&gt;&gt; b = 123&gt;&gt;&gt; print(a)hello&gt;&gt;&gt; a = b&gt;&gt;&gt; print(a)123 常量在Python中，通常用全部大写的变量名表示常量。 有两种除法：/ 和// (也叫地板除) / 的结果为浮点数。 // 的结果为整数（只保留整数部分） 字符串和编码Python的字符串chr() 函数：括号内是一个[0, 256) 的数字（可以十进制/十六进制），将ASCII码转化成对应字符。 unichr() 函数：功能同上，返回Unicode字符。 ord() 函数：括号内是字符，返回十进制整数。例如 ord(‘a’) = 97 hex() 函数：将一个整数转换为一个十六进制字符串 oct() 函数：将一个整数转换为一个八进制字符串 encode() 函数：str -&gt; bytes decode() 函数：bytes -&gt; str 123456&gt;&gt;&gt; s = "你好"&gt;&gt;&gt; b = s.encode('utf-8')&gt;&gt;&gt; bb'\xe4\xbd\xa0\xe5\xa5\xbd'&gt;&gt;&gt; b.decode('utf-8')'你好' 各种编码我其实弄不太懂，据说在爬一些网页的时候有作用，之后遇到再详细学习吧。 由于Python源代码也是一个文本文件，所以，当你的源代码中包含中文的时候，在保存源代码时，就需要务必指定保存为UTF-8编码。当Python解释器读取源代码时，为了让它按UTF-8编码读取，我们通常在文件开头写上这两行： 123&gt; #!/usr/bin/env python3&gt; # -*- coding: utf-8 -*-&gt; &gt; 第一行注释是为了告诉Linux/OS X系统，这是一个Python可执行程序，Windows系统会忽略这个注释； 第二行注释是为了告诉Python解释器，按照UTF-8编码读取源代码，否则，你在源代码中写的中文输出可能会有乱码。 申明了UTF-8编码并不意味着你的.py文件就是UTF-8编码的，必须并且要确保文本编辑器正在使用UTF-8 without BOM编码： 输出小技巧1234&gt;&gt;&gt; a = 123&gt;&gt;&gt; b = 4567&gt;&gt;&gt; print(a,b,sep=',')123,4567 sep这个参数可以控制分隔，改成&#39;\n&#39;可以换行，改成&#39;&#39; 表示无分隔。 在Python中，采用的格式化方式和C语言是一致的，用%实现，举例如下： 1234&gt;&gt;&gt; 'Hello, %s' % 'world''Hello, world'&gt;&gt;&gt; 'Hi, %s, you have $%d.' % ('Michael', 1000000)'Hi, Michael, you have $1000000.' 常用占位符： 占位符 类型 %f 浮点数 %d 整数 %s 字符串 %x 十六进制整数 具体操作跟C语言十分相似。 参考资料廖雪峰的官方网站]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Codeforces 835C [容斥]]]></title>
+    <url>%2FCodeforces%20835C%20%5B%E5%AE%B9%E6%96%A5%5D%20.html</url>
+    <content type="text"><![CDATA[题目835C 题意有n个亮度会变的星星，某人要观察星星q次，星星的最大亮度为c，初始的亮度会给出。 t时刻亮度为x，那么t+1时刻亮度为x+1，如果x+1&gt;c，亮度归0. 每个星星有自己的坐标，现在求每一次观察的范围(范围是矩形)星星亮度的和。 输入第一行：给出 n, q, c 之后n行：xi, yi, Si. 分别代表 横纵坐标 和 初始亮度 之后q行：观察的时刻ti, 以及两个坐标(坐标分别是矩形的 左下 和 右上) 输出输出每一次观察的矩形范围内的亮度之和 样例输入2 3 3 1 1 1 3 2 0 2 1 1 2 2 0 2 1 4 5 5 1 1 5 5 样例输出3 0 3 题解分析首先，亮度的变化周期为c+1,所以虽然 t 给的范围很大，实际上可以先模一波(t+1) ，那么有t≤10。 其次给的数据量很大，需要预处理一下，具体操作就是给出初始亮度之后，就立马计算出各个时间点的状态，存下来。然后所有星星录入完之后，鉴于坐标范围只有100*100，枚举计算一下每个坐标跟x，y轴形成的矩形的亮度和，这样完成之后，根据容斥原理计算一下就好，基本上就是O(1)了？ 例如要求橙色区域的。就是 绿色 -（粉色 + 紫色 - 灰色）。 AC代码12345678910111213141516171819202122232425262728293031#include&lt;iostream&gt;using namespace std;int s[11][110][110];int main(void)&#123; int n,q,c; cin&gt;&gt;n&gt;&gt;q&gt;&gt;c; for(int i=0;i&lt;n;i++) &#123; int x,y,f; cin&gt;&gt;x&gt;&gt;y&gt;&gt;f; for(int j=0;j&lt;=10;j++) s[j][x][y] += (f+j)%(c+1); //似乎坐标可以重复，所以使用+= ？ &#125; for(int t=0;t&lt;=10;t++) for(int x=1;x&lt;=100;x++) for(int y=1;y&lt;=100;y++) s[t][x][y] += s[t][x-1][y] + s[t][x][y-1] - s[t][x-1][y-1]; for(int i=0;i&lt;q;i++) &#123; int t,x1,x2,y1,y2; int res; cin&gt;&gt;t&gt;&gt;x1&gt;&gt;y1&gt;&gt;x2&gt;&gt;y2; t %= (c+1); res = s[t][x2][y2] - (s[t][x1-1][y2]+s[t][x2][y1-1]-s[t][x1-1][y1-1]); cout&lt;&lt;res&lt;&lt;endl; &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>Codeforces</tag>
+        <tag>容斥</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[爱是一道光——实训作业]]></title>
+    <url>%2F%E7%88%B1%E6%98%AF%E4%B8%80%E9%81%93%E5%85%89-%E5%AE%9E%E8%AE%AD%E4%BD%9C%E4%B8%9A.html</url>
+    <content type="text"><![CDATA[乐游——您的旅行助手 ### 由爱是一道光小组全心制作。 全组成员倾心呈现。 组长：江敬恩 成员：宁湘翼 门剑锋 冯超 成抒洧 传送门：乐游，您的旅行助手 哎呀，既然都点开全文了，各位小哥哥小姐姐就打赏一下续费域名，打赏多点还能买吃的长肉肉呀 ♥]]></content>
+      <categories>
+        <category>杂</category>
+      </categories>
+      <tags>
+        <tag>杂七杂八</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[初学队列Ⅱ]]></title>
+    <url>%2F%E5%88%9D%E5%AD%A6%E9%98%9F%E5%88%97%E2%85%A1.html</url>
+    <content type="text"><![CDATA[初学队列Ⅱ 队列的链式储存 队列的链式存储也称为链队列。为了便于操作，可给链队列添加一个头结点，并令头指针指向头结点。队列为空的判断条件是头指针和尾指针的值相同，且均指向头结点。 以下代码实现的大概类似于一个带头结点的单向链表。 用C语言表示大概是这样的： 1234567891011struct qnode&#123; int data; struct qnode *next;&#125;;struct queue&#123; struct qnode *front; struct qnode *rear; &#125;; 初始化队列务必记得初始化！！ 12345678void init(struct queue *q)&#123; q-&gt;front = (struct qnode*)malloc(sizeof(struct qnode)); q-&gt;rear = (struct qnode*)malloc(sizeof(struct qnode)); q-&gt;front = q-&gt;rear; q-&gt;front-&gt;next = NULL; return;&#125; 入队列操作123456789void push(struct queue *q,int num)&#123; struct qnode *t = (struct qnode*)malloc(sizeof(struct qnode)); t-&gt;data = num; t-&gt;next = NULL; q-&gt;rear-&gt;next = t; q-&gt;rear = t; return;&#125; 出队列操作变量 e 用来返回pop出来的元素。 12345678910111213int pop(struct queue *q,int *e)&#123; struct qnode *t; if(q-&gt;front == q-&gt;rear) //队列为空 return -1; t = q-&gt;front-&gt;next; *e = t-&gt;data; q-&gt;front-&gt;next = t-&gt;next; if(q-&gt;rear == t) //如果队尾就是队头，则删除之后rear指向front q-&gt;rear = q-&gt;front; free(t); return 0;&#125; 创建一个队列12345678910void create_queue(struct queue *q,int n)&#123; int i,t; for(i=0;i&lt;n;i++) &#123; scanf("%d",&amp;t); push(q,t); &#125; return;&#125; 遍历输出队列内的元素1234567891011void print(struct queue *q)&#123; while(1) &#123; int e; if(pop(q,&amp;e)==-1) return; printf("%d ",e); &#125; printf("\n"); return;&#125;]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>队列</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[初学队列Ⅰ]]></title>
+    <url>%2F%E5%88%9D%E5%AD%A6%E9%98%9F%E5%88%97%E2%85%A0.html</url>
+    <content type="text"><![CDATA[初学队列Ⅰ 队列(queue)是一种先入先出(First In First Out, FIFO)的线性表。 队列 (queue) 是一种特殊的线性表，特殊之处在于它只允许在表的前端（front）进行删除操作，而在表的后端（rear）进行插入操作，和栈一样，队列是一种操作受限制的线性表。进行插入操作的端称为队尾，进行删除操作的端称为队头。 队列的顺序储存(循环队列)用C语言表示大概是这样的： 123456struct queue&#123; int data[Max_size]; int front; //表示头指针 int rear; //尾指针&#125;; 初始化队列务必记得初始化！！ 123456void init_queue(struct queue *q)&#123; q-&gt;front = 0; q-&gt;rear = 0; return;&#125; 入队列操作队列满的判断条件是(q-&gt;rear + 1)%Max_size == q-&gt;front 。 12345678int push(struct queue *q,int num)&#123; if((q-&gt;rear+1)%Max_size == q-&gt;front) //队列满 return -1; q-&gt;data[q-&gt;rear] = num; q-&gt;rear = (q-&gt;rear+1)%Max_size; return 0;&#125; 出队列操作变量 t 用来返回pop出来的元素。 12345678int pop(struct queue *q,int *e)&#123; if(q-&gt;front == q-&gt;rear) //队列空 return -1; *e = q-&gt;data[q-&gt;front]; q-&gt;front = (q-&gt;front+1)%Max_size; return 0;&#125; 创建一个队列12345678910void create_queue(struct queue *q,int n)&#123; int i,t; for(i=0;i&lt;n;i++) &#123; scanf("%d",&amp;t); push(q,t); &#125; return;&#125; 遍历输出队列内的元素1234567891011void print(struct queue *q)&#123; while(1) &#123; int e; if(pop(q,&amp;e)==-1) break; printf("%d ",e); &#125; printf("\n"); return;&#125;]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>队列</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[中缀表达式转后缀表达式及求值]]></title>
+    <url>%2F%E4%B8%AD%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F.html</url>
+    <content type="text"><![CDATA[栈的应用—中缀表达式转后缀表达式并求值 后缀表达式也称逆波兰(Reverse Polish Notation, RPN)。 例如一个标准四则运算表达式9+(3-1)*3+6/2，转变成后缀表达式为9 3 1 - 3 * + 6 2 / + 中缀表达式转后缀表达式实现原理中缀转后缀原理很简单，利用栈即可。 要点 遇到数字：直接输出。 遇到&#39;(&#39;：压栈。 遇到&#39;)&#39;：持续出栈，直到&#39;(&#39;已出栈。 遇到符号则判断该符号与栈顶符号的运算优先级(乘除优先级&gt;加减)，如果栈顶符号的运算优先级 &lt;= 栈顶元素的优先级，则栈顶元素依次出栈，最后将该元素入栈。 处理完字符串后将栈中剩余的符号全部输出。 根据后缀表达式求值实现原理同样是使用栈。 要点 初始化一个空栈。 遇到数字，直接入栈。 遇到符号，取出栈顶元素以及紧挨着栈顶的栈的第二个元素，相加减乘除，再压入栈。 栈最后剩下的单独的元素即为答案 代码下面的代码利用了C++ STL标准模板库中的Stack实现栈。 只是简单的模拟过程，只能计算10以下的数。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106#include&lt;iostream&gt;#include&lt;vector&gt;#include&lt;string&gt;#include&lt;stack&gt;using namespace std;int main(void)&#123; string str; //原始的四则运算表达式 stack&lt;char&gt; s; vector&lt;char&gt; res;//后缀表达式 cin &gt;&gt; str; for(int i=0; i&lt;str.size(); i++) &#123; if(str[i]&gt;='0'&amp;&amp;str[i]&lt;='9') &#123; res.push_back(str[i]); &#125; if(str[i]=='*'||str[i]=='/') &#123; if(s.empty()||s.top()!='*'&amp;&amp;s.top()!='/') &#123; s.push(str[i]); &#125; else &#123; while(!s.empty()) &#123; res.push_back(s.top()); s.pop(); &#125; s.push(str[i]); &#125; &#125; if(str[i]=='+'||str[i]=='-') &#123; if(s.empty()||s.top()!='*'&amp;&amp;s.top()!='/'&amp;&amp;s.top()!='+'&amp;&amp;s.top()!='-') &#123; s.push(str[i]); &#125; else &#123; while(!s.empty()) &#123; res.push_back(s.top()); s.pop(); &#125; s.push(str[i]); &#125; &#125; if(str[i]=='(') s.push(str[i]); if(str[i]==')') &#123; while(s.top()!='(') &#123; res.push_back(s.top()); s.pop(); &#125; s.pop(); &#125; &#125; while(!s.empty()) &#123; res.push_back(s.top()); s.pop(); &#125; for(auto i: res) cout&lt;&lt;i; cout&lt;&lt;endl; stack&lt;int&gt; cal; for(int i=0;i&lt;res.size();i++) &#123; if(res[i]&gt;='0'&amp;&amp;res[i]&lt;='9') cal.push(res[i]-48); if(res[i]=='+') &#123; int t = cal.top(); cal.pop(); cal.top() = cal.top() + t; &#125; if(res[i]=='-') &#123; int t = cal.top(); cal.pop(); cal.top() = cal.top() - t; &#125; if(res[i]=='*') &#123; int t = cal.top(); cal.pop(); cal.top() = cal.top() * t; &#125; if(res[i]=='/') &#123; int t = cal.top(); cal.pop(); cal.top() = cal.top() / t; &#125; &#125; cout&lt;&lt;cal.top()&lt;&lt;endl; cal.pop(); return 0;&#125;]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>栈</tag>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[初学栈Ⅱ]]></title>
+    <url>%2F%E5%88%9D%E5%AD%A6%E6%A0%88%E2%85%A1.html</url>
+    <content type="text"><![CDATA[初学栈Ⅱ 这篇主要是讲关于栈的链式储存。 栈的链式储存 栈的链式储存结构，简称为栈链 其实栈链本质上就是链表嘛~ 用C语言表示大概是这样的： 1234567891011struct stacknode //节点&#123; int data; struct stacknode *next;&#125;;struct linkstack //栈链&#123; struct stacknode *top; int count;&#125;; 入栈操作12345678910void push(struct linkstack *s,int num)&#123; struct stacknode *t; t = (struct stacknode*)malloc(sizeof(struct stacknode)); t-&gt;data = num; t-&gt;next = s-&gt;top; s-&gt;top = t; s-&gt;count++; return;&#125; 出栈操作1234567891011int pop(struct linkstack *s,int *e)&#123; struct stacknode *t; if(s-&gt;count == 0) return -1; t = s-&gt;top; *e = t-&gt;data; s-&gt;top = t-&gt;next; free(t); s-&gt;count--; return 0;&#125; 创建一个栈务必记得执行s-&gt;count = 0这一操作！ 1234567891011void create_linkstack(struct linkstack *s,int n)&#123; int num; s-&gt;count = 0; while(n--) &#123; scanf("%d",&amp;num); push(s,num); &#125; return;&#125; 遍历输出栈内的元素12345678void print(struct linkstack *s)&#123; int e; while(~pop(s,&amp;e)) printf("%d ",e); printf("\n"); return;&#125;]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>栈</tag>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[初学栈Ⅰ]]></title>
+    <url>%2F%E5%88%9D%E5%AD%A6%E6%A0%88%E2%85%A0.html</url>
+    <content type="text"><![CDATA[初学栈Ⅰ 接触了链表之后，感觉栈的结构还算是十分简单的。 栈 （stack）又名堆栈，它是一种运算受限的线性表。其限制是仅允许在表的一端进行插入和删除运算。 在计算机系统中，栈则是一个动态内存区域。程序可以将数据压入栈中，也可以将数据从栈顶弹出。 栈的顺序储存用C语言表示大概是这样的： 12345struct stack&#123; int data[Max_size]; int top; //表示栈顶 &#125;; 入栈操作栈满的判断条件是s-&gt;top == Max_size，因为栈顶元素处于Max_size - 2的位置时，top的值已经为Max_size - 1,显然已到达数组最大下标。这就意味着栈实际只能存储Max_size - 1个元素 。 1234567int push(struct stack *s,int num)&#123; if(s-&gt;top == Max_size-1) return -1; s-&gt;top++; s-&gt;data[s-&gt;top] = num; return 0;&#125; 出栈操作变量 t 用来返回pop出来的元素。 12345678int pop(struct stack *s,int *t)&#123; *t = s-&gt;data[s-&gt;top]; if(s-&gt;top == 0) return -1; s-&gt;top--; return 0;&#125; 创建一个栈123456789101112void create_stack(struct stack *s,int n)&#123; int num; s-&gt;top = 0; for(int i=0; i&lt;n; i++) &#123; scanf("%d",&amp;num); if(push(s,num)==-1) break; &#125; return;&#125; 遍历输出栈内的元素123456789101112void print(struct stack *s)&#123; while(1) &#123; int t; if(~pop(s,&amp;t)) printf("%d ",t); else break; &#125; printf("\n"); return;&#125;]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>栈</tag>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Dijkstra算法]]></title>
+    <url>%2F%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84.html</url>
+    <content type="text"><![CDATA[Dijkstra算法 概述 迪杰斯特拉算法 是由荷兰计算机科学家狄克斯特拉于1959 年提出的，又叫狄克斯特拉算法。是从一个顶点到其余各顶点的最短路径算法(单源最短路 )，解决的是有向图中最短路径问题。 适用情况 权值非负！！！ 稠密图 和顶点关系密切 复杂度 未采用堆优化：O(N^2) 如果边数远小于n^2，用堆优化：O((M+N)logN) 代码不使用堆优化/使用邻接矩阵存图： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106#include&lt;iostream&gt;#include&lt;stack&gt;#define inf 0x3f3f3f3f#define Max_E 50#define Max_V 50using namespace std;int edge[Max_E][Max_E]; //邻接矩阵int book[Max_V]; //确定已找到最短距离int dis[Max_V]; //记录源点到目标点最短距离int path[Max_V]= &#123;-1&#125;; //记录源点到目标点最短路径void init(int V) //初始化很重要哟&#123; for(int i=0; i&lt;V; i++) for(int j=0; j&lt;V; j++) if(i==j) edge[i][j] = 0; else edge[i][j] = inf; return;&#125;void create_graph(int E)&#123; int t1, t2, t3; for(int i=0; i&lt;E; i++) //读入边 &#123; cin &gt;&gt; t1 &gt;&gt; t2 &gt;&gt; t3; edge[t1-1][t2-1] = t3; edge[t2-1][t1-1] = t3; //无向图 &#125; return;&#125;//Dijkstra算法核心代码void Dijkstra(int V,int st)&#123; int t; //初始化dis数组，这里是顶点st到其余各点的初始路程 for(int i=0; i&lt;V; i++) dis[i] = edge[st][i]; //表示顶点st到顶点st已经确认有最短距离 book[st] = 1; for(int i=1; i&lt;V; i++) //这个循环是为了确保book中所有值为1 &#123; int min = inf; //找距离0号顶点最近的顶点 for(int j=0; j&lt;V; j++) &#123; if(book[j]==0 &amp;&amp; dis[j]&lt;min) &#123; min = dis[j]; t = j; //用t表示最近的顶点 &#125; &#125; book[t] = 1; for(int k=0; k&lt;V; k++) &#123; if(edge[t][k]&lt;inf&amp;&amp;dis[k]&gt;dis[t]+edge[t][k]) &#123; dis[k] = dis[t]+edge[t][k]; //进行松弛 path[k] = t; //记录该点的上一个顶点 &#125; &#125; &#125; return;&#125;void print(int V)&#123; stack&lt;int&gt; s; for(int i=1; i&lt;V; i++) &#123; int j=i; while(path[j]!=-1) &#123; s.push(j); j = path[j]; &#125; s.push(j); while(!s.empty()) &#123; cout&lt;&lt;s.top(); s.pop(); &#125; cout&lt;&lt;endl; &#125;&#125;int main(void)&#123; int V,E,st; scanf("%d %d",&amp;V,&amp;E); st = 0; //起点 init(V); create_graph(E); Dijkstra(V, st); print(V); for(int i=0; i&lt;V; i++) printf("%d ",dis[i]); return 0;&#125; 不使用堆优化/使用邻接表存图： 其实复杂度并没有改变…纯粹的尝试一下。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102#include&lt;iostream&gt;#include&lt;vector&gt;#include&lt;stack&gt;#include&lt;cstring&gt;#define inf 0x3f3f3f3f#define Max_E 50#define Max_V 50using namespace std;struct edge&#123; int next,weight; edge(int a,int b):next(a),weight(b) &#123;&#125;&#125;;vector&lt;vector&lt;edge&gt; &gt; G(Max_V);int book[Max_V];int dis[Max_V];int path[Max_V] = &#123;-1&#125;;void create_graph(int V,int E)&#123; for(int i=0; i&lt;V; i++) G[i].clear(); int t1,t2,t3; for(int i=0; i&lt;E; i++) &#123; cin&gt;&gt;t1&gt;&gt;t2&gt;&gt;t3; G[t1-1].push_back(edge(t2-1,t3)); G[t2-1].push_back(edge(t1-1,t3)); &#125; return;&#125;void Dijkstra(int V,int st)&#123; int t; memset(dis,inf,sizeof(dis)); //距离全部设置成inf for(int i=1;i&lt;=G[st].size();i++) dis[i] = G[st][i-1].weight; dis[st] = 0; book[st] = 1; for(int i=1;i&lt;V;i++) &#123; int min = inf; for(int j=0;j&lt;V;j++) &#123; if(book[j]==0 &amp;&amp; dis[j]&lt;min) &#123; min = dis[j]; t = j; &#125; &#125; book[t] = 1; int len = G[t].size(); for(int k=0;k&lt;len;k++) &#123; if(dis[G[t][k].next]&gt;dis[t]+G[t][k].weight) &#123; dis[G[t][k].next] = dis[t]+G[t][k].weight; path[G[t][k].next] = t; &#125; &#125; &#125; return;&#125;void print(int V)&#123; stack&lt;int&gt; s; for(int i=1; i&lt;V; i++) &#123; int j=i; while(path[j]!=-1) &#123; s.push(j); j = path[j]; &#125; s.push(j); while(!s.empty()) &#123; cout&lt;&lt;s.top(); s.pop(); &#125; cout&lt;&lt;endl; &#125; return;&#125;int main(void)&#123; int V,E; cin&gt;&gt;V&gt;&gt;E; create_graph(V,E); Dijkstra(V,0); print(V); return 0; &#125; 相关练习 HDU 2544 (最短路) ————– AC代码 ——- 裸的不能再裸的最短路 HDU 1874 (畅通工程续) ——– AC代码 ——- 这题坑在于两点之间的道路不唯一 HDU 2066 (一个人的旅行) —– AC代码 ——- 多源多汇最短路 HDU 2112 (Today) ————— AC代码 ——- 结合map的使用[务必加速]]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>Dijkstra</tag>
+        <tag>图论</tag>
+        <tag>最短路径</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[vector实现邻接表的两种方式]]></title>
+    <url>%2FVector%E5%AE%9E%E7%8E%B0%E9%82%BB%E6%8E%A5%E8%A1%A8%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F.html</url>
+    <content type="text"><![CDATA[std::vector实现邻接表的两种方式 概述方式一：vector&lt;edge&gt; G[Max_V]; 方式二：vector&lt;vector&lt;edge&gt; &gt; G(Max_V); 代码方式一1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253#include&lt;iostream&gt;#include&lt;vector&gt;#define Max_V 100using namespace std;struct edge&#123; int next,weight; edge(int a,int b):next(a),weight(b) &#123;&#125;&#125;;vector&lt;edge&gt; G[Max_V]; //!!!void init(int V)&#123; for(int i=0;i&lt;V;i++) G[i].clear(); return;&#125;void create_graph(int E)&#123; int t1,t2,t3; for(int i=0;i&lt;E;i++) &#123; cin&gt;&gt;t1&gt;&gt;t2&gt;&gt;t3; G[t2-1].push_back(edge(t1-1,t3)); G[t1-1].push_back(edge(t2-1,t3)); &#125; return;&#125;void print(int V)&#123; for(int i=0;i&lt;V;i++) &#123; cout &lt;&lt; i &lt;&lt; ": "; for(auto j : G[i]) cout &lt;&lt; j.next &lt;&lt; " "; cout &lt;&lt; endl; &#125; return;&#125;int main(void)&#123; int V,E; cin&gt;&gt;V&gt;&gt;E; init(V); create_graph(E); print(V); return 0;&#125; 方式二把方式一中的注释为!!!句子vector&lt;edge&gt; G[Max_V]; 更改为vector&lt;vector&lt;edge&gt; &gt; G(Max_V);即可。 完整代码 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253#include&lt;iostream&gt;#include&lt;vector&gt;#define Max_V 100using namespace std;struct edge&#123; int next,weight; edge(int a,int b):next(a),weight(b) &#123;&#125;&#125;;vector&lt;vector&lt;edge&gt; &gt; G(Max_V);void init(int V)&#123; for(int i=0;i&lt;V;i++) G[i].clear(); return;&#125;void create_graph(int E)&#123; int t1,t2,t3; for(int i=0;i&lt;E;i++) &#123; cin&gt;&gt;t1&gt;&gt;t2&gt;&gt;t3; G[t2-1].push_back(edge(t1-1,t3)); G[t1-1].push_back(edge(t2-1,t3)); &#125; return;&#125;void print(int V)&#123; for(int i=0;i&lt;V;i++) &#123; cout &lt;&lt; i &lt;&lt; ": "; for(auto j : G[i]) cout &lt;&lt; j.next &lt;&lt; " "; cout &lt;&lt; endl; &#125; return;&#125;int main(void)&#123; int V,E; cin&gt;&gt;V&gt;&gt;E; init(V); create_graph(E); print(V); return 0;&#125; 样例输入6 9 1 2 1 1 3 12 2 3 9 2 4 3 3 5 5 4 3 4 4 5 13 4 6 15 5 6 4 样例输出0: 1 2 1: 0 2 3 2: 0 1 4 3 3: 1 2 4 5 4: 2 3 5 5: 3 4 参考文档 vector实现邻接表的两种方式]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>STL</tag>
+        <tag>图论</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[初学链表Ⅲ]]></title>
+    <url>%2F%E5%88%9D%E5%AD%A6%E9%93%BE%E8%A1%A8%E2%85%A2.html</url>
+    <content type="text"><![CDATA[初学链表Ⅲ 循环单链表 在单链表中，将终端节点的指针域NULL改成指向表头节点的或开始节点，就得到了单链形式的循环链表，并简单称为单循环链表 。 结构用c语言表示等同非循环单向链表： 12345struct CirLnode&#123; int data; struct CirLnode *next;&#125;; 建立12345678910111213141516171819struct CirLnode* create_list(int len)&#123; int i,temp; struct CirLnode *head,*p,*t; head = (struct CirLnode*)malloc(sizeof(struct CirLnode)); head-&gt;next = NULL; p = head; for(i=0;i&lt;len;i++) &#123; scanf("%d",&amp;temp); t = (struct CirLnode*)malloc(sizeof(struct CirLnode)); t-&gt;data = temp; t-&gt;next = NULL; p-&gt;next = t; p = t; &#125; p-&gt;next = head; //将尾节点指回头结点 return head;&#125; 插入节点假设传入的链表升序 1234567891011121314151617181920struct CirLnode* insert_node(int num,struct CirLnode *head)&#123; struct CirLnode *p,*t; int i; p = head; while(1) &#123; if(p-&gt;next==head||p-&gt;next-&gt;data&gt;num) &#123; t = (struct CirLnode*)malloc(sizeof(struct CirLnode)); t-&gt;data = num; t-&gt;next = p-&gt;next; p-&gt;next = t; break; &#125; p = p-&gt;next; if(p==head) break; &#125; return head;&#125; 其他操作其他的操作似乎与单链表差不多。 例如删除某个节点： 123456789101112struct CirLnode* delete_node(int k,struct CirLnode *head)&#123; int i; struct CirLnode *p,*t; p = head; for(i=0;i&lt;k;i++) p = p-&gt;next; t = p-&gt;next; p-&gt;next = t-&gt;next; free(t); return head;&#125; 循环双链表 节点表示当然是一样的： 123456struct CirDuLnode&#123; int data; struct CirDuLnode *prior; struct CirDuLnode *next;&#125;; 建立123456789101112131415161718192021222324struct CirDuLnode* create_list(int len)&#123; int i,temp; struct CirDuLnode *head,*p,*t; head = (struct CirDuLnode *)malloc(sizeof(struct CirDuLnode)); head-&gt;data = 0; head-&gt;prior = head; head-&gt;next = head; p = head; for(i=0; i&lt;len; i++) &#123; scanf("%d",&amp;temp); t = (struct CirDuLnode *)malloc(sizeof(struct CirDuLnode)); t-&gt;data = temp; t-&gt;next = NULL; t-&gt;prior = p; p-&gt;next = t; p = t; &#125; head-&gt;prior = p; p-&gt;next = head; //唯一跟双向链表的区别 return head;&#125; 正向遍历1234567891011void print_list(struct CirDuLnode *head)&#123; struct CirDuLnode *t; t = head-&gt;next; while(t!=head) //判断条件跟双向链表不同 &#123; printf("%d ",t-&gt;data); t = t-&gt;next; &#125; printf("\n");&#125; 反向遍历1234567891011void re_print_list(struct CirDuLnode *head)&#123; struct CirDuLnode *t; t = head-&gt;prior; while(t!=head) //判断条件跟双向链表不同 &#123; printf("%d ",t-&gt;data); t = t-&gt;prior; &#125; printf("\n");&#125; 其他操作其他的操作其实都大同小异啦~ 可以参考相关文章。 相关文章 初学链表Ⅰ(单向链表) 初学链表Ⅱ(双向链表)]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[初学链表Ⅱ]]></title>
+    <url>%2F%E5%88%9D%E5%AD%A6%E9%93%BE%E8%A1%A8%E2%85%A1.html</url>
+    <content type="text"><![CDATA[初学链表Ⅱ 双向链表在单链表中，从某个结点出发只能顺指针往后寻查其他结点。若要寻查节点的直接前趋，则需从表头指针出发。这就意味着单链表中NextElem的执行时间为O(1)，而PriorElem的执行时间为O(n)。为克服单链表这种单向性的缺点，可利用双向链表 。顾名思义，在双向链表的结点中有两个指针域，其一指向直接后继，另一指向直接前趋。 C语言中是这么表示： 123456struct DuLnode&#123; int data; struct Dulnode *prior; struct Dulnode *next;&#125;; —— 以上由我灵魂重现的结构图！！请不要打断我的成就感，谢谢！！—— 建立123456789101112131415161718192021222324struct DuLnode* create_DuLlist(int len)&#123; int i,temp; struct DuLnode *head,*p,*t; head = (struct DuLnode *)malloc(sizeof(struct DuLnode)); head-&gt;data = 0; head-&gt;prior = NULL; head-&gt;next = NULL; p = head; for(i=0;i&lt;len;i++) &#123; scanf("%d",&amp;temp); t = (struct DuLnode *)malloc(sizeof(struct DuLnode)); t-&gt;data = temp; t-&gt;next = NULL; t-&gt;prior = p; p-&gt;next = t; p = t; &#125; head-&gt;prior = p; head-&gt;next-&gt;prior = NULL; return head;&#125; 正向遍历1234567891011void print_DuLlist(struct DuLnode *head)&#123; struct DuLnode *t; t = head-&gt;next; while(t!=NULL) &#123; printf("%d ",t-&gt;data); t = t-&gt;next; &#125; printf("\n");&#125; 反向遍历1234567891011void re_print_DuLlist(struct DuLnode *head)&#123; struct DuLnode *t; t = head-&gt;prior; while(t!=NULL) &#123; printf("%d ",t-&gt;data); t = t-&gt;prior; &#125; printf("\n");&#125; 插入节点假设传入的链表升序 12345678910111213141516171819202122232425262728293031323334353637383940struct DuLnode* insert_node(int num,struct DuLnode *head)&#123; struct DuLnode *p,*t; p = head; while(p!=NULL) &#123; if(p-&gt;next == NULL) //如果插入的位置在最后 &#123; t-&gt;data = num; t-&gt;prior = p; t-&gt;next = NULL; p-&gt;next = t; head-&gt;prior = t; break; &#125; if(p-&gt;next-&gt;data&gt;num) &#123; if(p == head) //插入的位置在最前 &#123; t-&gt;data = num; t-&gt;prior = NULL; t-&gt;next = p-&gt;next; p-&gt;next-&gt;prior = t; p-&gt;next = t; break; &#125; else //插入的位置在中间 &#123; t-&gt;data = num; t-&gt;prior = p; t-&gt;next = p-&gt;next; p-&gt;next-&gt;prior = t; p-&gt;next = t; break; &#125; &#125; p = p-&gt;next; &#125; return head;&#125; 删除节点1234567891011121314151617181920212223struct DuLnode* delete_node(int k,struct DuLnode *head)&#123; struct DuLnode *t,*p; int i; p = head; for(i=0; i&lt;k; i++) p = p-&gt;next; if(p-&gt;next-&gt;next == NULL) //删除的是最后一个节点 &#123; t = p-&gt;next; p-&gt;next = NULL; head-&gt;prior = p; free(t); &#125; else //删除的不是最后一个节点 &#123; t = p-&gt;next; p-&gt;next = t-&gt;next; t-&gt;next-&gt;prior = p; free(t); &#125; return head;&#125; 删除链表与单向链表相同 统计节点数与单向链表相同 相关文章 初学链表Ⅰ(单向链表) 初学链表Ⅲ(循环链表)]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[初学链表Ⅰ]]></title>
+    <url>%2F%E5%88%9D%E5%AD%A6%E9%93%BE%E8%A1%A8%E2%85%A0.html</url>
+    <content type="text"><![CDATA[初学链表Ⅰ 太菜了，现在才学链表。 链表 是一种物理存储单元上非连续、非顺序的存储结构。链表由一系列结点组成，结点可以在运行时动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。查找一个节点的复杂度为O(n)。 单向链表 用C语言表示大概是这样的： 12345struct node&#123; int data; struct node *next;&#125;; 带头节点/不带头结点的链表单链表分为带头节点的跟不带头结点的。两者有些区别，带头节点的大概有这么些特点： 链表为空时，带头节点的单链表头指针指向头结点，不带头结点的头指针为NULL。 向链表表头插入或删除节点时带头结点的似乎更方便，不，应该是绝对更方便。 无论单链表是否为空，头指针永远指向的是头结点，可以减少一些Bug的出现。 这篇文章使用的带头结点的方式。 建立1234567891011121314151617181920212223struct node* createlist(int len)&#123; struct node *head,*p,*t; int i,temp; head = NULL; head = (struct node *)malloc(sizeof(struct node)); //申请头结点 if (!head) exit(-1); //申请失败 head-&gt;next = NULL; //初始化 for(i=0; i&lt;len; i++) &#123; scanf("%d",&amp;temp); t = (struct node *)malloc(sizeof(struct node)); //申请临时节点 t-&gt;data = temp; t-&gt;next = NULL; if(head-&gt;next==NULL) //如果头结点的指针域为空 head-&gt;next = t; else p-&gt;next = t; //如果已经添加过节点 p = t; &#125; return head; //返回头节点 &#125; 插入节点假设传入的链表升序。 12345678910111213141516171819struct node* insert_node(int num, struct node *head)&#123; struct node *t,*q; t = head; //从表头开始遍历 while(t!=NULL) &#123; if(t-&gt;next==NULL||t-&gt;next-&gt;data&gt;=num) //注意：条件的顺序不能改变！！ //如果下一个节点大于待插入数或者下一个节点是表尾 则插入 &#123; q-&gt;data = num; q-&gt;next = t-&gt;next; t-&gt;next = q; break; &#125; t = t-&gt;next; //移到下一个节点 &#125; return head; //返回头结点 &#125; 删除节点1234567891011121314151617struct node* delete_node(int k, struct node *head)&#123; int i; struct node *t,*p; t = head; for(i=0; i&lt;k; i++) //遍历节点 t = t-&gt;next; if(t-&gt;next == NULL) //已经到表尾了或数据输入有误 printf("Error!\n"); else &#123; p = t-&gt;next; t-&gt;next = p-&gt;next; free(p); &#125; return head; //返回头结点&#125; 逆向链表1234567891011121314151617181920struct node* reverse_list(struct node *head)&#123; struct node *p,*q,*t; //如果链表长度为1 if(head-&gt;next-&gt;next == NULL) //带了头结点所以是-&gt;next-&gt;next return head; p = head-&gt;next; q = p-&gt;next; t = NULL; while(q != NULL) &#123; t = q-&gt;next; q-&gt;next = p; p = q; q = t; &#125; head-&gt;next-&gt;next = NULL; head-&gt;next = p; return head;&#125; 输出节点输出很简单，简单遍历即可。 123456789101112void print_list(struct node *head)&#123; struct node *p; p = head-&gt;next; while(p!=NULL) &#123; printf("%d ",p-&gt;data); p = p-&gt;next; &#125; printf("\n"); return;&#125; 统计节点数1234567891011int analyse_list(struct node *head)&#123; struct node *t = head; int num=0; while(t-&gt;next != NULL) &#123; num++; t = t-&gt;next; &#125; return num;&#125; 删除链表123456789101112void destroy_list(struct node *head)&#123; struct node *p,*t; p = head-&gt;next; while(p != NULL) &#123; t = p; p = p-&gt;next; free(t); &#125; free(head);&#125; 相关文章 初学链表Ⅱ(双向链表) 初学链表Ⅲ(循环链表)]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[POJ - 3279 [DFS][暴力]]]></title>
+    <url>%2FPOJ%20-%203279%20%5BDFS%5D%5B%E6%9A%B4%E5%8A%9B%5D.html</url>
+    <content type="text"><![CDATA[POJ - 3279 [DFS][暴力] 题目POJ - 3279 题意给定一个 M * N（1 ≤ M, N ≤ 15）的矩阵， 矩阵的每一个格子被0，1标记。现在给定一种操作：点击某个格子能让这个格子本身及上下左右的一共5个格子反转。现在要使得整个矩阵全变成0，求最小的操作数量以及操作方法。 输入第一行：用空格分隔的两个整数 M N 之后是给出的矩阵 输出若有解，输出解决方案 否则输出 IMPOSSIBLE 样例输入4 4 1 0 0 1 0 1 1 0 0 1 1 0 1 0 0 1 样例输出0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0 题解分析显然这题跟奶牛没有丝毫关系…似乎很多题目与奶牛有不解之缘(手动摊手)。感觉这道题比较有意思，一开始毫无思路，直到看了题解… 每一次的操作都会对周围直接相连的格子产生影响，这就意味着每翻一行，其实也就决定了下一行要怎么翻，毕竟需要保证每一个格子都是0。这样一直到最后一行。 那么思路就出来了：暴力枚举第一行的所有排列，然后依次往下搜索，直到搜索到最后一行。若最后一行全为0，且步骤最少，那么把答案存下来。否则继续。 AC代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293#include&lt;cstdio&gt;#include&lt;iostream&gt;#include&lt;cstring&gt;using namespace std;const int inf = 0x3f3f3f3f;int map[16][16];int temp[16][16];int res[16][16];int dirx[5]= &#123;0,-1,1,0, 0&#125;;int diry[5]= &#123;0, 0,0,1,-1&#125;;int m,n;void Readmap() //读图 &#123; for(int i=0; i&lt;m; i++) for(int j=0; j&lt;n; j++) cin&gt;&gt;map[i][j]; return;&#125;int color(int x,int y) //检查(x,y)是0还是1 &#123; int k = map[x][y]; for(int i=0; i&lt;5; i++) &#123; int a = x+dirx[i]; int b = y+diry[i]; if(a&gt;=0&amp;&amp;a&lt;m&amp;&amp;b&gt;=0&amp;&amp;b&lt;n) k+=temp[a][b]; &#125; return k&amp;1;&#125;int cal()&#123; for(int i=1; i&lt;m; i++) for(int j=0; j&lt;n; j++) if(color(i-1,j)) temp[i][j] = 1; //如果(i-1,j)是1，则需要翻 for(int i=0; i&lt;n; i++) if(color(m-1,i)) return inf; //无解 int k = 0; for(int i=0; i&lt;m; i++) for(int j=0; j&lt;n; j++) k += temp[i][j]; //统计步数 return k;&#125;int main(void)&#123; ios::sync_with_stdio(false); cin.tie(0); while(cin&gt;&gt;m&gt;&gt;n) &#123; memset(res,0,sizeof(res)); Readmap(); //读图 int ans = inf; //ans记录最小步数 for(int i=0; i&lt; 1&lt;&lt;n; i++) &#123; memset(temp,0,sizeof(temp)); for(int j=0; j&lt;n; j++) //枚举第一行翻转情况 &#123; temp[0][j] = i&gt;&gt;j &amp;1; &#125; int t = cal(); //返回操作步数 if(t&lt;ans) //若此方案步数更小 &#123; //更新操作方式 ans = t; for(int i=0; i&lt;m; i++) for(int j=0; j&lt;n; j++) res[i][j] = temp[i][j]; &#125; &#125; if(ans == inf) cout&lt;&lt;"IMPOSSIBLE"&lt;&lt;endl; //无解 else //有解输出答案 &#123; for(int i=0; i&lt;m; i++) for(int j=0; j&lt;n; j++) &#123; printf("%d",res[i][j]); if(j!=n-1) printf(" ");//输出格式要注意！ else printf("\n"); &#125; &#125; &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+        <tag>暴力</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[POJ - 1797 [Dijkstra]]]></title>
+    <url>%2FPOJ%20-%201797%20%5BDijkstra%5D.html</url>
+    <content type="text"><![CDATA[POJ - 1797 [Dijkstra] 题目POJ - 1797 题意给出一个无向图，边的权值不是路程，而是该段路最大的承重。要求计算出图中任意两点之间道路的最大承重。 输入第一行：样例组数 每组数据的第一行给出两个数m, n。分别代表 顶点数量 和 边的数量； 接下来n行给出边的信息 输出输出中任意两点之间可以运送的包裹的最大重量。注意格式。 样例输入1 3 3 1 2 3 1 3 4 2 3 5 样例输出Scenario #1: 4 题解分析Dijkstra算法略加变形。 dis数组不再储存最短的距离，而是储存最大的承重。 AC代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657#include &lt;iostream&gt;#include &lt;cstdio&gt;#include &lt;cstring&gt;using namespace std;int n, m, edge[1005][1005], book[1005], dis[1005];int dijkstra()&#123; int i, j; memset(book,0,sizeof(book)); for(i = 1; i &lt;= n; i++) &#123; dis[i] = edge[1][i]; &#125; for(i = 1; i &lt;= n; i++) &#123; int maxx = -1; int t; for(j = 1; j &lt;= n; j++) &#123; if(!book[j] &amp;&amp; dis[j] &gt; maxx) &#123; maxx = dis[j]; t = j; &#125; &#125; book[t] = 1; for(j = 1; j &lt;= n; j++) &#123; if(!book[j] &amp;&amp; dis[j] &lt; min(dis[t], edge[t][j])) &#123; dis[j] = min(dis[t], edge[t][j]); &#125; &#125; &#125; return dis[n];&#125;int main()&#123; int i, k, t; scanf("%d", &amp;t); for(k = 1; k &lt;= t; k++) &#123; scanf("%d %d",&amp;n,&amp;m); memset(edge,0,sizeof(edge)); for(i = 1; i&lt;=m; i++) &#123; int a, b, c; scanf("%d %d %d", &amp;a, &amp;b, &amp;c); edge[a][b] = edge[b][a]=c; &#125; printf("Scenario #%d:\n%d\n\n", k, dijkstra()); &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>Dijkstra</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[序]]></title>
+    <url>%2F%E5%BA%8F%E7%AB%A0.html</url>
+    <content type="text"><![CDATA[序章 永远不要相信自己的脑子 &emsp;花了大概零零散散三个晚上把博客搭建好，感觉自己还是有点太菜了。。 &emsp;最近汲取了陈大帅哥的人生经验，确乎觉得有些东西还是得写下来。恰好Master Ray刚搭好自己的博客，&emsp;于是跟随Dalao的脚步自己也搭建了一个基于Hexo的Blog。 &emsp;其实自己很没有把握能坚持写下去，&emsp;偶尔会写一些东西，确认下自己是不是真正想清楚，希望能有所收获。 &emsp;第一次使用GitHub跟Markdown。自然也是第一次搭博客。要是有啥问题还请别嫌弃。 &emsp;昨天申请了个顶级域名 ningxy.cn ，摒弃了 ningxxxl.github.io 这个长长的二级域名。 &emsp;哎呀，既然都点开全文了，各位小哥哥小姐姐就打赏一下续费域名，打赏多点还能买吃的长肉肉呀 ♥]]></content>
+      <categories>
+        <category>杂</category>
+      </categories>
+      <tags>
+        <tag>杂七杂八</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2Fhello-world.html</url>
+    <content type="text"><![CDATA[Hello World！ 1234567#include&lt;iostream&gt;int main(void)&#123; std::cout &lt;&lt; "Hello world!" &lt;&lt; std::endl; return 0;&#125;]]></content>
+  </entry>
+</search>
