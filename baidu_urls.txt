@@ -1,4 +1,4 @@
-http://www.ningxy.cn/基于Ubuntu的Oracle11g安装.html
+http://www.ningxy.cn/基于Win10的Oracle11g安装.html
 http://www.ningxy.cn/终端上传文件到远程服务器.html
 http://www.ningxy.cn/基于CentOS6的LAMP搭建.html
 http://www.ningxy.cn/算法训练mod的副本.html
