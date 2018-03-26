@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="Ningxy&#39;s Blog">
 <meta property="og:description" content="基于Win10的Oracle11g安装记录一下安装过程。 本文安装是在Win10虚拟机下进行 一、安装环境 宿主机 macOS 10.13.3  虚拟机 Parallels Desktop 13 for Mac 13.2.0">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-21T13:31:21.822Z">
+<meta property="og:updated_time" content="2018-03-26T12:39:47.917Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Win10安装Oracle11g">
 <meta name="twitter:description" content="基于Win10的Oracle11g安装记录一下安装过程。 本文安装是在Win10虚拟机下进行 一、安装环境 宿主机 macOS 10.13.3  虚拟机 Parallels Desktop 13 for Mac 13.2.0">
@@ -462,18 +462,26 @@ var _hmt = _hmt || [];
 <a id="more"></a>
 <p>  （强烈安利！！！这真的是个超级好用的虚拟机，针对win10特别优化，支持DirectX 10，更是支持将Boot Camp 安装的Windows转换成虚拟机使用。）</p>
 <ul>
-<li>系统 Windows10 1709</li>
-<li>数据库 Oracle_x64_11gR2</li>
-<li>Oracle client <strong>32位</strong> （因为据说PL/SQL 支持32位较好，总之还是不折腾）</li>
-<li>PL/SQL Developer 12 <strong>(32位)</strong> </li>
+<li><p>系统 Windows10 1709</p>
+</li>
+<li><p>数据库 Oracle_x64_11gR2</p>
+</li>
+<li><p>Oracle client <strong>32位</strong> （因为据说PL/SQL 支持32位较好，总之还是不折腾）</p>
+</li>
+<li><p>PL/SQL Developer 12 <strong>(32位)</strong> </p>
+<p>​</p>
+</li>
 </ul>
-<h2 id="二、安装前准备"><a href="#二、安装前准备" class="headerlink" title="二、安装前准备"></a>二、安装前准备</h2><h3 id="1-欺骗Oracle安装程序："><a href="#1-欺骗Oracle安装程序：" class="headerlink" title="1. 欺骗Oracle安装程序："></a>1. 欺骗Oracle安装程序：</h3><p>​    修改文件cvu_prereq，使之能够通过Oracle的环境检查</p>
+<h2 id="二、安装前准备"><a href="#二、安装前准备" class="headerlink" title="二、安装前准备"></a>二、安装前准备</h2><h3 id="1-欺骗Oracle安装程序："><a href="#1-欺骗Oracle安装程序：" class="headerlink" title="1. 欺骗Oracle安装程序："></a>1. 欺骗Oracle安装程序：</h3><hr>
+<p>​    <strong>此步骤可以忽略</strong></p>
+<hr>
+<p>​    修改文件cvu_prereq，使之能够通过Oracle的环境检查</p>
 <p>​    文件位置：Database\stage\cvu</p>
 <p>​    文件名称：cvu_prereq.xml</p>
 <p>​    在的前边添加以下内容</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">OPERATING_SYSTEM</span> <span class="attr">RELEASE</span>=<span class="string">"6.2"</span>&gt;</span></div><div class="line">  	 <span class="tag">&lt;<span class="name">VERSION</span> <span class="attr">VALUE</span>=<span class="string">"3"</span>/&gt;</span></div><div class="line">  	 <span class="tag">&lt;<span class="name">ARCHITECTURE</span> <span class="attr">VALUE</span>=<span class="string">"64-bit"</span>/&gt;</span></div><div class="line">  	 <span class="tag">&lt;<span class="name">NAME</span> <span class="attr">VALUE</span>=<span class="string">"Windows 10"</span>/&gt;</span></div><div class="line">  	 <span class="tag">&lt;<span class="name">ENV_VAR_LIST</span>&gt;</span></div><div class="line">  	     <span class="tag">&lt;<span class="name">ENV_VAR</span> <span class="attr">NAME</span>=<span class="string">"PATH"</span> <span class="attr">MAX_LENGTH</span>=<span class="string">"1023"</span> /&gt;</span></div><div class="line">  	 <span class="tag">&lt;/<span class="name">ENV_VAR_LIST</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">OPERATING_SYSTEM</span>&gt;</span></div></pre></td></tr></table></figure>
 <h3 id="2-JDK安装"><a href="#2-JDK安装" class="headerlink" title="2. JDK安装"></a>2. JDK安装</h3><p>JDK下载 <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="external">Oracle Java SE Download</a></p>
-<p>通常教程安装的都是JDK8，其实9也是OK的。</p>
+<p>通常其他教程安装的都是JDK8，其实9也是OK的。</p>
 <h2 id="安装Oracle"><a href="#安装Oracle" class="headerlink" title="安装Oracle"></a>安装Oracle</h2><h3 id="1-解压"><a href="#1-解压" class="headerlink" title="1. 解压"></a>1. 解压</h3><p>将下载的两个zip包解压到同一个database文件夹中。</p>
 <h3 id="2-执行数据库安装程序"><a href="#2-执行数据库安装程序" class="headerlink" title="2. 执行数据库安装程序"></a>2. 执行数据库安装程序</h3><p>运行database下的setup.exe</p>
 <p>不出意外的话一切都会很顺利。。。相较于Ubuntu下真的好太多。</p>
@@ -496,12 +504,13 @@ var _hmt = _hmt || [];
 </li>
 </ol>
 <h3 id="4-PL-SQL-Developer-安装"><a href="#4-PL-SQL-Developer-安装" class="headerlink" title="4. PL/SQL Developer 安装"></a>4. PL/SQL Developer 安装</h3><p>Easy 啦，不说了。</p>
+<p>【可能需要激活一下】</p>
 <h3 id="5-PL-SQL-Developer-配置"><a href="#5-PL-SQL-Developer-配置" class="headerlink" title="5. PL/SQL Developer 配置"></a>5. PL/SQL Developer 配置</h3><ol>
-<li><p>打开plsql，登录界面可能只有三个文本框，而没有下拉菜单，这说明plsql还没有配置好。点击cancel，进入plsql。点击菜单栏的【工具】-【首选项】</p>
+<li><p>打开plsql，登录界面可能只有三个文本框，而没有下拉菜单，这说明plsql还没有配置好。点击cancel，进入plsql。点击菜单栏的【配置】-【首选项】</p>
 <p>配置Oracle主目录，和OCI库，正常的话点击下拉按钮就会有选项供选择。</p>
 <p>然后应用，确定，关闭PL/SQL</p>
 </li>
-<li><p>找到PL/SQL 的<strong>tnsnames.ora</strong>文件在最后添加自己的orcl服务的配置</p>
+<li><p>找到client的<strong>tnsnames.ora</strong>文件（可能需要从network/admin/sample里面找然后复制到network/admin中）在最后添加自己的orcl服务的配置</p>
 <p>例如我的：</p>
 </li>
 </ol>

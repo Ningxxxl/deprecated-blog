@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Win10安装Oracle11g]]></title>
     <url>%2F%E5%9F%BA%E4%BA%8EWin10%E7%9A%84Oracle11g%E5%AE%89%E8%A3%85.html</url>
-    <content type="text"><![CDATA[基于Win10的Oracle11g安装记录一下安装过程。 本文安装是在Win10虚拟机下进行 一、安装环境 宿主机 macOS 10.13.3 虚拟机 Parallels Desktop 13 for Mac 13.2.0 （强烈安利！！！这真的是个超级好用的虚拟机，针对win10特别优化，支持DirectX 10，更是支持将Boot Camp 安装的Windows转换成虚拟机使用。） 系统 Windows10 1709 数据库 Oracle_x64_11gR2 Oracle client 32位 （因为据说PL/SQL 支持32位较好，总之还是不折腾） PL/SQL Developer 12 (32位) 二、安装前准备1. 欺骗Oracle安装程序：​ 修改文件cvu_prereq，使之能够通过Oracle的环境检查 ​ 文件位置：Database\stage\cvu ​ 文件名称：cvu_prereq.xml ​ 在的前边添加以下内容 12345678&lt;OPERATING_SYSTEM RELEASE="6.2"&gt; &lt;VERSION VALUE="3"/&gt; &lt;ARCHITECTURE VALUE="64-bit"/&gt; &lt;NAME VALUE="Windows 10"/&gt; &lt;ENV_VAR_LIST&gt; &lt;ENV_VAR NAME="PATH" MAX_LENGTH="1023" /&gt; &lt;/ENV_VAR_LIST&gt; &lt;/OPERATING_SYSTEM&gt; 2. JDK安装JDK下载 Oracle Java SE Download 通常教程安装的都是JDK8，其实9也是OK的。 安装Oracle1. 解压将下载的两个zip包解压到同一个database文件夹中。 2. 执行数据库安装程序运行database下的setup.exe 不出意外的话一切都会很顺利。。。相较于Ubuntu下真的好太多。 中途可能会提示安装一个环境，点下载并安装就OK 如果安装成功，访问 https://192.168.1.114:1158/em 哦哦对了，可能IE / Edge浏览器都无法访问，但是Chrome能访问… 3. 安装客户端 解压zip包到product/11.2.0/client 运行安装文件 不出意外会弹出窗口显示环境不满足最低要求 继续即可 安装类型我选的是管理员。 不过似乎安装最精简的也ok。 之后一路下一步直到安装完成 4. PL/SQL Developer 安装Easy 啦，不说了。 5. PL/SQL Developer 配置 打开plsql，登录界面可能只有三个文本框，而没有下拉菜单，这说明plsql还没有配置好。点击cancel，进入plsql。点击菜单栏的【工具】-【首选项】 配置Oracle主目录，和OCI库，正常的话点击下拉按钮就会有选项供选择。 然后应用，确定，关闭PL/SQL 找到PL/SQL 的tnsnames.ora文件在最后添加自己的orcl服务的配置 例如我的： 123456789orcl = (DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = 127.0.0.1)(PORT = 1521)) ) (CONNECT_DATA = (SERVICE_NAME = orcl) ) ) 重启PL/SQL，不出意外就完成啦。 参考资料 win10 关于oracle和PLSQL Developer的安装、配置，以及常见问题解决 Win10 64位系统下安装Oracle11g详细教程]]></content>
+    <content type="text"><![CDATA[基于Win10的Oracle11g安装记录一下安装过程。 本文安装是在Win10虚拟机下进行 一、安装环境 宿主机 macOS 10.13.3 虚拟机 Parallels Desktop 13 for Mac 13.2.0 （强烈安利！！！这真的是个超级好用的虚拟机，针对win10特别优化，支持DirectX 10，更是支持将Boot Camp 安装的Windows转换成虚拟机使用。） 系统 Windows10 1709 数据库 Oracle_x64_11gR2 Oracle client 32位 （因为据说PL/SQL 支持32位较好，总之还是不折腾） PL/SQL Developer 12 (32位) ​ 二、安装前准备1. 欺骗Oracle安装程序： ​ 此步骤可以忽略 ​ 修改文件cvu_prereq，使之能够通过Oracle的环境检查 ​ 文件位置：Database\stage\cvu ​ 文件名称：cvu_prereq.xml ​ 在的前边添加以下内容 12345678&lt;OPERATING_SYSTEM RELEASE="6.2"&gt; &lt;VERSION VALUE="3"/&gt; &lt;ARCHITECTURE VALUE="64-bit"/&gt; &lt;NAME VALUE="Windows 10"/&gt; &lt;ENV_VAR_LIST&gt; &lt;ENV_VAR NAME="PATH" MAX_LENGTH="1023" /&gt; &lt;/ENV_VAR_LIST&gt; &lt;/OPERATING_SYSTEM&gt; 2. JDK安装JDK下载 Oracle Java SE Download 通常其他教程安装的都是JDK8，其实9也是OK的。 安装Oracle1. 解压将下载的两个zip包解压到同一个database文件夹中。 2. 执行数据库安装程序运行database下的setup.exe 不出意外的话一切都会很顺利。。。相较于Ubuntu下真的好太多。 中途可能会提示安装一个环境，点下载并安装就OK 如果安装成功，访问 https://192.168.1.114:1158/em 哦哦对了，可能IE / Edge浏览器都无法访问，但是Chrome能访问… 3. 安装客户端 解压zip包到product/11.2.0/client 运行安装文件 不出意外会弹出窗口显示环境不满足最低要求 继续即可 安装类型我选的是管理员。 不过似乎安装最精简的也ok。 之后一路下一步直到安装完成 4. PL/SQL Developer 安装Easy 啦，不说了。 【可能需要激活一下】 5. PL/SQL Developer 配置 打开plsql，登录界面可能只有三个文本框，而没有下拉菜单，这说明plsql还没有配置好。点击cancel，进入plsql。点击菜单栏的【配置】-【首选项】 配置Oracle主目录，和OCI库，正常的话点击下拉按钮就会有选项供选择。 然后应用，确定，关闭PL/SQL 找到client的tnsnames.ora文件（可能需要从network/admin/sample里面找然后复制到network/admin中）在最后添加自己的orcl服务的配置 例如我的： 123456789orcl = (DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = 127.0.0.1)(PORT = 1521)) ) (CONNECT_DATA = (SERVICE_NAME = orcl) ) ) 重启PL/SQL，不出意外就完成啦。 参考资料 win10 关于oracle和PLSQL Developer的安装、配置，以及常见问题解决 Win10 64位系统下安装Oracle11g详细教程]]></content>
       <categories>
         <category>技巧</category>
       </categories>
@@ -121,8 +121,8 @@
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>数据结构</tag>
         <tag>树</tag>
+        <tag>数据结构</tag>
         <tag>查找</tag>
       </tags>
   </entry>
@@ -134,9 +134,9 @@
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>栈</tag>
-        <tag>数据结构</tag>
         <tag>树</tag>
+        <tag>数据结构</tag>
+        <tag>栈</tag>
       </tags>
   </entry>
   <entry>
@@ -147,8 +147,8 @@
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>数据结构</tag>
         <tag>树</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -308,8 +308,8 @@
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>栈</tag>
         <tag>数据结构</tag>
+        <tag>栈</tag>
       </tags>
   </entry>
   <entry>
@@ -320,8 +320,8 @@
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>栈</tag>
         <tag>数据结构</tag>
+        <tag>栈</tag>
       </tags>
   </entry>
   <entry>
@@ -332,8 +332,8 @@
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>栈</tag>
         <tag>数据结构</tag>
+        <tag>栈</tag>
       </tags>
   </entry>
   <entry>
