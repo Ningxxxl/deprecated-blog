@@ -121,8 +121,8 @@
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>数据结构</tag>
+        <tag>树</tag>
         <tag>查找</tag>
       </tags>
   </entry>
@@ -134,9 +134,9 @@
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>树</tag>
-        <tag>数据结构</tag>
         <tag>栈</tag>
+        <tag>数据结构</tag>
+        <tag>树</tag>
       </tags>
   </entry>
   <entry>
@@ -147,8 +147,8 @@
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>数据结构</tag>
+        <tag>树</tag>
       </tags>
   </entry>
   <entry>
@@ -176,7 +176,7 @@
   <entry>
     <title><![CDATA[并查集模板]]></title>
     <url>%2F%E5%B9%B6%E6%9F%A5%E9%9B%86%E6%A8%A1%E6%9D%BF.html</url>
-    <content type="text"><![CDATA[最近做了一道题，需要用到并查集的相关知识点。突然发现太久没用有点不记得了。。。 可能自己确实太菜了。 把模板放上来一下。 不过还是要画几个重点！！ 找爸爸的那个getf()函数，千万不要用三元运算符！！！ HDU 1856 9发TLE换来的教训。 垃圾表达式毁我青春。 代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556#include&lt;iostream&gt;#include&lt;cstdio&gt;using namespace std;int f[5005];int num[5050];int getf(int x) &#123;// return f[x]==x?x:getf(f[x]); //再也不会用这种辣鸡运算符了 if(f[x]!=x) f[x] = getf(f[x]); return f[x];&#125;void merge(int x,int y) &#123; int b1,b2; b1 = getf(x); b2 = getf(y); if(b1!=b2) &#123; f[b2] = b1; num[b1] += num[b2]; //合并集合同时合并集合的个数 &#125; return;&#125;int main(void)&#123; int n,m; while(~scanf("%d %d",&amp;n, &amp;m)) &#123; int res=0; for(int i=1; i&lt;=n; i++) &#123; f[i] = i; num[i] = 1; &#125; for(int i=1; i&lt;=m; i++) &#123; int t1,t2; scanf("%d %d",&amp;t1,&amp;t2); merge(t1,t2); &#125; for(int i=1;i&lt;=n;i++) &#123; if(f[i]==i) res++; &#125; printf("%d\n",num[getf(1)]); &#125; return 0;&#125;]]></content>
+    <content type="text"><![CDATA[最近做了一道题，需要用到并查集的相关知识点。突然发现太久没用有点不记得了。。。 可能自己确实太菜了。 把模板放上来一下。 不过还是要画几个重点！！ 找爸爸的那个getf()函数，千万不要用三元运算符！！！ HDU 1856 9发TLE换来的教训。 垃圾表达式毁我青春。 代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253#include&lt;iostream&gt;#include&lt;cstdio&gt;using namespace std;int f[5005];int num[5050];int getf(int x) &#123; return f[x]==x ? x : f[x] = getf(f[x]);&#125;void merge(int x,int y) &#123; int b1,b2; b1 = getf(x); b2 = getf(y); if(b1!=b2) &#123; f[b2] = b1; num[b1] += num[b2]; //合并集合同时合并集合的个数 &#125; return;&#125;int main(void)&#123; int n,m; while(~scanf("%d %d",&amp;n, &amp;m)) &#123; int res=0; for(int i=1; i&lt;=n; i++) &#123; f[i] = i; num[i] = 1; &#125; for(int i=1; i&lt;=m; i++) &#123; int t1,t2; scanf("%d %d",&amp;t1,&amp;t2); merge(t1,t2); &#125; for(int i=1;i&lt;=n;i++) &#123; if(f[i]==i) res++; &#125; printf("%d\n",num[getf(1)]); &#125; return 0;&#125;]]></content>
       <categories>
         <category>数据结构</category>
       </categories>
@@ -308,8 +308,8 @@
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>数据结构</tag>
         <tag>栈</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -320,8 +320,8 @@
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>数据结构</tag>
         <tag>栈</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -332,8 +332,8 @@
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>数据结构</tag>
         <tag>栈</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
