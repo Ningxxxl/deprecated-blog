@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="Ningxy&#39;s Blog">
 <meta property="og:description" content="CentOS7 Docker 环境搭建 OS: CentOS 7.4 X64 Docker: 18.03.0-ce  安装Docker更新yum包 1sudo yum update">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-09T13:52:59.970Z">
+<meta property="og:updated_time" content="2018-04-10T02:52:23.393Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS7安装Docker">
 <meta name="twitter:description" content="CentOS7 Docker 环境搭建 OS: CentOS 7.4 X64 Docker: 18.03.0-ce  安装Docker更新yum包 1sudo yum update">
@@ -504,7 +504,13 @@ var _hmt = _hmt || [];
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jar -cvf work1.war *</div></pre></td></tr></table></figure>
 <p><code>*</code>号代表当前目录的所有文件</p>
 </li>
-<li><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker cp mysql-connector-java-5.1.46-bin.jar ceaafb7eca97:/usr/local/tomcat/lib/</div></pre></td></tr></table></figure>
+<li><p>发送到docker中：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker cp work1.war ceaafb7eca97:/usr/local/tomcat/webapps/</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker cp mysql-connector-java-5.1.46-bin.jar ceaafb7eca97:/usr/local/tomcat/lib/</div></pre></td></tr></table></figure>
+</li>
+<li><p>注意：docker之间访问ip应该设置为容器的ip。</p>
+<p>查看容器ip：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker inspect d14a1a84c642 | grep IPAddress</div></pre></td></tr></table></figure>
 </li>
 <li><p>​</p>
 </li>
