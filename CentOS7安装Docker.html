@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="Ningxy&#39;s Blog">
 <meta property="og:description" content="CentOS7 Docker 环境搭建 OS: CentOS 7.4 X64 Docker: 18.03.0-ce  安装Docker更新yum包 1sudo yum update">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-10T02:52:23.393Z">
+<meta property="og:updated_time" content="2018-04-11T02:26:23.349Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS7安装Docker">
 <meta name="twitter:description" content="CentOS7 Docker 环境搭建 OS: CentOS 7.4 X64 Docker: 18.03.0-ce  安装Docker更新yum包 1sudo yum update">
@@ -483,7 +483,7 @@ var _hmt = _hmt || [];
 <li><p>拉取tomcat镜像</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull tomcat</div></pre></td></tr></table></figure>
 <p>创建一个实例跑起来：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run --name tomcat -it --rm -p 2333:8080 tomcat</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run --privileged --cap-add SYS_ADMIN -e container=docker -it --name tomcat -p 0.0.0.0:2333:8080  -d  --restart=always tomcat</div></pre></td></tr></table></figure>
 <p>映射端口到宿主机2333端口</p>
 <p>查看容器：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker ps -a</div></pre></td></tr></table></figure>
@@ -512,7 +512,7 @@ var _hmt = _hmt || [];
 <p>查看容器ip：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker inspect d14a1a84c642 | grep IPAddress</div></pre></td></tr></table></figure>
 </li>
-<li><p>​</p>
+<li><p>重启tomcat</p>
 </li>
 </ol>
 
