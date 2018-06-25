@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="Ningxy&#39;s Blog">
 <meta property="og:description" content="MySQL8 连接问题docker中的MySQL镜像最新版本默认使用的是MySQL8.0。 docker run之后发现使用Navicat 12连接数据库报错。 提示如下： 1Authentication plugin ‘caching_sha2_password’ cannot be loaded:....... 大概就是MySQL8更改了默认身份认证方式">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-27T15:36:26.570Z">
+<meta property="og:updated_time" content="2018-06-25T08:36:12.199Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL8连接问题">
 <meta name="twitter:description" content="MySQL8 连接问题docker中的MySQL镜像最新版本默认使用的是MySQL8.0。 docker run之后发现使用Navicat 12连接数据库报错。 提示如下： 1Authentication plugin ‘caching_sha2_password’ cannot be loaded:....... 大概就是MySQL8更改了默认身份认证方式">
@@ -458,6 +458,13 @@ var _hmt = _hmt || [];
 <p>大概就是MySQL8更改了默认身份认证方式</p>
 <a id="more"></a>
 <h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> ‘root’@’localhost’ <span class="keyword">IDENTIFIED</span> <span class="keyword">WITH</span> mysql_native_password <span class="keyword">BY</span> ‘root’;</div></pre></td></tr></table></figure>
+<h3 id="JDBC连接方法"><a href="#JDBC连接方法" class="headerlink" title="JDBC连接方法"></a>JDBC连接方法</h3><p>注意加载驱动的地方：</p>
+<p>以前是这么写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</div></pre></td></tr></table></figure>
+<p>而新版本是这样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Class.forName(<span class="string">"com.mysql.cj.jdbc.Driver"</span>);</div></pre></td></tr></table></figure>
+<p>URL:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String URL = <span class="string">"jdbc:mysql://localhost:6666/DataBase?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false"</span>;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -525,6 +532,10 @@ var _hmt = _hmt || [];
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/更改MySQL时区.html" rel="prev" title="更改MySQL时区">
+                更改MySQL时区 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -621,7 +632,7 @@ var _hmt = _hmt || [];
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -692,7 +703,7 @@ var _hmt = _hmt || [];
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL8-连接问题"><span class="nav-number">1.</span> <span class="nav-text">MySQL8 连接问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法"><span class="nav-number">1.1.</span> <span class="nav-text">解决办法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL8-连接问题"><span class="nav-number">1.</span> <span class="nav-text">MySQL8 连接问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法"><span class="nav-number">1.1.</span> <span class="nav-text">解决办法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JDBC连接方法"><span class="nav-number">1.2.</span> <span class="nav-text">JDBC连接方法</span></a></li></ol></li></ol></div>
             
 
           </div>
