@@ -312,6 +312,217 @@ var _hmt = _hmt || [];
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.ningxy.cn/URP教务系统一键评教.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ningxiangyi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oongrmtwi.bkt.clouddn.com/ooo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ningxy's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/URP教务系统一键评教.html" itemprop="url">
+                  URP教务系统一键评教
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-26T09:00:53+08:00">
+                2018-06-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂/" itemprop="url" rel="index">
+                    <span itemprop="name">杂</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                   分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>每次查成绩之前都需要一门门课程评价，觉得有些麻烦。</p>
+<p>写了一个RESTful风格API，用来登录URP教务系统和自动评价教学（一键评教）。</p>
+<p>其实最开始打算用JavaFX打造一个C/S架构的程序，然而最近一直都在写C/S架构的，所以改变了一下需求。</p>
+<p>导致全部写好又之后重写了一遍。</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="主要使用的工具："><a href="#主要使用的工具：" class="headerlink" title="主要使用的工具："></a>主要使用的工具：</h3><ul>
+<li>Jersey       ：构建RESTful风格API<br>   Jsoup       ：解析HTML（主要是选择器太优秀XD）</li>
+<li>HTMLUnit ：模拟浏览器行为</li>
+<li>JSON-lib    ：处理json对象</li>
+</ul>
+<h3 id="实现思路："><a href="#实现思路：" class="headerlink" title="实现思路："></a>实现思路：</h3><p>整体流程很简单，一切按照用户操作过程来实现。即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">graph LR</div><div class="line">A(登录) --&gt;B(获取需评教课程)</div><div class="line">B --&gt; C(填写表单)</div><div class="line">C --&gt; D(发送表单)</div><div class="line">D --&gt; F(评教结束)</div></pre></td></tr></table></figure>
+<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p>在处理登录部分还花了挺久时间的（毕竟自己太菜），之前是想着直接把账户、密码、验证码然后发送POST请求给指定URL来登录。验证码部分提前下载好然后手动输入。</p>
+<p>但是一直提示该资源无法访问。嗨呀！好气啊。想着肯定登录没这么简单。</p>
+<p>经过一番分析，发现了2个地方。</p>
+<p>一个是验证码是通过向指定URL发送GET请求获取的，每次都会带上一个random参数，而且这个random参数是通过登录页的js随机生成的。</p>
+<p>二是登录状态的判断是通过浏览器中的cookies来的。</p>
+<p>那么就修改了一波方案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">graph LR</div><div class="line">A(访问登录页) --&gt; B(解析HTML获取random值)</div><div class="line">B --&gt; C(带上random值获取验证码)</div><div class="line">C --&gt; D(填写信息)</div><div class="line">D --&gt; E(带上cookies登录)</div><div class="line">E --&gt; F(...)</div></pre></td></tr></table></figure>
+<p>这对于一个C/S架构程序来说并没有什么问题，反正我可以线程一直运行着等待用户输入验证码（毕竟程序一开始需要先做出操作获取验证码）。</p>
+<p>可是改成API之后就行不通了（大概是姿势不够，不会框架）。</p>
+<p>于是继续思考：</p>
+<p>研究了一下，发现一个重大的….BUG？那个什么random值根本没有用…..我累个去</p>
+<p>只需要带着cookies….就好了….</p>
+<p>所以最终变成了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">graph LR</div><div class="line">F(开始) --前端请求获取验证码--&gt; A</div><div class="line">A(访问验证码URL) --&gt; B(获取cookies和保存验证码)</div><div class="line">B --返回前端--&gt; C(填写表单)</div><div class="line">C --提交到服务器--&gt; D(带上cookies登录)</div><div class="line">D --&gt; E(...)</div></pre></td></tr></table></figure>
+<p>获取验证码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getCaptcha</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">    WebRequest request = <span class="keyword">new</span> WebRequest(<span class="keyword">new</span> URL(CAPTCHA_URL));</div><div class="line">    request.setHttpMethod(HttpMethod.GET);</div><div class="line">    <span class="comment">// 这个是带着cookie获取的单独的验证码页面</span></div><div class="line">    Page page = webClient.getPage(request);</div><div class="line">    WebResponse res = page.getWebResponse();</div><div class="line">    <span class="comment">// 通过res创建输入流</span></div><div class="line">    InputStream is = res.getContentAsStream();</div><div class="line">    <span class="comment">// 通过输入流写入文件并保存</span></div><div class="line">    captchaImgFileName = RandomUtil.getRandomFileName(<span class="string">"img_"</span>, <span class="string">".jpeg"</span>);</div><div class="line">    saveImg(is, captchaImgFileName);</div><div class="line">    <span class="comment">// 获取cookies</span></div><div class="line">    cookies = webClient.getCookieManager().getCookies();</div><div class="line">    webClient.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>执行登录：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">doLogin</span><span class="params">()</span> </span>&#123;</div><div class="line">        WebClient webClient = <span class="keyword">new</span> WebClient(BrowserVersion.CHROME);</div><div class="line"></div><div class="line">        webClient.getOptions().setJavaScriptEnabled(<span class="keyword">true</span>);                      <span class="comment">// 启用JS</span></div><div class="line">        webClient.getOptions().setThrowExceptionOnScriptError(<span class="keyword">false</span>);           <span class="comment">// JS出错抛出异常</span></div><div class="line">        webClient.getOptions().setThrowExceptionOnScriptError(<span class="keyword">false</span>);</div><div class="line">        webClient.getOptions().setThrowExceptionOnFailingStatusCode(<span class="keyword">false</span>);     <span class="comment">// 当HTTP的状态非200时是否抛出异常</span></div><div class="line">        webClient.getOptions().setActiveXNative(<span class="keyword">false</span>);</div><div class="line">        webClient.getOptions().setDoNotTrackEnabled(<span class="keyword">false</span>);</div><div class="line">        webClient.getOptions().setCssEnabled(<span class="keyword">false</span>);                            <span class="comment">// 是否启用CSS</span></div><div class="line">        webClient.getOptions().setTimeout(<span class="number">5000</span>);                                <span class="comment">// 连接超时时间</span></div><div class="line">        webClient.setAjaxController(<span class="keyword">new</span> NicelyResynchronizingAjaxController()); <span class="comment">// 设置支持AJAX</span></div><div class="line">        webClient.getCookieManager().setCookiesEnabled(<span class="keyword">true</span>);                   <span class="comment">// 设置cookies</span></div><div class="line"></div><div class="line">        <span class="keyword">for</span> (Cookie cookie : cookies) &#123;</div><div class="line">            webClient.getCookieManager().addCookie(cookie);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        HtmlPage htmlPage = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">boolean</span> loginRes = <span class="keyword">false</span>;</div><div class="line"></div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line"></div><div class="line">            htmlPage = webClient.getPage(LOGIN_URL);                <span class="comment">// 获取dom树</span></div><div class="line">            fillForm(htmlPage);                                     <span class="comment">// 填充表单</span></div><div class="line"></div><div class="line">            HtmlImageInput btn = (HtmlImageInput) htmlPage.getElementById(<span class="string">"btnSure"</span>);</div><div class="line">            HtmlPage htmlPageAfterLogin = (HtmlPage) btn.click();   <span class="comment">// 提交表单</span></div><div class="line">            webClient.waitForBackgroundJavaScript(<span class="number">5000</span>);</div><div class="line"></div><div class="line">            loginRes = checkLoginStatus(htmlPageAfterLogin);</div><div class="line"></div><div class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            webClient.close();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> loginRes;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h2 id="获取待评教课程"><a href="#获取待评教课程" class="headerlink" title="获取待评教课程"></a>获取待评教课程</h2><p>使用HTMLUnit模拟浏览器进行获取待评教页面的HTML（不过这里我估计大部分人一学期课程数量不会超过20门，全部在第一页就能显示，所以没有特殊设置），然后用Jsoup解析。</p>
+<p>下面Questionnaire是个待评教课程的实体类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">WebRequest request = <span class="keyword">new</span> WebRequest(<span class="keyword">new</span> URL(URL_COURSE_LIST));</div><div class="line">request.setHttpMethod(HttpMethod.GET);</div><div class="line">HtmlPage evaluateListPage = webClient.getPage(request);</div><div class="line">List&lt;Questionnaire&gt; list = parseHtml(evaluateListPage);</div></pre></td></tr></table></figure>
+<p>从HTML中解析待评教课程列表<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> List&lt;Questionnaire&gt; <span class="title">parseHtml</span><span class="params">(HtmlPage htmlPage)</span> </span>&#123;</div><div class="line">    List&lt;Questionnaire&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    Document document = Jsoup.parse(htmlPage.asXml());</div><div class="line">    Elements courseElements = document.select(<span class="string">"tr.odd"</span>);</div><div class="line">    <span class="keyword">if</span> (courseElements != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">for</span> (Element courseElement : courseElements) &#123;</div><div class="line">            Elements detailsElements = courseElement.select(<span class="string">"td&gt;img"</span>);</div><div class="line">            String[] infos = detailsElements.get(<span class="number">0</span>).attr(<span class="string">"name"</span>).split(<span class="string">"#@"</span>);</div><div class="line">            Questionnaire questionnaire = <span class="keyword">new</span> Questionnaire();</div><div class="line">            questionnaire.setWjbm(infos[<span class="number">0</span>]);</div><div class="line">            questionnaire.setBpr(infos[<span class="number">1</span>]);</div><div class="line">            questionnaire.setCharacter(infos[<span class="number">2</span>]);</div><div class="line">            questionnaire.setName(infos[<span class="number">3</span>]);</div><div class="line">            questionnaire.setContent(infos[<span class="number">4</span>]);</div><div class="line">            questionnaire.setPgnr(infos[<span class="number">5</span>]);</div><div class="line">            questionnaire.setEvaluated(courseElement.select(<span class="string">"td"</span>).get(<span class="number">3</span>).text());</div><div class="line">            System.out.println(questionnaire.toString());</div><div class="line">            list.add(questionnaire);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> list;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="评教"><a href="#评教" class="headerlink" title="评教"></a>评教</h2><p>模拟客户真实操作，点击一个课程，评价一个课程。</p>
+<p>循环处理。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> numAll = <span class="number">0</span>; <span class="comment">// 列表中一共有的课程数量</span></div><div class="line"><span class="keyword">int</span> numTot = <span class="number">0</span>; <span class="comment">// 未评教的课程数量</span></div><div class="line"><span class="keyword">int</span> numOK = <span class="number">0</span>;  <span class="comment">// 评教成功的课程数量</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> (Questionnaire questionnaire : list) &#123;</div><div class="line">    <span class="keyword">if</span> (questionnaire.isEvaluated()) <span class="keyword">continue</span>;   <span class="comment">// 如果已经被评教则跳过</span></div><div class="line">    DomElement domElement = evaluateListPage.getElementByName(questionnaire.getString());</div><div class="line">    HtmlPage evaluatePage = domElement.click();</div><div class="line"></div><div class="line">    System.out.println(<span class="string">"课程["</span> + questionnaire.getContent() + <span class="string">"]  "</span> + <span class="string">"开始处理"</span>);</div><div class="line">    <span class="comment">//                System.out.println(evaluatePage.asXml());</span></div><div class="line"></div><div class="line">    <span class="comment">// 填写表单</span></div><div class="line">    fillForm(evaluatePage);</div><div class="line">    System.out.println(<span class="string">"课程["</span> + questionnaire.getContent() + <span class="string">"]  "</span> + <span class="string">"评价填写完成"</span>);</div><div class="line"></div><div class="line">    <span class="comment">// 提交表单</span></div><div class="line">    evaluateListPage = submitForm(evaluatePage);</div><div class="line">    System.out.println(<span class="string">"课程["</span> + questionnaire.getContent() + <span class="string">"]  "</span> + <span class="string">"评价提交完成"</span>);</div><div class="line"></div><div class="line">    <span class="comment">// 获取评教结果</span></div><div class="line">    <span class="keyword">boolean</span> evaluateResult = isEvaluateSuccess(alertInfo[<span class="number">0</span>]);</div><div class="line">    System.out.println(<span class="string">"课程["</span> + questionnaire.getContent() + <span class="string">"]  评教结果："</span> + evaluateResult);</div><div class="line"></div><div class="line">    numTot += <span class="number">1</span>;</div><div class="line">    numOK += (evaluateResult ? <span class="number">1</span> : <span class="number">0</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="返回结果"><a href="#返回结果" class="headerlink" title="返回结果"></a>返回结果</h2><p>注意POST提交跨域问题，response中需要设置header：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> Response.status(<span class="number">200</span>).entity(returnJSON.toString())</div><div class="line">       .header(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"*"</span>)</div><div class="line">       .header(<span class="string">"Access-Control-Allow-Methods"</span>, <span class="string">"GET, POST, DELETE, PUT"</span>)</div><div class="line">       .allow(<span class="string">"OPTIONS"</span>).build();</div></pre></td></tr></table></figure>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>源码查看请移步 <a href="https://github.com/Ningxxxl/JWPT_API" target="_blank" rel="external"><i class="fa fa-github"></i></a> ，欢迎Star(嘤嘤嘤)~</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://www.ningxy.cn/更改MySQL时区.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1927,200 +2138,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.ningxy.cn/算法训练mod的副本.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ningxiangyi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oongrmtwi.bkt.clouddn.com/ooo.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ningxy's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/算法训练mod的副本.html" itemprop="url">
-                  ZOJ 3829 [贪心]
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-08T22:15:15+08:00">
-                2017-10-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法训练/" itemprop="url" rel="index">
-                    <span itemprop="name">算法训练</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                   字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长</span>
-                
-                <span title="阅读时长">
-                   分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="http://acm.zju.edu.cn/onlinejudge/showProblem.do?problemCode=3829" target="_blank" rel="external">Known Notation</a></p>
-<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>题目给出一个字符串，其由非零的数字(1~9)和*号组成。</p>
-<p>现在有两种操作：</p>
-<p><code>Insert</code>:可以在字符串中任意位置插入一个1~9的数字。</p>
-<p><code>Swap</code>:可以交换字符串中任意两个字符。</p>
-<p>现在要求是对于给定字符串进行以上两种操作，使得字符串符合逆波兰表达式。</p>
-<p>例如<code>2*3*4</code>可以先在最前面<code>Insert</code>一个1，构成字符串<code>12*3*4</code>，然后<code>swap</code>最后两个数，得到字符串<code>12*34*</code>，这个字符串就符合逆波兰表达式(RNP)。</p>
-<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>第一行给出测试组数T</p>
-<p>接下来是T行，每行一个字符串。</p>
-<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>输出最小所需的操作数</p>
-<h2 id="样例输入"><a href="#样例输入" class="headerlink" title="样例输入"></a>样例输入</h2><pre><code>3
-1*1
-11*234**
-*
-</code></pre><h2 id="样例输出"><a href="#样例输出" class="headerlink" title="样例输出"></a>样例输出</h2><pre><code>1
-0
-2
-</code></pre>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/算法训练mod的副本.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2170,7 +2187,7 @@ var _hmt = _hmt || [];
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
