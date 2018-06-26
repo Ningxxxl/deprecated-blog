@@ -87,18 +87,18 @@
 
 
 
-<meta name="description" content="每次查成绩之前都需要一门门课程评价，觉得有些麻烦。 写了一个RESTful风格API，用来登录URP教务系统和自动评价教学（一键评教）。 其实最开始打算用JavaFX打造一个C/S架构的程序，然而最近一直都在写C/S架构的，所以改变了一下需求。 导致全部写好又之后重写了一遍。 概述主要使用的工具： Jersey       ：构建RESTful风格API   Jsoup       ：解析HTML">
+<meta name="description" content="每次查成绩之前都需要一门门课程评价，觉得有些麻烦。 写了一个RESTful风格API，用来登录URP教务系统和自动评价教学（一键评教）。 其实最开始打算用JavaFX打造一个C/S架构的程序，然而最近一直都在写C/S架构的，所以改变了一下需求。 导致全部写好又之后重写了一遍。 概述主要使用的工具： Jersey ：构建RESTful风格API Jsoup ：解析HTML（主要是选择器太优秀XD）">
 <meta name="keywords" content="MySQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="URP教务系统一键评教">
 <meta property="og:url" content="http://www.ningxy.cn/URP教务系统一键评教.html">
 <meta property="og:site_name" content="Ningxy&#39;s Blog">
-<meta property="og:description" content="每次查成绩之前都需要一门门课程评价，觉得有些麻烦。 写了一个RESTful风格API，用来登录URP教务系统和自动评价教学（一键评教）。 其实最开始打算用JavaFX打造一个C/S架构的程序，然而最近一直都在写C/S架构的，所以改变了一下需求。 导致全部写好又之后重写了一遍。 概述主要使用的工具： Jersey       ：构建RESTful风格API   Jsoup       ：解析HTML">
+<meta property="og:description" content="每次查成绩之前都需要一门门课程评价，觉得有些麻烦。 写了一个RESTful风格API，用来登录URP教务系统和自动评价教学（一键评教）。 其实最开始打算用JavaFX打造一个C/S架构的程序，然而最近一直都在写C/S架构的，所以改变了一下需求。 导致全部写好又之后重写了一遍。 概述主要使用的工具： Jersey ：构建RESTful风格API Jsoup ：解析HTML（主要是选择器太优秀XD）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-26T01:01:56.162Z">
+<meta property="og:updated_time" content="2018-06-26T01:06:08.467Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="URP教务系统一键评教">
-<meta name="twitter:description" content="每次查成绩之前都需要一门门课程评价，觉得有些麻烦。 写了一个RESTful风格API，用来登录URP教务系统和自动评价教学（一键评教）。 其实最开始打算用JavaFX打造一个C/S架构的程序，然而最近一直都在写C/S架构的，所以改变了一下需求。 导致全部写好又之后重写了一遍。 概述主要使用的工具： Jersey       ：构建RESTful风格API   Jsoup       ：解析HTML">
+<meta name="twitter:description" content="每次查成绩之前都需要一门门课程评价，觉得有些麻烦。 写了一个RESTful风格API，用来登录URP教务系统和自动评价教学（一键评教）。 其实最开始打算用JavaFX打造一个C/S架构的程序，然而最近一直都在写C/S架构的，所以改变了一下需求。 导致全部写好又之后重写了一遍。 概述主要使用的工具： Jersey ：构建RESTful风格API Jsoup ：解析HTML（主要是选择器太优秀XD）">
 
 
 
@@ -456,10 +456,12 @@ var _hmt = _hmt || [];
 <p>其实最开始打算用JavaFX打造一个C/S架构的程序，然而最近一直都在写C/S架构的，所以改变了一下需求。</p>
 <p>导致全部写好又之后重写了一遍。</p>
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="主要使用的工具："><a href="#主要使用的工具：" class="headerlink" title="主要使用的工具："></a>主要使用的工具：</h3><ul>
-<li>Jersey       ：构建RESTful风格API<br>   Jsoup       ：解析HTML（主要是选择器太优秀XD）</li>
+<li>Jersey ：构建RESTful风格API</li>
+<li>Jsoup ：解析HTML（主要是选择器太优秀XD）</li>
 <li>HTMLUnit ：模拟浏览器行为</li>
-<li>JSON-lib    ：处理json对象</li>
+<li>JSON-lib ：处理json对象</li>
 </ul>
+<a id="more"></a>
 <h3 id="实现思路："><a href="#实现思路：" class="headerlink" title="实现思路："></a>实现思路：</h3><p>整体流程很简单，一切按照用户操作过程来实现。即：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">graph LR</div><div class="line">A(登录) --&gt;B(获取需评教课程)</div><div class="line">B --&gt; C(填写表单)</div><div class="line">C --&gt; D(发送表单)</div><div class="line">D --&gt; F(评教结束)</div></pre></td></tr></table></figure>
 <h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p>在处理登录部分还花了挺久时间的（毕竟自己太菜），之前是想着直接把账户、密码、验证码然后发送POST请求给指定URL来登录。验证码部分提前下载好然后手动输入。</p>
