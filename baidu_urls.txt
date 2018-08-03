@@ -1,3 +1,6 @@
+http://www.ningxy.cn/Docker中配置MySQL主从同步.html
+http://www.ningxy.cn/Debian 9 换阿里包源.html
+http://www.ningxy.cn/mysql配置.html
 http://www.ningxy.cn/URP教务系统一键评教.html
 http://www.ningxy.cn/更改MySQL时区.html
 http://www.ningxy.cn/MySQL8连接问题.html

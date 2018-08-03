@@ -4,8 +4,70 @@
 
     
   <url>
+    <loc>http://www.ningxy.cn/Docker%E4%B8%AD%E9%85%8D%E7%BD%AEMySQL%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5.html</loc>
+    <lastmod>2018-08-03T15:38:44.313Z</lastmod>
+    <data>
+        <display>
+        <title>Debian 9 换阿里包源</title>
+        <pubTime>2018-08-03T15:38:38.000Z</pubTime>
+        
+        <tag>Docker</tag>
+         
+        <tag>MySQL</tag>
+         
+         
+           
+             
+              <breadCrumb title="笔记" url="http://www.ningxy.cn/categories/%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.ningxy.cn/Debian%209%20%E6%8D%A2%E9%98%BF%E9%87%8C%E5%8C%85%E6%BA%90.html</loc>
+    <lastmod>2018-08-03T15:36:29.469Z</lastmod>
+    <data>
+        <display>
+        <title>Debian 9 换阿里包源</title>
+        <pubTime>2018-08-02T06:21:23.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+         
+           
+             
+              <breadCrumb title="笔记" url="http://www.ningxy.cn/categories/%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.ningxy.cn/mysql%E9%85%8D%E7%BD%AE.html</loc>
+    <lastmod>2018-08-03T15:35:53.367Z</lastmod>
+    <data>
+        <display>
+        <title>MySQL的一些配置</title>
+        <pubTime>2018-08-01T04:00:53.000Z</pubTime>
+        
+        <tag>MySQL</tag>
+         
+         
+           
+             
+              <breadCrumb title="MySQL" url="http://www.ningxy.cn/categories/MySQL/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.ningxy.cn/URP%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E4%B8%80%E9%94%AE%E8%AF%84%E6%95%99.html</loc>
-    <lastmod>2018-06-26T01:09:21.438Z</lastmod>
+    <lastmod>2018-07-10T02:59:22.622Z</lastmod>
     <data>
         <display>
         <title>URP教务系统一键评教</title>
