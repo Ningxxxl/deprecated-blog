@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="MySQL," />
+  <meta name="keywords" content="Docker,MySQL," />
 
 
 
@@ -87,18 +87,18 @@
 
 
 
-<meta name="description" content="MySQL8 连接问题docker中的MySQL镜像最新版本默认使用的是MySQL8.0。 docker run之后发现使用Navicat 12连接数据库报错。 提示如下： 1Authentication plugin ‘caching_sha2_password’ cannot be loaded:....... 大概就是MySQL8更改了默认身份认证方式">
-<meta name="keywords" content="MySQL">
+<meta name="description" content="Docker下使用MyCat实现MySQL读写分离Mycat的架构其实很好理解，Mycat是代理，Mycat后面就是物理数据库。和Web服务器的Nginx类似。对于使用者来说，访问的都是Mycat，不会接触到后端的数据库。 环境 MySQL : 5.7.22 MyCat : 1.6.5  首先需要实现一个MySQL的主从结构 主从搭建具体可以参考上一篇文章。">
+<meta name="keywords" content="Docker,MySQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL8连接问题">
-<meta property="og:url" content="http://www.ningxy.cn/MySQL8连接问题.html">
+<meta property="og:title" content="Mycat实现读写分离">
+<meta property="og:url" content="http://www.ningxy.cn/Docker下使用MyCat实现MySQL读写分离.html">
 <meta property="og:site_name" content="Ningxy&#39;s Blog">
-<meta property="og:description" content="MySQL8 连接问题docker中的MySQL镜像最新版本默认使用的是MySQL8.0。 docker run之后发现使用Navicat 12连接数据库报错。 提示如下： 1Authentication plugin ‘caching_sha2_password’ cannot be loaded:....... 大概就是MySQL8更改了默认身份认证方式">
+<meta property="og:description" content="Docker下使用MyCat实现MySQL读写分离Mycat的架构其实很好理解，Mycat是代理，Mycat后面就是物理数据库。和Web服务器的Nginx类似。对于使用者来说，访问的都是Mycat，不会接触到后端的数据库。 环境 MySQL : 5.7.22 MyCat : 1.6.5  首先需要实现一个MySQL的主从结构 主从搭建具体可以参考上一篇文章。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-25T08:36:12.199Z">
+<meta property="og:updated_time" content="2018-08-20T05:20:34.099Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL8连接问题">
-<meta name="twitter:description" content="MySQL8 连接问题docker中的MySQL镜像最新版本默认使用的是MySQL8.0。 docker run之后发现使用Navicat 12连接数据库报错。 提示如下： 1Authentication plugin ‘caching_sha2_password’ cannot be loaded:....... 大概就是MySQL8更改了默认身份认证方式">
+<meta name="twitter:title" content="Mycat实现读写分离">
+<meta name="twitter:description" content="Docker下使用MyCat实现MySQL读写分离Mycat的架构其实很好理解，Mycat是代理，Mycat后面就是物理数据库。和Web服务器的Nginx类似。对于使用者来说，访问的都是Mycat，不会接触到后端的数据库。 环境 MySQL : 5.7.22 MyCat : 1.6.5  首先需要实现一个MySQL的主从结构 主从搭建具体可以参考上一篇文章。">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://www.ningxy.cn/MySQL8连接问题.html"/>
+  <link rel="canonical" href="http://www.ningxy.cn/Docker下使用MyCat实现MySQL读写分离.html"/>
 
 
 
 
 
-  <title> MySQL8连接问题 | Ningxy's Blog </title>
+  <title> Mycat实现读写分离 | Ningxy's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -312,7 +312,7 @@ var _hmt = _hmt || [];
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.ningxy.cn/MySQL8连接问题.html">
+    <link itemprop="mainEntityOfPage" href="http://www.ningxy.cn/Docker下使用MyCat实现MySQL读写分离.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ningxiangyi">
@@ -333,7 +333,7 @@ var _hmt = _hmt || [];
             
             
               
-                MySQL8连接问题
+                Mycat实现读写分离
               
             
           </h2>
@@ -348,8 +348,8 @@ var _hmt = _hmt || [];
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-27T21:11:47+08:00">
-                2018-04-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-14T12:49:08+08:00">
+                2018-08-14
               </time>
             
 
@@ -389,7 +389,7 @@ var _hmt = _hmt || [];
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/MySQL8连接问题.html#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/Docker下使用MyCat实现MySQL读写分离.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -451,20 +451,131 @@ var _hmt = _hmt || [];
       
 
       
-        <h2 id="MySQL8-连接问题"><a href="#MySQL8-连接问题" class="headerlink" title="MySQL8 连接问题"></a>MySQL8 连接问题</h2><p>docker中的MySQL镜像最新版本默认使用的是MySQL8.0。</p>
-<p>docker run之后发现使用Navicat 12连接数据库报错。</p>
-<p>提示如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Authentication plugin ‘caching_sha2_password’ cannot be loaded:.......</div></pre></td></tr></table></figure>
-<p>大概就是MySQL8更改了默认身份认证方式</p>
+        <h1 id="Docker下使用MyCat实现MySQL读写分离"><a href="#Docker下使用MyCat实现MySQL读写分离" class="headerlink" title="Docker下使用MyCat实现MySQL读写分离"></a>Docker下使用MyCat实现MySQL读写分离</h1><p>Mycat的架构其实很好理解，Mycat是代理，Mycat后面就是物理数据库。和Web服务器的Nginx类似。对于使用者来说，访问的都是Mycat，不会接触到后端的数据库。</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><blockquote>
+<p>MySQL : 5.7.22</p>
+<p>MyCat : 1.6.5</p>
+</blockquote>
+<p>首先需要实现一个MySQL的主从结构</p>
+<p>主从搭建具体可以参考上一篇文章。</p>
 <a id="more"></a>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> ‘root’@’localhost’ <span class="keyword">IDENTIFIED</span> <span class="keyword">WITH</span> mysql_native_password <span class="keyword">BY</span> ‘root’;</div></pre></td></tr></table></figure>
-<h3 id="JDBC连接方法"><a href="#JDBC连接方法" class="headerlink" title="JDBC连接方法"></a>JDBC连接方法</h3><p>注意加载驱动的地方：</p>
-<p>以前是这么写：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</div></pre></td></tr></table></figure>
-<p>而新版本是这样的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Class.forName(<span class="string">"com.mysql.cj.jdbc.Driver"</span>);</div></pre></td></tr></table></figure>
-<p>URL:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String URL = <span class="string">"jdbc:mysql://localhost:6666/DataBase?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false"</span>;</div></pre></td></tr></table></figure>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>准备好jdk和mycat安装包</p>
+<ul>
+<li>JDK：jdk-8u181-linux-x64.tar.gz</li>
+<li>MyCat：Mycat-server-1.6.5-release-20180122220033-linux.tar</li>
+</ul>
+<p>上传到服务器。</p>
+<p>我建立了一个mycat_conf文件夹</p>
+<p>把JDK和mycat的包放到里头。</p>
+<p>使用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">touch Dockerfile</div></pre></td></tr></table></figure>
+<p>建立Dockerfile</p>
+<h2 id="拉取基础镜像"><a href="#拉取基础镜像" class="headerlink" title="拉取基础镜像"></a>拉取基础镜像</h2><p>mycat的镜像打算使用官方的centOS 7镜像作为基础镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull centos:7</div></pre></td></tr></table></figure>
+<h2 id="编写Dockerfile"><a href="#编写Dockerfile" class="headerlink" title="编写Dockerfile"></a>编写Dockerfile</h2><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># CentOS 7 作为基础镜像</span></div><div class="line"><span class="keyword">FROM</span> centos:<span class="number">7</span></div><div class="line"><span class="comment"># 复制并解压缩jdk文件（tar）</span></div><div class="line"><span class="keyword">ADD</span> jdk-8u181-linux-x64.tar.gz /opt</div><div class="line"># 复制并解压缩myCat文件（tar）</div><div class="line">VOLUME /opt/mycat/conf</div><div class="line">ADD Mycat-server-1.6.5-release-20180122220033-linux.tar /opt</div><div class="line"># 设置环境变量</div><div class="line">ENV JAVA_HOME /opt/jdk1.8.0_181</div><div class="line">ENV PATH $PATH:$JAVA_HOME/bin:</div><div class="line"># ENV JAVA_OPTS="-Xms512m -Xmx768m -Xss1024K -XX:PermSize=328m -XX:MaxPermSize=656m"</div><div class="line">EXPOSE 8066 9066</div><div class="line"># 启动MyCat</div><div class="line">CMD ["/opt/mycat/bin/mycat", "console"]</div></pre></td></tr></table></figure>
+<p>其中<code>ADD</code>命令会在构建镜像过程中进行解压缩的操作</p>
+<p>对比<code>COPY</code>命令，<code>COPY</code>命令只会进行单纯的复制。</p>
+<h2 id="创建镜像"><a href="#创建镜像" class="headerlink" title="创建镜像"></a>创建镜像</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker build -t mycat_server:1.6.5 .</div></pre></td></tr></table></figure>
+<h3 id="创建容器"><a href="#创建容器" class="headerlink" title="创建容器"></a>创建容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run  -it --name mycat_server -p 8066:8066 -p 9066:9066 mycat_server:1.6.5</div></pre></td></tr></table></figure>
+<p>mycat需要暴露两个端口，8066端口作为连接端口，9066端口作为控制端口</p>
+<p>加上<code>-it</code>参数，可以查看中途的输出进行debug。</p>
+<p>若是调试中创建了很多无用的但是缓存下来的镜像，可以使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker image prune</div></pre></td></tr></table></figure>
+<p>来清除所有Tag 为 none 的镜像。</p>
+<p><code>prune</code>命令还能干很多事情。</p>
+<h3 id="配置MyCat"><a href="#配置MyCat" class="headerlink" title="配置MyCat"></a>配置MyCat</h3><p>容器创建成功之后，会处于运行状态，但是如果进入/opt/mycat/log/目录中查看mycat.log日志文件的话，会报错。原因就是没有正确配置。</p>
+<p><strong>*注意：上面的/opt/mycat/这个目录是Dockerfile解压得到的，具体需要看Dockerfile的配置。</strong></p>
+<p>MyCat的配置文件目录是/opt/mycat/conf/</p>
+<p>其中的 server.xml 中包含连接MyCat的用户配置和连接的逻辑库：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">user</span> <span class="attr">name</span>=<span class="string">"root"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span>&gt;</span>root<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"schemas"</span>&gt;</span>TESTDB<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">user</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">user</span> <span class="attr">name</span>=<span class="string">"user"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span>&gt;</span>user<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"schemas"</span>&gt;</span>TESTDB<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"readOnly"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">user</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>接下来就是 schema.xml </p>
+<p>这部分是重点，如果只是简单实现读写分离的话只需要配置很少一部分：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">schema</span> <span class="attr">name</span>=<span class="string">"TESTDB"</span> <span class="attr">checkSQLschema</span>=<span class="string">"false"</span> <span class="attr">sqlMaxLimit</span>=<span class="string">"100"</span> <span class="attr">dataNode</span>=<span class="string">"dn1"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">schema</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">dataNode</span> <span class="attr">name</span>=<span class="string">"dn1"</span> <span class="attr">dataHost</span>=<span class="string">"localhost1"</span> <span class="attr">database</span>=<span class="string">"db1"</span> /&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">dataHost</span> <span class="attr">name</span>=<span class="string">"localhost1"</span> <span class="attr">maxCon</span>=<span class="string">"1000"</span> <span class="attr">minCon</span>=<span class="string">"10"</span> <span class="attr">balance</span>=<span class="string">"2"</span></span></div><div class="line"><span class="tag">          <span class="attr">writeType</span>=<span class="string">"0"</span> <span class="attr">dbType</span>=<span class="string">"mysql"</span> <span class="attr">dbDriver</span>=<span class="string">"native"</span> <span class="attr">switchType</span>=<span class="string">"2"</span>  <span class="attr">slaveThreshold</span>=<span class="string">"100"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">heartbeat</span>&gt;</span>select user()<span class="tag">&lt;/<span class="name">heartbeat</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- can have multi write hosts --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">writeHost</span> <span class="attr">host</span>=<span class="string">"mysql-master"</span> <span class="attr">url</span>=<span class="string">"10.0.0.5:3306"</span> <span class="attr">user</span>=<span class="string">"root"</span></span></div><div class="line"><span class="tag">               <span class="attr">password</span>=<span class="string">"root"</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- can have multi read hosts --&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">readHost</span> <span class="attr">host</span>=<span class="string">"mysql-slave"</span> <span class="attr">url</span>=<span class="string">"10.0.0.6:3306"</span> <span class="attr">user</span>=<span class="string">"root"</span> <span class="attr">password</span>=<span class="string">"root"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">writeHost</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">writeHost</span> <span class="attr">host</span>=<span class="string">"mysql-slave"</span> <span class="attr">url</span>=<span class="string">"10.0.0.6:3306"</span> <span class="attr">user</span>=<span class="string">"root"</span> <span class="attr">password</span>=<span class="string">"root"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">writeHost</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dataHost</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><code>database</code>对应的是物理数据库名</p>
+<p><code>url</code> 是物理数据库的IP和端口</p>
+<p><code>user</code>和<code>root</code>则是连接所用的用户名和对应的密码</p>
+<p>其中<code>blance</code>参数对应的就是负载平衡设置</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">值</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">不开启读写分离</td>
+<td style="text-align:center">默认值</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">全部的 readHost 与 stand by writeHost 参与 select 语句的负载均衡</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">所有读操作都随机的在 writeHost、 readhost 上分发</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">所有读请求随机分发到 wiriterHost 对应的 readhost 执行，writerHost 不负担读</td>
+<td style="text-align:center">Mycat ≥ 1.4</td>
+</tr>
+</tbody>
+</table>
+<p><code>writeType</code>属性：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">值</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">所有写操作发送到配置的第一个 writeHost，第一个挂了切到还生存的第二个writeHost，重新启动后已切换后的为准，切换记录在配置文件中:dnindex.properties .</td>
+<td style="text-align:center">默认值</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">所有写操作都随机的发送到配置的 writeHost</td>
+<td style="text-align:center">1.5 以后废弃不推荐</td>
+</tr>
+</tbody>
+</table>
+<p><code>switchType</code>属性：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">值</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">不自动切换</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">自动切换</td>
+<td style="text-align:center">默认值</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">基于MySQL主从同步状态决定是否切换</td>
+</tr>
+</tbody>
+</table>
+<p>完成配置后可以连接MyCat中间件对数据库进行读写了。</p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="http://www.mycat.io/document/mycat-definitive-guide.pdf" target="_blank" rel="external">Mycat 权威指南</a></p>
 
       
     </div>
@@ -510,6 +621,8 @@ var _hmt = _hmt || [];
       
         <div class="post-tags">
           
+            <a href="/tags/Docker/" rel="tag"># Docker</a>
+          
             <a href="/tags/MySQL/" rel="tag"># MySQL</a>
           
         </div>
@@ -523,8 +636,8 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/CentOS7安装Docker.html" rel="next" title="CentOS7安装Docker并部署项目">
-                <i class="fa fa-chevron-left"></i> CentOS7安装Docker并部署项目
+              <a href="/Docker中配置MySQL主从同步.html" rel="next" title="Docker中配置MySQL主从同步">
+                <i class="fa fa-chevron-left"></i> Docker中配置MySQL主从同步
               </a>
             
           </div>
@@ -532,10 +645,6 @@ var _hmt = _hmt || [];
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/更改MySQL时区.html" rel="prev" title="更改MySQL时区">
-                更改MySQL时区 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -703,7 +812,7 @@ var _hmt = _hmt || [];
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL8-连接问题"><span class="nav-number">1.</span> <span class="nav-text">MySQL8 连接问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法"><span class="nav-number">1.1.</span> <span class="nav-text">解决办法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JDBC连接方法"><span class="nav-number">1.2.</span> <span class="nav-text">JDBC连接方法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker下使用MyCat实现MySQL读写分离"><span class="nav-number">1.</span> <span class="nav-text">Docker下使用MyCat实现MySQL读写分离</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">1.1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">1.2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拉取基础镜像"><span class="nav-number">1.3.</span> <span class="nav-text">拉取基础镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写Dockerfile"><span class="nav-number">1.4.</span> <span class="nav-text">编写Dockerfile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建镜像"><span class="nav-number">1.5.</span> <span class="nav-text">创建镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建容器"><span class="nav-number">1.5.1.</span> <span class="nav-text">创建容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置MyCat"><span class="nav-number">1.5.2.</span> <span class="nav-text">配置MyCat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章"><span class="nav-number">1.5.3.</span> <span class="nav-text">参考文章</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
