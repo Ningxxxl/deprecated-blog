@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[TCP三次握手]]></title>
     <url>%2FTCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.html</url>
-    <content type="text"><![CDATA[TCP报文段首部格式 部分字段意义： 序号 占4字节，范围是[0,$$2^{32}-1$$]。增加到$$2^{32}-1$$之后，下个序号回到0。 在一个TCP连接中传送的字节流中的每一个字节都按顺序编号。整个字节流的起始序号必须在建立连接时设置。 确认号 占4字节。是期望收到对方下一个报文段的第一个数据字节的序号。 若确认号 == N，表明：到序列号N-1为止的所有数据都已经正确收到 数据偏移 它指出TCP报文段的数据起始处距离TCP报文段的起始处有多远。 紧急URG(Urgent) 当URG = 1时，表明紧急指针字段有效。它告诉系统此时报文段中有紧急数据。要与紧急指针(Urgent Pointer)字段配合使用。 确认ACK(Acknowlegment) 仅当ACK = 1时，确认号才有效。ACK = 0时，确认号无效。 TCP规定：连接建立后所有传送的报文段都必须把ACK置1。 复位RST(Reset) 用于复位，RST = 1表示连接出现错误，应当立即关闭。当TCP接收到复位报文段后会通知应用程序连接被复位，随后关闭连接 同步SYN(Synchronization) 在连接建立时用来同步序号。 当SYN = 1而ACK = 0时，表明这是一个连接请求报文段。 若对方同意连接，则应在响应报文段中使SYN = 1和ACK = 1。 所以只要SYN = 1，就表示这是一个连接请求或连接接受报文。 终止FIN 用于释放连接，报文段中FIN控制位为1表示已经将数据发送完毕，等待关闭连接 TCP的连接建立——三次握手(three-way handshake)过程假定最初两端的TCP进程都处于CLOSE状态。 B的TCP服务器进程先创建传输控制块TCB，准备接受客户进程的连接请求。然后服务器进程就处于LISTEN(收听)状态，等待客户的连接请求。 A的TCP客户进程也是首先创建传输控制模块TCB，然后向B发出连接请求报文段，首部中的同步位SYN = 1，同时选择一个初始序列seq = X。 TCP规定，SYN报文段（即SYN = 1的报文段）不能携带数据，但要消耗一个序号。 这时，TCP客户端进入SYN-SENT(同步已发送) 状态。 B收到连接请求报文段之后，如果同意建立连接，则向A发送确认。确认报文段中SYN位和ACK位都置为1，确认号是ack = X + 1，同时也为自己选择选择一个序列号seq = Y。 这个报文段也不能携带数据，同样消耗一个序号。 这时，TCP服务器进程进入SYN_RCVD(同步收到)状态。 TCP客户端收到B的确认之后，向B再次确认。确认报文段中ACK位置为1，确认号ack = Y + 1，自己的序号seq = X + 1。 ACK报文段可以携带数据。但如果不携带数据则不消耗序号，这种情况下，下一个数据报文段的序号仍然是seq = X + 1。 这时，TCP连接已经建立，A进入ESTABLISHED(已建立连接)状态。 B收到A的确认后，也进入ESTABLISHED状态。 图示1234567891011121314151617participant A (Client) as Aparticipant B (Server) as Bnote over A, B: 主动打开连接 | 被动打开连接B -&gt; B: TCP服务器进程创建传输控制块TCBnote right of B: 处于Listen(收听)状态A -&gt; A: TCP客户创建创建传输控制块TCBA -&gt; B: SYN=1, seq=Xnote left of A: 进入SYN-SENT(同步已发送)状态note over B: 收到连接请求报文，同意连接B -&gt; A: SYN=1, ACK=1, seq=Y, ack=X+1note right of B: 进入SYN-RCVD(同步收到)状态A -&gt; B: ACK=1, seq=X+1, ack=Y+1note left of A: 进入ESTABLISHED(已建立连接)状态note right of B: 进入ESTABLISHED(已建立连接)状态note over A, B: 连接已建立A --&gt; B: 传输数据B --&gt; A: 传输数据]]></content>
+    <content type="text"><![CDATA[TCP报文段首部格式 部分字段意义： 序号 占4字节，范围是[0,$$2^{32}-1$$]。增加到$$2^{32}-1$$之后，下个序号回到0。 在一个TCP连接中传送的字节流中的每一个字节都按顺序编号。整个字节流的起始序号必须在建立连接时设置。 确认号 占4字节。是期望收到对方下一个报文段的第一个数据字节的序号。 若确认号 == N，表明：到序列号N-1为止的所有数据都已经正确收到 数据偏移 它指出TCP报文段的数据起始处距离TCP报文段的起始处有多远。 紧急URG(Urgent) 当URG = 1时，表明紧急指针字段有效。它告诉系统此时报文段中有紧急数据。要与紧急指针(Urgent Pointer)字段配合使用。 确认ACK(Acknowlegment) 仅当ACK = 1时，确认号才有效。ACK = 0时，确认号无效。 TCP规定：连接建立后所有传送的报文段都必须把ACK置1。 复位RST(Reset) 用于复位，RST = 1表示连接出现错误，应当立即关闭。当TCP接收到复位报文段后会通知应用程序连接被复位，随后关闭连接 同步SYN(Synchronization) 在连接建立时用来同步序号。 当SYN = 1而ACK = 0时，表明这是一个连接请求报文段。 若对方同意连接，则应在响应报文段中使SYN = 1和ACK = 1。 所以只要SYN = 1，就表示这是一个连接请求或连接接受报文。 终止FIN 用于释放连接，报文段中FIN控制位为1表示已经将数据发送完毕，等待关闭连接 TCP的连接建立——三次握手(three-way handshake)过程假定最初两端的TCP进程都处于CLOSE状态。 B的TCP服务器进程先创建传输控制块TCB，准备接受客户进程的连接请求。然后服务器进程就处于LISTEN(收听)状态，等待客户的连接请求。 A的TCP客户进程也是首先创建传输控制模块TCB，然后向B发出连接请求报文段，首部中的同步位SYN = 1，同时选择一个初始序列seq = X。 TCP规定，SYN报文段（即SYN = 1的报文段）不能携带数据，但要消耗一个序号。 这时，TCP客户端进入SYN-SENT(同步已发送) 状态。 B收到连接请求报文段之后，如果同意建立连接，则向A发送确认。确认报文段中SYN位和ACK位都置为1，确认号是ack = X + 1，同时也为自己选择选择一个序列号seq = Y。 这个报文段也不能携带数据，同样消耗一个序号。 这时，TCP服务器进程进入SYN_RCVD(同步收到)状态。 TCP客户端收到B的确认之后，向B再次确认。确认报文段中ACK位置为1，确认号ack = Y + 1，自己的序号seq = X + 1。 ACK报文段可以携带数据。但如果不携带数据则不消耗序号，这种情况下，下一个数据报文段的序号仍然是seq = X + 1。 这时，TCP连接已经建立，A进入ESTABLISHED(已建立连接)状态。 B收到A的确认后，也进入ESTABLISHED状态。 图示123456789101112131415161718sequenceDiagramparticipant Clientparticipant Servernote over Client, Server: 主动打开连接 | 被动打开连接Server -&gt; Server: TCP服务器进程创建传输控制块TCBnote right of Server: 处于Listen(收听)状态Client -&gt; Client: TCP客户创建创建传输控制块TCBClient -&gt; Server: SYN=1, seq=Xnote left of Client: 进入SYN-SENT(同步已发送)状态note over Server: 收到连接请求报文，同意连接Server -&gt; Client: SYN=1, ACK=1, seq=Y, ack=X+1note right of Server: 进入SYN-RCVD(同步收到)状态Client -&gt; Server: ACK=1, seq=X+1, ack=Y+1note left of Client: 进入ESTABLISHED(已建立连接)状态note right of Server: 进入ESTABLISHED(已建立连接)状态note over Client, Server: 连接已建立Client --&gt; Server: 传输数据Server --&gt; Client: 传输数据]]></content>
       <categories>
         <category>笔记</category>
       </categories>
@@ -257,8 +257,8 @@
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>数据结构</tag>
+        <tag>树</tag>
         <tag>查找</tag>
       </tags>
   </entry>
@@ -270,9 +270,9 @@
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>树</tag>
-        <tag>数据结构</tag>
         <tag>栈</tag>
+        <tag>数据结构</tag>
+        <tag>树</tag>
       </tags>
   </entry>
   <entry>
@@ -283,8 +283,8 @@
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>数据结构</tag>
+        <tag>树</tag>
       </tags>
   </entry>
   <entry>
@@ -444,8 +444,8 @@
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>数据结构</tag>
         <tag>栈</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -456,8 +456,8 @@
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>数据结构</tag>
         <tag>栈</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -468,8 +468,8 @@
         <category>数据结构</category>
       </categories>
       <tags>
-        <tag>数据结构</tag>
         <tag>栈</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -534,17 +534,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[POJ - 1797 [Dijkstra]]]></title>
-    <url>%2FPOJ%20-%201797%20%5BDijkstra%5D.html</url>
-    <content type="text"><![CDATA[POJ - 1797 [Dijkstra] 题目POJ - 1797 题意给出一个无向图，边的权值不是路程，而是该段路最大的承重。要求计算出图中任意两点之间道路的最大承重。 输入第一行：样例组数 每组数据的第一行给出两个数m, n。分别代表 顶点数量 和 边的数量； 接下来n行给出边的信息 输出输出中任意两点之间可以运送的包裹的最大重量。注意格式。 样例输入1 3 3 1 2 3 1 3 4 2 3 5 样例输出Scenario #1: 4 题解分析Dijkstra算法略加变形。 dis数组不再储存最短的距离，而是储存最大的承重。 AC代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657#include &lt;iostream&gt;#include &lt;cstdio&gt;#include &lt;cstring&gt;using namespace std;int n, m, edge[1005][1005], book[1005], dis[1005];int dijkstra()&#123; int i, j; memset(book,0,sizeof(book)); for(i = 1; i &lt;= n; i++) &#123; dis[i] = edge[1][i]; &#125; for(i = 1; i &lt;= n; i++) &#123; int maxx = -1; int t; for(j = 1; j &lt;= n; j++) &#123; if(!book[j] &amp;&amp; dis[j] &gt; maxx) &#123; maxx = dis[j]; t = j; &#125; &#125; book[t] = 1; for(j = 1; j &lt;= n; j++) &#123; if(!book[j] &amp;&amp; dis[j] &lt; min(dis[t], edge[t][j])) &#123; dis[j] = min(dis[t], edge[t][j]); &#125; &#125; &#125; return dis[n];&#125;int main()&#123; int i, k, t; scanf("%d", &amp;t); for(k = 1; k &lt;= t; k++) &#123; scanf("%d %d",&amp;n,&amp;m); memset(edge,0,sizeof(edge)); for(i = 1; i&lt;=m; i++) &#123; int a, b, c; scanf("%d %d %d", &amp;a, &amp;b, &amp;c); edge[a][b] = edge[b][a]=c; &#125; printf("Scenario #%d:\n%d\n\n", k, dijkstra()); &#125; return 0;&#125;]]></content>
-      <categories>
-        <category>算法训练</category>
-      </categories>
-      <tags>
-        <tag>Dijkstra</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[POJ - 3279 [DFS][暴力]]]></title>
     <url>%2FPOJ%20-%203279%20%5BDFS%5D%5B%E6%9A%B4%E5%8A%9B%5D.html</url>
     <content type="text"><![CDATA[POJ - 3279 [DFS][暴力] 题目POJ - 3279 题意给定一个 M * N（1 ≤ M, N ≤ 15）的矩阵， 矩阵的每一个格子被0，1标记。现在给定一种操作：点击某个格子能让这个格子本身及上下左右的一共5个格子反转。现在要使得整个矩阵全变成0，求最小的操作数量以及操作方法。 输入第一行：用空格分隔的两个整数 M N 之后是给出的矩阵 输出若有解，输出解决方案 否则输出 IMPOSSIBLE 样例输入4 4 1 0 0 1 0 1 1 0 0 1 1 0 1 0 0 1 样例输出0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0 题解分析显然这题跟奶牛没有丝毫关系…似乎很多题目与奶牛有不解之缘(手动摊手)。感觉这道题比较有意思，一开始毫无思路，直到看了题解… 每一次的操作都会对周围直接相连的格子产生影响，这就意味着每翻一行，其实也就决定了下一行要怎么翻，毕竟需要保证每一个格子都是0。这样一直到最后一行。 那么思路就出来了：暴力枚举第一行的所有排列，然后依次往下搜索，直到搜索到最后一行。若最后一行全为0，且步骤最少，那么把答案存下来。否则继续。 AC代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293#include&lt;cstdio&gt;#include&lt;iostream&gt;#include&lt;cstring&gt;using namespace std;const int inf = 0x3f3f3f3f;int map[16][16];int temp[16][16];int res[16][16];int dirx[5]= &#123;0,-1,1,0, 0&#125;;int diry[5]= &#123;0, 0,0,1,-1&#125;;int m,n;void Readmap() //读图 &#123; for(int i=0; i&lt;m; i++) for(int j=0; j&lt;n; j++) cin&gt;&gt;map[i][j]; return;&#125;int color(int x,int y) //检查(x,y)是0还是1 &#123; int k = map[x][y]; for(int i=0; i&lt;5; i++) &#123; int a = x+dirx[i]; int b = y+diry[i]; if(a&gt;=0&amp;&amp;a&lt;m&amp;&amp;b&gt;=0&amp;&amp;b&lt;n) k+=temp[a][b]; &#125; return k&amp;1;&#125;int cal()&#123; for(int i=1; i&lt;m; i++) for(int j=0; j&lt;n; j++) if(color(i-1,j)) temp[i][j] = 1; //如果(i-1,j)是1，则需要翻 for(int i=0; i&lt;n; i++) if(color(m-1,i)) return inf; //无解 int k = 0; for(int i=0; i&lt;m; i++) for(int j=0; j&lt;n; j++) k += temp[i][j]; //统计步数 return k;&#125;int main(void)&#123; ios::sync_with_stdio(false); cin.tie(0); while(cin&gt;&gt;m&gt;&gt;n) &#123; memset(res,0,sizeof(res)); Readmap(); //读图 int ans = inf; //ans记录最小步数 for(int i=0; i&lt; 1&lt;&lt;n; i++) &#123; memset(temp,0,sizeof(temp)); for(int j=0; j&lt;n; j++) //枚举第一行翻转情况 &#123; temp[0][j] = i&gt;&gt;j &amp;1; &#125; int t = cal(); //返回操作步数 if(t&lt;ans) //若此方案步数更小 &#123; //更新操作方式 ans = t; for(int i=0; i&lt;m; i++) for(int j=0; j&lt;n; j++) res[i][j] = temp[i][j]; &#125; &#125; if(ans == inf) cout&lt;&lt;"IMPOSSIBLE"&lt;&lt;endl; //无解 else //有解输出答案 &#123; for(int i=0; i&lt;m; i++) for(int j=0; j&lt;n; j++) &#123; printf("%d",res[i][j]); if(j!=n-1) printf(" ");//输出格式要注意！ else printf("\n"); &#125; &#125; &#125; return 0;&#125;]]></content>
@@ -554,6 +543,17 @@
       <tags>
         <tag>DFS</tag>
         <tag>暴力</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[POJ - 1797 [Dijkstra]]]></title>
+    <url>%2FPOJ%20-%201797%20%5BDijkstra%5D.html</url>
+    <content type="text"><![CDATA[POJ - 1797 [Dijkstra] 题目POJ - 1797 题意给出一个无向图，边的权值不是路程，而是该段路最大的承重。要求计算出图中任意两点之间道路的最大承重。 输入第一行：样例组数 每组数据的第一行给出两个数m, n。分别代表 顶点数量 和 边的数量； 接下来n行给出边的信息 输出输出中任意两点之间可以运送的包裹的最大重量。注意格式。 样例输入1 3 3 1 2 3 1 3 4 2 3 5 样例输出Scenario #1: 4 题解分析Dijkstra算法略加变形。 dis数组不再储存最短的距离，而是储存最大的承重。 AC代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657#include &lt;iostream&gt;#include &lt;cstdio&gt;#include &lt;cstring&gt;using namespace std;int n, m, edge[1005][1005], book[1005], dis[1005];int dijkstra()&#123; int i, j; memset(book,0,sizeof(book)); for(i = 1; i &lt;= n; i++) &#123; dis[i] = edge[1][i]; &#125; for(i = 1; i &lt;= n; i++) &#123; int maxx = -1; int t; for(j = 1; j &lt;= n; j++) &#123; if(!book[j] &amp;&amp; dis[j] &gt; maxx) &#123; maxx = dis[j]; t = j; &#125; &#125; book[t] = 1; for(j = 1; j &lt;= n; j++) &#123; if(!book[j] &amp;&amp; dis[j] &lt; min(dis[t], edge[t][j])) &#123; dis[j] = min(dis[t], edge[t][j]); &#125; &#125; &#125; return dis[n];&#125;int main()&#123; int i, k, t; scanf("%d", &amp;t); for(k = 1; k &lt;= t; k++) &#123; scanf("%d %d",&amp;n,&amp;m); memset(edge,0,sizeof(edge)); for(i = 1; i&lt;=m; i++) &#123; int a, b, c; scanf("%d %d %d", &amp;a, &amp;b, &amp;c); edge[a][b] = edge[b][a]=c; &#125; printf("Scenario #%d:\n%d\n\n", k, dijkstra()); &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>Dijkstra</tag>
       </tags>
   </entry>
   <entry>
