@@ -454,7 +454,7 @@ var _hmt = _hmt || [];
         <p>MySQL默认时区是UTC</p>
 <p>更改方式:</p>
 <p><strong>修改my.cnf配置文件</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 在[mysqld]区域中加上</span></div><div class="line">default-time_zone = '+8:00'</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在[mysqld]区域中加上</span></span><br><span class="line">default-time_zone = '+8:00'</span><br></pre></td></tr></table></figure>
 <p>重启MySQL生效</p>
 
       
@@ -701,7 +701,7 @@ var _hmt = _hmt || [];
 
 
 <div class="copyright" >
-  <a href="http://www.miitbeian.gov.cn/">湘ICP备18004815号</a>&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;
+  <a href="http://www.miitbeian.gov.cn/">湘ICP备18004815坷</a>&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;
   <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
     NexT.Muse
@@ -720,6 +720,15 @@ var _hmt = _hmt || [];
   </a>
 </div>
 -->
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
 
 
         

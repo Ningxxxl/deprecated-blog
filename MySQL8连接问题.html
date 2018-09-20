@@ -454,17 +454,17 @@ var _hmt = _hmt || [];
         <h2 id="MySQL8-连接问题"><a href="#MySQL8-连接问题" class="headerlink" title="MySQL8 连接问题"></a>MySQL8 连接问题</h2><p>docker中的MySQL镜像最新版本默认使用的是MySQL8.0。</p>
 <p>docker run之后发现使用Navicat 12连接数据库报错。</p>
 <p>提示如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Authentication plugin ‘caching_sha2_password’ cannot be loaded:.......</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Authentication plugin ‘caching_sha2_password’ cannot be loaded:.......</span><br></pre></td></tr></table></figure>
 <p>大概就是MySQL8更改了默认身份认证方式</p>
 <a id="more"></a>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> ‘root’@’localhost’ <span class="keyword">IDENTIFIED</span> <span class="keyword">WITH</span> mysql_native_password <span class="keyword">BY</span> ‘root’;</div></pre></td></tr></table></figure>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> ‘root’@’localhost’ <span class="keyword">IDENTIFIED</span> <span class="keyword">WITH</span> mysql_native_password <span class="keyword">BY</span> ‘root’;</span><br></pre></td></tr></table></figure>
 <h3 id="JDBC连接方法"><a href="#JDBC连接方法" class="headerlink" title="JDBC连接方法"></a>JDBC连接方法</h3><p>注意加载驱动的地方：</p>
 <p>以前是这么写：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</span><br></pre></td></tr></table></figure>
 <p>而新版本是这样的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Class.forName(<span class="string">"com.mysql.cj.jdbc.Driver"</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(<span class="string">"com.mysql.cj.jdbc.Driver"</span>);</span><br></pre></td></tr></table></figure>
 <p>URL:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String URL = <span class="string">"jdbc:mysql://localhost:6666/DataBase?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false"</span>;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String URL = <span class="string">"jdbc:mysql://localhost:6666/DataBase?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false"</span>;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -735,7 +735,7 @@ var _hmt = _hmt || [];
 
 
 <div class="copyright" >
-  <a href="http://www.miitbeian.gov.cn/">湘ICP备18004815号</a>&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;
+  <a href="http://www.miitbeian.gov.cn/">湘ICP备18004815坷</a>&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;
   <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
     NexT.Muse
@@ -754,6 +754,15 @@ var _hmt = _hmt || [];
   </a>
 </div>
 -->
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
 
 
         

@@ -458,10 +458,10 @@ var _hmt = _hmt || [];
 <p>Kitematic</p>
 </blockquote>
 <h2 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>Docker下载链接(.dmg)</p>
-<p><a href="https://download.docker.com/mac/stable/Docker.dmg" target="_blank" rel="external">Get Docker for Mac</a></p>
-<p>安利一款能可视化管理Docker的App：<a href="https://kitematic.com/" target="_blank" rel="external">Kitematic</a><br><a id="more"></a></p>
+<p><a href="https://download.docker.com/mac/stable/Docker.dmg">Get Docker for Mac</a></p>
+<p>安利一款能可视化管理Docker的App：<a href="https://kitematic.com/">Kitematic</a><br><a id="more"></a></p>
 <p>下载地址</p>
-<p><a href="https://github.com/docker/kitematic/releases" target="_blank" rel="external">Latest release</a></p>
+<p><a href="https://github.com/docker/kitematic/releases">Latest release</a></p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>直接安装</p>
 <h2 id="添加Container"><a href="#添加Container" class="headerlink" title="添加Container"></a>添加Container</h2><p>安装完Docker之后应该它是自动运行起来了</p>
 <p>在Kitematic中可以直接点击左侧Container中<code>+NEW</code>按钮来添加容器</p>
@@ -470,10 +470,10 @@ var _hmt = _hmt || [];
 <h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>Kitematic左下角有个按钮<code>DOCKER CLI</code></p>
 <p>点击直接进入终端</p>
 <p>查看已有的容器：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker ps -a</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
 <p>启动容器：</p>
 <p><strong>mysql</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run --name mysql -p 3333:3306 -e MYSQL_ROOT_PASSWORD=PWD -d mysql</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mysql -p 3333:3306 -e MYSQL_ROOT_PASSWORD=PWD -d mysql</span><br></pre></td></tr></table></figure>
 <p>执行上面命令的话可能需要删掉原来的mysql容器</p>
 <p><code>--name</code> 为容器指定一个名称</p>
 <p><code>-p</code> 端口映射（冒号分隔，前面指代宿主机端口，后面指代容器的端口）</p>
@@ -487,8 +487,8 @@ var _hmt = _hmt || [];
 <li>首先将项目打包成war</li>
 <li>复制到容器里</li>
 </ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker cp work1.war ceaafb7eca97:/usr/<span class="built_in">local</span>/tomcat/webapps/</div></pre></td></tr></table></figure>
-<ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp work1.war ceaafb7eca97:/usr/<span class="built_in">local</span>/tomcat/webapps/</span><br></pre></td></tr></table></figure>
+<ol start="3">
 <li>重启tomcat</li>
 </ol>
 
@@ -761,7 +761,7 @@ var _hmt = _hmt || [];
 
 
 <div class="copyright" >
-  <a href="http://www.miitbeian.gov.cn/">湘ICP备18004815号</a>&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;
+  <a href="http://www.miitbeian.gov.cn/">湘ICP备18004815坷</a>&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;
   <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
     NexT.Muse
@@ -780,6 +780,15 @@ var _hmt = _hmt || [];
   </a>
 </div>
 -->
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
 
 
         

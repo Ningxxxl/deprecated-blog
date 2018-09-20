@@ -993,7 +993,7 @@ var _hmt = _hmt || [];
 </blockquote>
 <p><img src="http://oongrmtwi.bkt.clouddn.com/single%20circular%20linked%20list%20representation.jpg" alt="单循环链表结构示意"></p>
 <p>结构用c语言表示等同非循环单向链表：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">CirLnode</span></span></div><div class="line"><span class="class">&#123;</span></div><div class="line">	<span class="keyword">int</span> data;</div><div class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">CirLnode</span> *<span class="title">next</span>;</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">CirLnode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> data;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">CirLnode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/初学链表Ⅲ.html#more" rel="contents">
@@ -1173,7 +1173,7 @@ var _hmt = _hmt || [];
           <h1 id="初学链表Ⅱ"><a href="#初学链表Ⅱ" class="headerlink" title="初学链表Ⅱ"></a>初学链表Ⅱ</h1><hr>
 <h2 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h2><p>在单链表中，从某个结点出发只能顺指针往后寻查其他结点。若要寻查节点的直接前趋，则需从表头指针出发。这就意味着单链表中NextElem的执行时间为<code>O(1)</code>，而PriorElem的执行时间为<code>O(n)</code>。为克服单链表这种单向性的缺点，可利用<strong>双向链表</strong>  。顾名思义，在双向链表的结点中有两个指针域，其一指向直接后继，另一指向直接前趋。</p>
 <p>C语言中是这么表示：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DuLnode</span></span></div><div class="line"><span class="class">&#123;</span></div><div class="line">    <span class="keyword">int</span> data;</div><div class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Dulnode</span> *<span class="title">prior</span>;</span></div><div class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Dulnode</span> *<span class="title">next</span>;</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DuLnode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Dulnode</span> *<span class="title">prior</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Dulnode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p><img src="http://oongrmtwi.bkt.clouddn.com/DuLlist_respresentation.jpg" alt="双链表示意" title="双链表示意"><br>
           <!--noindex-->
           <div class="post-button text-center">
@@ -1358,195 +1358,11 @@ var _hmt = _hmt || [];
 </blockquote>
 <h2 id="单向链表"><a href="#单向链表" class="headerlink" title="单向链表"></a>单向链表</h2><p><img src="http://oongrmtwi.bkt.clouddn.com/single%20linked%20list%20representation.jpg" alt="单链表结构示意"></p>
 <p>用C语言表示大概是这样的：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></div><div class="line"><span class="class">&#123;</span></div><div class="line">	<span class="keyword">int</span> data;</div><div class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">next</span>;</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> data;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h3 id="带头节点-不带头结点的链表"><a href="#带头节点-不带头结点的链表" class="headerlink" title="带头节点/不带头结点的链表"></a>带头节点/不带头结点的链表</h3><p>单链表分为带头节点的跟不带头结点的。<br>两者有些区别，带头节点的大概有这么些特点：<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/初学链表Ⅰ.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.ningxy.cn/POJ - 1797 [Dijkstra].html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ningxiangyi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oongrmtwi.bkt.clouddn.com/ooo.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ningxy's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/POJ - 1797 [Dijkstra].html" itemprop="url">
-                  POJ - 1797 [Dijkstra]
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-19T23:13:29+08:00">
-                2017-04-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法训练/" itemprop="url" rel="index">
-                    <span itemprop="name">算法训练</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                   字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长</span>
-                
-                <span title="阅读时长">
-                   分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="POJ-1797-Dijkstra"><a href="#POJ-1797-Dijkstra" class="headerlink" title="POJ - 1797 [Dijkstra]"></a>POJ - 1797 [Dijkstra]</h1><hr>
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://vjudge.net/problem/17522/origin" target="_blank" rel="external">POJ - 1797</a></p>
-<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给出一个无向图，边的权值不是路程，而是该段路最大的承重。要求计算出图中任意两点之间道路的最大承重。</p>
-<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><pre><code>第一行：样例组数
-每组数据的第一行给出两个数m, n。分别代表 顶点数量 和 边的数量；
-接下来n行给出边的信息
-</code></pre><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><pre><code>输出中任意两点之间可以运送的包裹的最大重量。注意格式。
-</code></pre>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/POJ - 1797 [Dijkstra].html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1721,7 +1537,7 @@ var _hmt = _hmt || [];
       
         
           <h1 id="POJ-3279-DFS-暴力"><a href="#POJ-3279-DFS-暴力" class="headerlink" title="POJ - 3279 [DFS][暴力]"></a>POJ - 3279 [DFS][暴力]</h1><hr>
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://vjudge.net/problem/17522/origin" target="_blank" rel="external">POJ - 3279</a></p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://vjudge.net/problem/17522/origin">POJ - 3279</a></p>
 <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定一个 M * N（1 ≤ M, N ≤ 15）的矩阵， 矩阵的每一个格子被0，1标记。现在给定一种操作：点击某个格子能让这个格子本身及上下左右的一共5个格子反转。现在要使得整个矩阵全变成0，求最小的操作数量以及操作方法。</p>
 <h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><pre><code>第一行：用空格分隔的两个整数 M N
 之后是给出的矩阵
@@ -1731,6 +1547,190 @@ var _hmt = _hmt || [];
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/POJ - 3279 [DFS][暴力].html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.ningxy.cn/POJ - 1797 [Dijkstra].html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ningxiangyi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oongrmtwi.bkt.clouddn.com/ooo.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ningxy's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/POJ - 1797 [Dijkstra].html" itemprop="url">
+                  POJ - 1797 [Dijkstra]
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-19T23:13:29+08:00">
+                2017-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法训练/" itemprop="url" rel="index">
+                    <span itemprop="name">算法训练</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                   分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="POJ-1797-Dijkstra"><a href="#POJ-1797-Dijkstra" class="headerlink" title="POJ - 1797 [Dijkstra]"></a>POJ - 1797 [Dijkstra]</h1><hr>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://vjudge.net/problem/17522/origin">POJ - 1797</a></p>
+<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给出一个无向图，边的权值不是路程，而是该段路最大的承重。要求计算出图中任意两点之间道路的最大承重。</p>
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><pre><code>第一行：样例组数
+每组数据的第一行给出两个数m, n。分别代表 顶点数量 和 边的数量；
+接下来n行给出边的信息
+</code></pre><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><pre><code>输出中任意两点之间可以运送的包裹的最大重量。注意格式。
+</code></pre>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/POJ - 1797 [Dijkstra].html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1911,7 +1911,7 @@ var _hmt = _hmt || [];
 <p>&emsp;最近汲取了陈大帅哥的人生经验，确乎觉得有些东西还是得写下来。恰好Master Ray刚搭好自己的博客，<br>&emsp;于是跟随Dalao的脚步自己也搭建了一个基于Hexo的Blog。</p>
 <p>&emsp;其实自己很没有把握能坚持写下去，<br>&emsp;偶尔会写一些东西，确认下自己是不是真正想清楚，希望能有所收获。</p>
 <p>&emsp;第一次使用GitHub跟Markdown。自然也是第一次搭博客。要是有啥问题还请别嫌弃。</p>
-<p>&emsp;昨天申请了个顶级域名 <a href="http://ningxy.cn" target="_blank" rel="external">ningxy.cn</a> ，摒弃了 <del>ningxxxl.github.io</del> 这个长长的二级域名。</p>
+<p>&emsp;昨天申请了个顶级域名 <a href="http://ningxy.cn">ningxy.cn</a> ，摒弃了 <del>ningxxxl.github.io</del> 这个长长的二级域名。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/序章.html#more" rel="contents">
@@ -2068,7 +2068,7 @@ var _hmt = _hmt || [];
         
           
             <h1 id="Hello-World！"><a href="#Hello-World！" class="headerlink" title="Hello World！"></a>Hello World！</h1><hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Hello world!"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Hello world!"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -2239,7 +2239,7 @@ var _hmt = _hmt || [];
 
 
 <div class="copyright" >
-  <a href="http://www.miitbeian.gov.cn/">湘ICP备18004815号</a>&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;
+  <a href="http://www.miitbeian.gov.cn/">湘ICP备18004815坷</a>&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;
   <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
     NexT.Muse
@@ -2258,6 +2258,15 @@ var _hmt = _hmt || [];
   </a>
 </div>
 -->
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
 
 
         

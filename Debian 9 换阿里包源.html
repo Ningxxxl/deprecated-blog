@@ -453,12 +453,12 @@ var _hmt = _hmt || [];
       
         <h3 id="Debian-9-stretch-换阿里包源"><a href="#Debian-9-stretch-换阿里包源" class="headerlink" title="Debian 9 (stretch) 换阿里包源"></a>Debian 9 (stretch) 换阿里包源</h3><p>修改/etc/apt/sources.list文件</p>
 <p>替换成：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">deb http://mirrors.aliyun.com/debian stretch main contrib non-free</div><div class="line">deb-src http://mirrors.aliyun.com/debian stretch main contrib non-free</div><div class="line">deb http://mirrors.aliyun.com/debian stretch-updates main contrib non-free</div><div class="line">deb-src http://mirrors.aliyun.com/debian stretch-updates main contrib non-free</div><div class="line">deb http://mirrors.aliyun.com/debian-security stretch/updates main contrib non-free</div><div class="line">deb-src http://mirrors.aliyun.com/debian-security stretch/updates main contrib non-free</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.aliyun.com/debian stretch main contrib non-free</span><br><span class="line">deb-src http://mirrors.aliyun.com/debian stretch main contrib non-free</span><br><span class="line">deb http://mirrors.aliyun.com/debian stretch-updates main contrib non-free</span><br><span class="line">deb-src http://mirrors.aliyun.com/debian stretch-updates main contrib non-free</span><br><span class="line">deb http://mirrors.aliyun.com/debian-security stretch/updates main contrib non-free</span><br><span class="line">deb-src http://mirrors.aliyun.com/debian-security stretch/updates main contrib non-free</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>其中<code>stretch</code>可以替换成<code>jessie</code>或者<code>wheezy</code></p>
 <p>保存之后 :</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt-get update</div></pre></td></tr></table></figure>
-<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://www.cnblogs.com/dadream/p/8058641.html" target="_blank" rel="external">howto：在构建基于debian的docker基础镜像时，更换国内包源</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br></pre></td></tr></table></figure>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://www.cnblogs.com/dadream/p/8058641.html">howto：在构建基于debian的docker基础镜像时，更换国内包源</a></p>
 
       
     </div>
@@ -729,7 +729,7 @@ var _hmt = _hmt || [];
 
 
 <div class="copyright" >
-  <a href="http://www.miitbeian.gov.cn/">湘ICP备18004815号</a>&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;
+  <a href="http://www.miitbeian.gov.cn/">湘ICP备18004815坷</a>&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;
   <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
     NexT.Muse
@@ -748,6 +748,15 @@ var _hmt = _hmt || [];
   </a>
 </div>
 -->
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
 
 
         

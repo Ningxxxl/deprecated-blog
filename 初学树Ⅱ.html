@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="树,数据结构,栈," />
+  <meta name="keywords" content="栈,数据结构,树," />
 
 
 
@@ -88,7 +88,7 @@
 
 
 <meta name="description" content="栈的应用——二叉树的非递归遍历递归遍历实现起来比较简单，但是后序遍历无法实现。 结合栈可以实现二叉树的非递归遍历。">
-<meta name="keywords" content="树,数据结构,栈">
+<meta name="keywords" content="栈,数据结构,树">
 <meta property="og:type" content="article">
 <meta property="og:title" content="初学树Ⅱ-二叉树非递归遍历">
 <meta property="og:url" content="http://www.ningxy.cn/初学树Ⅱ.html">
@@ -456,16 +456,16 @@ var _hmt = _hmt || [];
 <a id="more"></a>
 <h2 id="PreOrderTraverse"><a href="#PreOrderTraverse" class="headerlink" title="PreOrderTraverse"></a>PreOrderTraverse</h2><p>对于每一个深度为2的二叉树，先把根节点入栈，之后等根节点出栈之后，将右孩子跟左孩子依次入栈。</p>
 <p>再pop左孩子，同时左孩子作为另一颗深度为2的子树的根节点，将右孩子和左孩子依次入栈，重复上述过程直到栈空。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">PreOrderTraverse</span><span class="params">(node *T)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span>(!T) <span class="keyword">return</span>;</div><div class="line">    <span class="built_in">stack</span>&lt;node*&gt; s;</div><div class="line">    s.push(T);</div><div class="line">    <span class="keyword">while</span>(!s.empty())</div><div class="line">    &#123;</div><div class="line">        node *t = s.top();</div><div class="line">        <span class="built_in">cout</span>&lt;&lt;t-&gt;data;</div><div class="line">        s.pop();</div><div class="line">        <span class="keyword">if</span>(t-&gt;rchild)</div><div class="line">            s.push(t-&gt;rchild);</div><div class="line">        <span class="keyword">if</span>(t-&gt;lchild)</div><div class="line">            s.push(t-&gt;lchild);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PreOrderTraverse</span><span class="params">(node *T)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!T) <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">stack</span>&lt;node*&gt; s;</span><br><span class="line">    s.push(T);</span><br><span class="line">    <span class="keyword">while</span>(!s.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        node *t = s.top();</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;t-&gt;data;</span><br><span class="line">        s.pop();</span><br><span class="line">        <span class="keyword">if</span>(t-&gt;rchild)</span><br><span class="line">            s.push(t-&gt;rchild);</span><br><span class="line">        <span class="keyword">if</span>(t-&gt;lchild)</span><br><span class="line">            s.push(t-&gt;lchild);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="InOrderTraverse"><a href="#InOrderTraverse" class="headerlink" title="InOrderTraverse"></a>InOrderTraverse</h2><p>一直沿着左边走，将每一个节点入栈，直到叶子也入栈。</p>
 <p>然后pop栈顶节点，pop完之后检查是否还有右孩子。</p>
 <p>有的话，重复刚刚的操作。</p>
 <p>重复上述操作直到栈空。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrderTraverse</span><span class="params">(node *T)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span>(!T) <span class="keyword">return</span>;</div><div class="line">    <span class="built_in">stack</span>&lt;node*&gt; s;</div><div class="line">    s.push(T);</div><div class="line">    node *t = T-&gt;lchild;</div><div class="line">    <span class="keyword">while</span>(t!=<span class="literal">NULL</span>||!s.empty())</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">while</span>(t!=<span class="literal">NULL</span>)  <span class="comment">//一直向左走</span></div><div class="line">        &#123;</div><div class="line">            s.push(t);</div><div class="line">            t = t-&gt;lchild;</div><div class="line">        &#125;</div><div class="line">        t = s.top();</div><div class="line">        s.pop();</div><div class="line">        <span class="built_in">cout</span>&lt;&lt;t-&gt;data;</div><div class="line">        t = t-&gt;rchild;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrderTraverse</span><span class="params">(node *T)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!T) <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">stack</span>&lt;node*&gt; s;</span><br><span class="line">    s.push(T);</span><br><span class="line">    node *t = T-&gt;lchild;</span><br><span class="line">    <span class="keyword">while</span>(t!=<span class="literal">NULL</span>||!s.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(t!=<span class="literal">NULL</span>)  <span class="comment">//一直向左走</span></span><br><span class="line">        &#123;</span><br><span class="line">            s.push(t);</span><br><span class="line">            t = t-&gt;lchild;</span><br><span class="line">        &#125;</span><br><span class="line">        t = s.top();</span><br><span class="line">        s.pop();</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;t-&gt;data;</span><br><span class="line">        t = t-&gt;rchild;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="PostOrderTraverse"><a href="#PostOrderTraverse" class="headerlink" title="PostOrderTraverse"></a>PostOrderTraverse</h2><p>后序遍历相对来说麻烦一点，这里用的双栈实现。</p>
 <p>可以这么理解：</p>
 <p>对于下面这样一个二叉树：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">  A</div><div class="line"> / \</div><div class="line">B   C</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  A</span><br><span class="line"> / \</span><br><span class="line">B   C</span><br></pre></td></tr></table></figure>
 <p>后序遍历是<strong>BCA</strong>；前序遍历是<strong>ABC</strong>。</p>
 <p>那么入栈顺序就应该是<strong>ACB</strong></p>
 <p>刚好是个左右反转的前序遍历，那就很棒棒了对不对。</p>
@@ -474,8 +474,8 @@ var _hmt = _hmt || [];
 <p>所以<strong>第一个栈就是用来解决左右镜像的前序遍历</strong></p>
 <p>然后<strong>第二个栈就是用来存储镜像前序遍历的结果</strong></p>
 <p>最后pop第二个栈直到其为空就好了。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">PostOrderTraverse</span><span class="params">(node *T)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="built_in">stack</span>&lt;node*&gt; s1,s2;</div><div class="line">    node *t;</div><div class="line">    s1.push(T);</div><div class="line">    <span class="keyword">while</span>(!s1.empty())</div><div class="line">    &#123;</div><div class="line">        t = s1.top();</div><div class="line">        s1.pop();</div><div class="line">        s2.push(t);</div><div class="line">        <span class="keyword">if</span>(t-&gt;lchild)</div><div class="line">            s1.push(t-&gt;lchild);</div><div class="line">        <span class="keyword">if</span>(t-&gt;rchild)</div><div class="line">            s1.push(t-&gt;rchild);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span>(!s2.empty())</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">cout</span>&lt;&lt;s2.top()-&gt;data;</div><div class="line">        s2.pop();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="主函数"><a href="#主函数" class="headerlink" title="主函数"></a>主函数</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    node *Tree;</div><div class="line">    Tree = CreateBiTree();</div><div class="line">    PostOrderTraverse(Tree);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PostOrderTraverse</span><span class="params">(node *T)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">stack</span>&lt;node*&gt; s1,s2;</span><br><span class="line">    node *t;</span><br><span class="line">    s1.push(T);</span><br><span class="line">    <span class="keyword">while</span>(!s1.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        t = s1.top();</span><br><span class="line">        s1.pop();</span><br><span class="line">        s2.push(t);</span><br><span class="line">        <span class="keyword">if</span>(t-&gt;lchild)</span><br><span class="line">            s1.push(t-&gt;lchild);</span><br><span class="line">        <span class="keyword">if</span>(t-&gt;rchild)</span><br><span class="line">            s1.push(t-&gt;rchild);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!s2.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;s2.top()-&gt;data;</span><br><span class="line">        s2.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="主函数"><a href="#主函数" class="headerlink" title="主函数"></a>主函数</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    node *Tree;</span><br><span class="line">    Tree = CreateBiTree();</span><br><span class="line">    PostOrderTraverse(Tree);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
       
     </div>
@@ -521,11 +521,11 @@ var _hmt = _hmt || [];
       
         <div class="post-tags">
           
-            <a href="/tags/树/" rel="tag"># 树</a>
+            <a href="/tags/栈/" rel="tag"># 栈</a>
           
             <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
           
-            <a href="/tags/栈/" rel="tag"># 栈</a>
+            <a href="/tags/树/" rel="tag"># 树</a>
           
         </div>
       
@@ -750,7 +750,7 @@ var _hmt = _hmt || [];
 
 
 <div class="copyright" >
-  <a href="http://www.miitbeian.gov.cn/">湘ICP备18004815号</a>&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;
+  <a href="http://www.miitbeian.gov.cn/">湘ICP备18004815坷</a>&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;
   <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
     NexT.Muse
@@ -769,6 +769,15 @@ var _hmt = _hmt || [];
   </a>
 </div>
 -->
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
 
 
         

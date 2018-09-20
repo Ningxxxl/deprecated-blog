@@ -106,8 +106,10 @@
             </div>
         </div>
         <!-- 轮播（Carousel）导航 -->
-        <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+        <a class="carousel-control left" href="#myCarousel"
+           data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#myCarousel"
+           data-slide="next">&rsaquo;</a>
     </div>
     <div style="width: 800px;">
         <ul id="mytab" class="nav nav-tabs nav-justified">
@@ -206,7 +208,7 @@
         </thead>
         <tbody>
         <tr class="on">
-            <td><input class="check-one check" type="checkbox"></td>
+            <td ><input class="check-one check" type="checkbox"></td>
             <td class="goods"><img src="http://oongrmtwi.bkt.clouddn.com/sights/%E5%9C%A3%E6%89%98%E9%87%8C%E5%B0%BC.jpg" alt=""><span>圣托里尼独行者的狂欢</span></td>
             <td class="price">28888</td>
             <td class="count"><span class="reduce"></span>
@@ -236,7 +238,7 @@
             <td class="operation"><span class="delete">删除</span></td>
         </tr>
         <tr class="on">
-            <td><input class="check-one check" type="checkbox"></td>
+            <td ><input class="check-one check" type="checkbox"></td>
             <td class="goods"><img src="http://oongrmtwi.bkt.clouddn.com/sights/%E5%8E%A6%E9%97%A8%E9%BC%93%E6%B5%AA%E5%B1%BF.jpg" alt=""><span>厦门鼓浪屿一日游</span></td>
             <td class="price">480</td>
             <td class="count"><span class="reduce"></span>
@@ -249,7 +251,7 @@
     </table>
     <div class="foot" id="foot">
         <label class="fl select-all"><input type="checkbox" class="check-all check">&nbsp;&nbsp;全选</label>
-        <a class="fl delete" id="deleteAll" href="javascript:;" target="_blank" rel="external">删除</a>
+        <a class="fl delete" id="deleteAll" href="javascript:;">删除</a>
         <div style="float: right"><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">结算</button></div>
         <input type="hidden" id="cartTotalPrice">
         <div class="fr total">合计：￥<span id="priceTotal">11957.48</span></div>
@@ -264,7 +266,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
                     请确认你的收货人信息
@@ -294,7 +297,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip" data-placement="top" title="别走啊！老铁">
+                <button type="submit" class="btn btn-default"  data-dismiss="modal" data-toggle="tooltip" data-placement="top" title="别走啊！老铁">
                     取消订单
                 </button>
                 <button type="submit" class="btn btn-primary" id="xiao" data-toggle="tooltip" data-placement="top" title="皮皮虾，我们走……">
@@ -508,5 +511,5 @@
 </script>
 <script src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
 </body>
-<script type="text/javascript" color="0,0,255" opacity="0.7" zindex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
 </html>
