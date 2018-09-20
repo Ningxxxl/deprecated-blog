@@ -96,7 +96,7 @@
 <meta property="og:description" content="TCP报文段首部格式">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://s1.ax1x.com/2018/03/02/9rzlJf.png">
-<meta property="og:updated_time" content="2018-09-20T10:38:58.618Z">
+<meta property="og:updated_time" content="2018-09-20T10:58:27.489Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP三次握手">
 <meta name="twitter:description" content="TCP报文段首部格式">
@@ -509,18 +509,18 @@ var _hmt = _hmt || [];
 <h3 id="图示"><a href="#图示" class="headerlink" title="图示"></a>图示</h3><pre class="mermaid">sequenceDiagram
 participant Client
 participant Server
-note over Client, Server: Client主动打开连接 | Server被动打开连接
+note over Client, Server: Client主动打开连接 <br> Server被动打开连接
 Server ->> Server: TCP服务器进程创建传输控制块TCB
-note right of Server: 处于Listen(收听)状态
+note right of Server: 处于Listen<br>(收听)状态
 Client ->> Client: TCP客户创建创建传输控制块TCB
 Client ->> Server: SYN=1, seq=X
-note left of Client: 进入SYN-SENT(同步已发送)状态
+note left of Client: 进入SYN-SENT<br>(同步已发送)状态
 note over Server: 收到连接请求报文，同意连接
 Server ->> Client: SYN=1, ACK=1, seq=Y, ack=X+1
-note right of Server: 进入SYN-RCVD(同步收到)状态
+note right of Server: 进入SYN-RCVD<br>(同步收到)状态
 Client ->> Server: ACK=1, seq=X+1, ack=Y+1
-note left of Client: 进入ESTABLISHED(已建立连接)状态
-note right of Server: 进入ESTABLISHED(已建立连接)状态
+note left of Client: 进入ESTABLISHED<br>(已建立连接)状态
+note right of Server: 进入ESTABLISHED<br>(已建立连接)状态
 note over Client, Server: 连接已建立
 Client -->> Server: 传输数据
 Server -->> Client: 传输数据</pre>
