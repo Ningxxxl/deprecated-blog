@@ -534,6 +534,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[POJ - 1797 [Dijkstra]]]></title>
+    <url>%2FPOJ%20-%201797%20%5BDijkstra%5D.html</url>
+    <content type="text"><![CDATA[POJ - 1797 [Dijkstra] 题目POJ - 1797 题意给出一个无向图，边的权值不是路程，而是该段路最大的承重。要求计算出图中任意两点之间道路的最大承重。 输入第一行：样例组数 每组数据的第一行给出两个数m, n。分别代表 顶点数量 和 边的数量； 接下来n行给出边的信息 输出输出中任意两点之间可以运送的包裹的最大重量。注意格式。 样例输入1 3 3 1 2 3 1 3 4 2 3 5 样例输出Scenario #1: 4 题解分析Dijkstra算法略加变形。 dis数组不再储存最短的距离，而是储存最大的承重。 AC代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657#include &lt;iostream&gt;#include &lt;cstdio&gt;#include &lt;cstring&gt;using namespace std;int n, m, edge[1005][1005], book[1005], dis[1005];int dijkstra()&#123; int i, j; memset(book,0,sizeof(book)); for(i = 1; i &lt;= n; i++) &#123; dis[i] = edge[1][i]; &#125; for(i = 1; i &lt;= n; i++) &#123; int maxx = -1; int t; for(j = 1; j &lt;= n; j++) &#123; if(!book[j] &amp;&amp; dis[j] &gt; maxx) &#123; maxx = dis[j]; t = j; &#125; &#125; book[t] = 1; for(j = 1; j &lt;= n; j++) &#123; if(!book[j] &amp;&amp; dis[j] &lt; min(dis[t], edge[t][j])) &#123; dis[j] = min(dis[t], edge[t][j]); &#125; &#125; &#125; return dis[n];&#125;int main()&#123; int i, k, t; scanf("%d", &amp;t); for(k = 1; k &lt;= t; k++) &#123; scanf("%d %d",&amp;n,&amp;m); memset(edge,0,sizeof(edge)); for(i = 1; i&lt;=m; i++) &#123; int a, b, c; scanf("%d %d %d", &amp;a, &amp;b, &amp;c); edge[a][b] = edge[b][a]=c; &#125; printf("Scenario #%d:\n%d\n\n", k, dijkstra()); &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>Dijkstra</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[POJ - 3279 [DFS][暴力]]]></title>
     <url>%2FPOJ%20-%203279%20%5BDFS%5D%5B%E6%9A%B4%E5%8A%9B%5D.html</url>
     <content type="text"><![CDATA[POJ - 3279 [DFS][暴力] 题目POJ - 3279 题意给定一个 M * N（1 ≤ M, N ≤ 15）的矩阵， 矩阵的每一个格子被0，1标记。现在给定一种操作：点击某个格子能让这个格子本身及上下左右的一共5个格子反转。现在要使得整个矩阵全变成0，求最小的操作数量以及操作方法。 输入第一行：用空格分隔的两个整数 M N 之后是给出的矩阵 输出若有解，输出解决方案 否则输出 IMPOSSIBLE 样例输入4 4 1 0 0 1 0 1 1 0 0 1 1 0 1 0 0 1 样例输出0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0 题解分析显然这题跟奶牛没有丝毫关系…似乎很多题目与奶牛有不解之缘(手动摊手)。感觉这道题比较有意思，一开始毫无思路，直到看了题解… 每一次的操作都会对周围直接相连的格子产生影响，这就意味着每翻一行，其实也就决定了下一行要怎么翻，毕竟需要保证每一个格子都是0。这样一直到最后一行。 那么思路就出来了：暴力枚举第一行的所有排列，然后依次往下搜索，直到搜索到最后一行。若最后一行全为0，且步骤最少，那么把答案存下来。否则继续。 AC代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293#include&lt;cstdio&gt;#include&lt;iostream&gt;#include&lt;cstring&gt;using namespace std;const int inf = 0x3f3f3f3f;int map[16][16];int temp[16][16];int res[16][16];int dirx[5]= &#123;0,-1,1,0, 0&#125;;int diry[5]= &#123;0, 0,0,1,-1&#125;;int m,n;void Readmap() //读图 &#123; for(int i=0; i&lt;m; i++) for(int j=0; j&lt;n; j++) cin&gt;&gt;map[i][j]; return;&#125;int color(int x,int y) //检查(x,y)是0还是1 &#123; int k = map[x][y]; for(int i=0; i&lt;5; i++) &#123; int a = x+dirx[i]; int b = y+diry[i]; if(a&gt;=0&amp;&amp;a&lt;m&amp;&amp;b&gt;=0&amp;&amp;b&lt;n) k+=temp[a][b]; &#125; return k&amp;1;&#125;int cal()&#123; for(int i=1; i&lt;m; i++) for(int j=0; j&lt;n; j++) if(color(i-1,j)) temp[i][j] = 1; //如果(i-1,j)是1，则需要翻 for(int i=0; i&lt;n; i++) if(color(m-1,i)) return inf; //无解 int k = 0; for(int i=0; i&lt;m; i++) for(int j=0; j&lt;n; j++) k += temp[i][j]; //统计步数 return k;&#125;int main(void)&#123; ios::sync_with_stdio(false); cin.tie(0); while(cin&gt;&gt;m&gt;&gt;n) &#123; memset(res,0,sizeof(res)); Readmap(); //读图 int ans = inf; //ans记录最小步数 for(int i=0; i&lt; 1&lt;&lt;n; i++) &#123; memset(temp,0,sizeof(temp)); for(int j=0; j&lt;n; j++) //枚举第一行翻转情况 &#123; temp[0][j] = i&gt;&gt;j &amp;1; &#125; int t = cal(); //返回操作步数 if(t&lt;ans) //若此方案步数更小 &#123; //更新操作方式 ans = t; for(int i=0; i&lt;m; i++) for(int j=0; j&lt;n; j++) res[i][j] = temp[i][j]; &#125; &#125; if(ans == inf) cout&lt;&lt;"IMPOSSIBLE"&lt;&lt;endl; //无解 else //有解输出答案 &#123; for(int i=0; i&lt;m; i++) for(int j=0; j&lt;n; j++) &#123; printf("%d",res[i][j]); if(j!=n-1) printf(" ");//输出格式要注意！ else printf("\n"); &#125; &#125; &#125; return 0;&#125;]]></content>
@@ -543,17 +554,6 @@
       <tags>
         <tag>DFS</tag>
         <tag>暴力</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[POJ - 1797 [Dijkstra]]]></title>
-    <url>%2FPOJ%20-%201797%20%5BDijkstra%5D.html</url>
-    <content type="text"><![CDATA[POJ - 1797 [Dijkstra] 题目POJ - 1797 题意给出一个无向图，边的权值不是路程，而是该段路最大的承重。要求计算出图中任意两点之间道路的最大承重。 输入第一行：样例组数 每组数据的第一行给出两个数m, n。分别代表 顶点数量 和 边的数量； 接下来n行给出边的信息 输出输出中任意两点之间可以运送的包裹的最大重量。注意格式。 样例输入1 3 3 1 2 3 1 3 4 2 3 5 样例输出Scenario #1: 4 题解分析Dijkstra算法略加变形。 dis数组不再储存最短的距离，而是储存最大的承重。 AC代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657#include &lt;iostream&gt;#include &lt;cstdio&gt;#include &lt;cstring&gt;using namespace std;int n, m, edge[1005][1005], book[1005], dis[1005];int dijkstra()&#123; int i, j; memset(book,0,sizeof(book)); for(i = 1; i &lt;= n; i++) &#123; dis[i] = edge[1][i]; &#125; for(i = 1; i &lt;= n; i++) &#123; int maxx = -1; int t; for(j = 1; j &lt;= n; j++) &#123; if(!book[j] &amp;&amp; dis[j] &gt; maxx) &#123; maxx = dis[j]; t = j; &#125; &#125; book[t] = 1; for(j = 1; j &lt;= n; j++) &#123; if(!book[j] &amp;&amp; dis[j] &lt; min(dis[t], edge[t][j])) &#123; dis[j] = min(dis[t], edge[t][j]); &#125; &#125; &#125; return dis[n];&#125;int main()&#123; int i, k, t; scanf("%d", &amp;t); for(k = 1; k &lt;= t; k++) &#123; scanf("%d %d",&amp;n,&amp;m); memset(edge,0,sizeof(edge)); for(i = 1; i&lt;=m; i++) &#123; int a, b, c; scanf("%d %d %d", &amp;a, &amp;b, &amp;c); edge[a][b] = edge[b][a]=c; &#125; printf("Scenario #%d:\n%d\n\n", k, dijkstra()); &#125; return 0;&#125;]]></content>
-      <categories>
-        <category>算法训练</category>
-      </categories>
-      <tags>
-        <tag>Dijkstra</tag>
       </tags>
   </entry>
   <entry>
