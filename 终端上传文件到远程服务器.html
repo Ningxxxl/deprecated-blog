@@ -454,14 +454,14 @@ var _hmt = _hmt || [];
         <p>一些基本的文件传输操作</p>
 <a id="more"></a>
 <p>1、mac上传文件到Linux服务器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp 文件名 用户名@服务器ip:目标路径</span><br><span class="line">如：scp /Users/test/testFile test@www.linuxidc.com:/test/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">scp 文件名 用户名@服务器ip:目标路径</div><div class="line">如：scp /Users/test/testFile test@www.linuxidc.com:/test/</div></pre></td></tr></table></figure>
 <p>2、mac上传文件夹到Linux服务器，与上传文件相比多加了-r</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r 文件夹目录 用户名@服务器ip:目标路径</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如：scp -r /Users/test/testFolder test@www.linuxidc.com:/test/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp -r 文件夹目录 用户名@服务器ip:目标路径</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">如：scp -r /Users/test/testFolder test@www.linuxidc.com:/test/</div></pre></td></tr></table></figure>
 <p>3、Linux服务器下载文件到mac</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp 用户名@服务器ip:文件路径 目标路径</span><br><span class="line">如：scp test@www.linuxidc.com:/test/testFile /Users/test/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">scp 用户名@服务器ip:文件路径 目标路径</div><div class="line">如：scp test@www.linuxidc.com:/test/testFile /Users/test/</div></pre></td></tr></table></figure>
 <p>4、Linux服务器下载文件夹到mac，与下载文件相比多加了-r</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp -r 用户名@服务器ip:文件路径 目标路径</span><br><span class="line">如：scp -r test@www.linuxidc.com:/test/testFolder /Users/test/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">scp -r 用户名@服务器ip:文件路径 目标路径</div><div class="line">如：scp -r test@www.linuxidc.com:/test/testFolder /Users/test/</div></pre></td></tr></table></figure>
 <p>MAC 技巧:</p>
 <p>在finder里，对选中的文件，cmd+opt+c，就复制文件路径到剪贴板了。</p>
 <p>参考资料</p>

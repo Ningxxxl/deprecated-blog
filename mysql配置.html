@@ -475,10 +475,10 @@ var _hmt = _hmt || [];
 </li>
 </ul>
 <p>注意一定需要先指定<code>server-id</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log-bin=mysql-bin</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">log-bin=mysql-bin</div></pre></td></tr></table></figure>
 <p>其中值<code>mysql-bin</code>是日志的基本名或前缀名</p>
 <p>查看日志路径：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW VARIABLES LIKE &apos;log_%&apos;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt; SHOW VARIABLES LIKE &apos;log_%&apos;;</div></pre></td></tr></table></figure>
 <h4 id="lower-case-table-names"><a href="#lower-case-table-names" class="headerlink" title="lower_case_table_names"></a>lower_case_table_names</h4><p>对于大小写的设置</p>
 <h5 id="lower-case-table-names-0"><a href="#lower-case-table-names-0" class="headerlink" title="lower_case_table_names=0"></a>lower_case_table_names=0</h5><p>表名和数据库名在磁盘中<strong>按照<code>CREATE TABLE</code>和<code>CREATE DATABASE</code>语句指定的大小写存储</strong>，<strong>所有操作都严格区分大小写</strong>。不应该在不区分大小写的文件系统上将此变量设为0。如果在不区分大小写的文件系统中强行改为0可能会发生找不到表的现象。</p>
 <h5 id="lower-case-table-names-1"><a href="#lower-case-table-names-1" class="headerlink" title="lower_case_table_names=1"></a>lower_case_table_names=1</h5><p> 表名在磁盘上以小写来存储，名称比较的时候不区分大小写。在存储和查找的过程中MySQL会转换所有的<strong>表名</strong>、<strong>数据库名</strong>、<strong>表别名</strong>变成小写。</p>

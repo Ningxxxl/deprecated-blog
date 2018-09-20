@@ -470,10 +470,10 @@ var _hmt = _hmt || [];
 <h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>Kitematic左下角有个按钮<code>DOCKER CLI</code></p>
 <p>点击直接进入终端</p>
 <p>查看已有的容器：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker ps -a</div></pre></td></tr></table></figure>
 <p>启动容器：</p>
 <p><strong>mysql</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mysql -p 3333:3306 -e MYSQL_ROOT_PASSWORD=PWD -d mysql</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run --name mysql -p 3333:3306 -e MYSQL_ROOT_PASSWORD=PWD -d mysql</div></pre></td></tr></table></figure>
 <p>执行上面命令的话可能需要删掉原来的mysql容器</p>
 <p><code>--name</code> 为容器指定一个名称</p>
 <p><code>-p</code> 端口映射（冒号分隔，前面指代宿主机端口，后面指代容器的端口）</p>
@@ -487,8 +487,8 @@ var _hmt = _hmt || [];
 <li>首先将项目打包成war</li>
 <li>复制到容器里</li>
 </ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp work1.war ceaafb7eca97:/usr/<span class="built_in">local</span>/tomcat/webapps/</span><br></pre></td></tr></table></figure>
-<ol start="3">
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker cp work1.war ceaafb7eca97:/usr/<span class="built_in">local</span>/tomcat/webapps/</div></pre></td></tr></table></figure>
+<ol>
 <li>重启tomcat</li>
 </ol>
 

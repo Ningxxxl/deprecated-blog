@@ -456,13 +456,13 @@ var _hmt = _hmt || [];
         <p>许多ss运营商会给出ss节点的二维码，其实ss有定义一套规则生成。</p>
 <a id="more"></a>
 <p>例如这个节点：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">地址: 192.168.1.1</span><br><span class="line">端口: 5678</span><br><span class="line">加密: chacha20</span><br><span class="line">密码: password</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">地址: 192.168.1.1</div><div class="line">端口: 5678</div><div class="line">加密: chacha20</div><div class="line">密码: password</div></pre></td></tr></table></figure>
 <p>那么可以先按规则写成下面这样:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chacha20:password@192.168.1.1:5678</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chacha20:password@192.168.1.1:5678</div></pre></td></tr></table></figure>
 <p>之后进行<code>base64</code>编码:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Y2hhY2hhMjA6cGFzc3dvcmRAMTkyLjE2OC4xLjE6NTY3OA</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Y2hhY2hhMjA6cGFzc3dvcmRAMTkyLjE2OC4xLjE6NTY3OA</div></pre></td></tr></table></figure>
 <p>在最前面加上 <code>ss://</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss://Y2hhY2hhMjA6cGFzc3dvcmRAMTkyLjE2OC4xLjE6NTY3OA</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ss://Y2hhY2hhMjA6cGFzc3dvcmRAMTkyLjE2OC4xLjE6NTY3OA</div></pre></td></tr></table></figure>
 <p>这就是完整的url了。</p>
 <p>所以变成二维码就很简单了，将url生成二维码就好。</p>
 <p><img src="http://oongrmtwi.bkt.clouddn.com/qrcode-viewfile.png" alt="二维码样例"></p>
