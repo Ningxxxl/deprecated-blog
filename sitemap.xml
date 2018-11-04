@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ningxy.cn/%E9%80%9A%E8%BF%87ngrok%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F.html</loc>
+    
+    <lastmod>2018-11-04T08:10:32.154Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ningxy.cn/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.html</loc>
     
-    <lastmod>2018-09-20T10:58:27.489Z</lastmod>
+    <lastmod>2018-10-11T12:06:48.333Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ningxy.cn/URP%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E4%B8%80%E9%94%AE%E8%AF%84%E6%95%99.html</loc>
+    
+    <lastmod>2018-09-20T11:03:39.155Z</lastmod>
     
   </url>
   
@@ -40,13 +54,6 @@
     <loc>http://ningxy.cn/mysql%E9%85%8D%E7%BD%AE.html</loc>
     
     <lastmod>2018-08-03T15:35:53.367Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ningxy.cn/URP%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E4%B8%80%E9%94%AE%E8%AF%84%E6%95%99.html</loc>
-    
-    <lastmod>2018-07-10T02:59:22.622Z</lastmod>
     
   </url>
   

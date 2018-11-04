@@ -4,8 +4,30 @@
 
     
   <url>
+    <loc>http://ningxy.cn/%E9%80%9A%E8%BF%87ngrok%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F.html</loc>
+    <lastmod>2018-11-04T08:10:32.154Z</lastmod>
+    <data>
+        <display>
+        <title>通过ngrok实现内网穿透</title>
+        <pubTime>2018-11-04T08:03:23.000Z</pubTime>
+        
+        <tag>ngrok</tag>
+         
+        <tag>内网穿透</tag>
+         
+         
+           
+             
+              <breadCrumb title="笔记" url="http://ningxy.cn/categories/%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://ningxy.cn/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.html</loc>
-    <lastmod>2018-09-20T10:58:27.489Z</lastmod>
+    <lastmod>2018-10-11T12:06:48.333Z</lastmod>
     <data>
         <display>
         <title>TCP三次握手</title>
@@ -17,6 +39,26 @@
            
              
               <breadCrumb title="笔记" url="http://ningxy.cn/categories/%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://ningxy.cn/URP%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E4%B8%80%E9%94%AE%E8%AF%84%E6%95%99.html</loc>
+    <lastmod>2018-09-20T11:03:39.155Z</lastmod>
+    <data>
+        <display>
+        <title>URP教务系统一键评教</title>
+        <pubTime>2018-06-26T01:00:53.000Z</pubTime>
+        
+        <tag>MySQL</tag>
+         
+         
+           
+             
+              <breadCrumb title="杂" url="http://ningxy.cn/categories/%E6%9D%82/"/>
           
         </display>
     </data>
@@ -121,26 +163,6 @@
            
              
               <breadCrumb title="MySQL" url="http://ningxy.cn/categories/MySQL/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://ningxy.cn/URP%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E4%B8%80%E9%94%AE%E8%AF%84%E6%95%99.html</loc>
-    <lastmod>2018-07-10T02:59:22.622Z</lastmod>
-    <data>
-        <display>
-        <title>URP教务系统一键评教</title>
-        <pubTime>2018-06-26T01:00:53.000Z</pubTime>
-        
-        <tag>MySQL</tag>
-         
-         
-           
-             
-              <breadCrumb title="杂" url="http://ningxy.cn/categories/%E6%9D%82/"/>
           
         </display>
     </data>
