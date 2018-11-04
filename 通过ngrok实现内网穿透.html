@@ -87,18 +87,18 @@
 
 
 
-<meta name="description" content="序最初是通过微信公众平台接入时遇到了需要穿透的需求。ngrok有免费的能使用但是服务器的质量实在堪忧。 本来打算用一台性能还不错的阿里云ECS来搭建。但是很可惜，国内优(he)秀(he)的(da)的备案制度让我止步不前。尝试Nginx转发绕开备案未能成功让ngrok隧道建立。所幸干脆搭建到了国外的主机上。 正巧尝试下听说坑很多的AWS（但愿下周账单不爆炸）的免费EC2：  韩国区域。1C1GUbu">
+<meta name="description" content="序最初是通过微信公众平台接入时遇到了需要穿透的需求。ngrok有免费的能使用但是服务器的质量实在堪忧。 本来打算用一台性能还不错的阿里云ECS来搭建。但是很可惜，国内优(he)秀(he)的(da)的备案制度让我止步不前。尝试Nginx转发绕开备案未能成功让ngrok隧道建立。所幸干脆搭建到了国外的主机上。">
 <meta name="keywords" content="ngrok,内网穿透">
 <meta property="og:type" content="article">
 <meta property="og:title" content="通过ngrok实现内网穿透">
 <meta property="og:url" content="http://ningxy.cn/通过ngrok实现内网穿透.html">
 <meta property="og:site_name" content="Ningxy&#39;s Blog">
-<meta property="og:description" content="序最初是通过微信公众平台接入时遇到了需要穿透的需求。ngrok有免费的能使用但是服务器的质量实在堪忧。 本来打算用一台性能还不错的阿里云ECS来搭建。但是很可惜，国内优(he)秀(he)的(da)的备案制度让我止步不前。尝试Nginx转发绕开备案未能成功让ngrok隧道建立。所幸干脆搭建到了国外的主机上。 正巧尝试下听说坑很多的AWS（但愿下周账单不爆炸）的免费EC2：  韩国区域。1C1GUbu">
+<meta property="og:description" content="序最初是通过微信公众平台接入时遇到了需要穿透的需求。ngrok有免费的能使用但是服务器的质量实在堪忧。 本来打算用一台性能还不错的阿里云ECS来搭建。但是很可惜，国内优(he)秀(he)的(da)的备案制度让我止步不前。尝试Nginx转发绕开备案未能成功让ngrok隧道建立。所幸干脆搭建到了国外的主机上。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-04T08:10:32.154Z">
+<meta property="og:updated_time" content="2018-11-04T08:13:18.164Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通过ngrok实现内网穿透">
-<meta name="twitter:description" content="序最初是通过微信公众平台接入时遇到了需要穿透的需求。ngrok有免费的能使用但是服务器的质量实在堪忧。 本来打算用一台性能还不错的阿里云ECS来搭建。但是很可惜，国内优(he)秀(he)的(da)的备案制度让我止步不前。尝试Nginx转发绕开备案未能成功让ngrok隧道建立。所幸干脆搭建到了国外的主机上。 正巧尝试下听说坑很多的AWS（但愿下周账单不爆炸）的免费EC2：  韩国区域。1C1GUbu">
+<meta name="twitter:description" content="序最初是通过微信公众平台接入时遇到了需要穿透的需求。ngrok有免费的能使用但是服务器的质量实在堪忧。 本来打算用一台性能还不错的阿里云ECS来搭建。但是很可惜，国内优(he)秀(he)的(da)的备案制度让我止步不前。尝试Nginx转发绕开备案未能成功让ngrok隧道建立。所幸干脆搭建到了国外的主机上。">
 
 
 
@@ -453,6 +453,7 @@ var _hmt = _hmt || [];
       
         <h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>最初是通过微信公众平台接入时遇到了需要穿透的需求。ngrok有免费的能使用但是服务器的质量实在堪忧。</p>
 <p>本来打算用一台性能还不错的阿里云ECS来搭建。但是很可惜，国内优(he)秀(he)的(da)的备案制度让我止步不前。尝试Nginx转发绕开备案未能成功让ngrok隧道建立。所幸干脆搭建到了国外的主机上。</p>
+<a id="more"></a>
 <p>正巧尝试下听说坑很多的AWS（但愿下周账单不爆炸）的<strong>免费</strong>EC2：</p>
 <blockquote>
 <p>韩国区域。<br>1C1G<br>Ubuntu 18.04 LTS<br>无固定IP（重启之后IP会变….）<br>使用时间+磁盘+每月15G流量+….<br>新用户 + VISA 即可开通一年免费服务.</p>

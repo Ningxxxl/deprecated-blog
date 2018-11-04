@@ -440,96 +440,15 @@ var _hmt = _hmt || [];
 
       
         
-          
-            <h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>最初是通过微信公众平台接入时遇到了需要穿透的需求。ngrok有免费的能使用但是服务器的质量实在堪忧。</p>
+          <h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>最初是通过微信公众平台接入时遇到了需要穿透的需求。ngrok有免费的能使用但是服务器的质量实在堪忧。</p>
 <p>本来打算用一台性能还不错的阿里云ECS来搭建。但是很可惜，国内优(he)秀(he)的(da)的备案制度让我止步不前。尝试Nginx转发绕开备案未能成功让ngrok隧道建立。所幸干脆搭建到了国外的主机上。</p>
-<p>正巧尝试下听说坑很多的AWS（但愿下周账单不爆炸）的<strong>免费</strong>EC2：</p>
-<blockquote>
-<p>韩国区域。<br>1C1G<br>Ubuntu 18.04 LTS<br>无固定IP（重启之后IP会变….）<br>使用时间+磁盘+每月15G流量+….<br>新用户 + VISA 即可开通一年免费服务.</p>
-</blockquote>
-<p>顺带，可能需要准备一个域名，二级三级都行。</p>
-<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><blockquote>
-<p>Server: Ubuntu 18.04 LTS </p>
-<p>Local: macOS 10.13.6 </p>
-<p>Nginx: 1.14</p>
-<p>Docker: 18.10</p>
-<p>Image: hteen/ngrok</p>
-</blockquote>
-<h2 id="服务器端"><a href="#服务器端" class="headerlink" title="服务器端"></a>服务器端</h2><h3 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull hteen/ngrok</div></pre></td></tr></table></figure>
-<h3 id="生成ngrok客户端、服务器端和CA证书"><a href="#生成ngrok客户端、服务器端和CA证书" class="headerlink" title="生成ngrok客户端、服务器端和CA证书"></a>生成ngrok客户端、服务器端和CA证书</h3><p>启动的这个容器仅仅只是为了生成客户端、服务器端和证书。生成完毕之后会退出。</p>
-<p><strong><code>/home/ubuntu/docker/ngrok</code>这是宿主机的目录，生成的内容会存在于其中</strong>。</p>
-<p>如果<code>/bin/sh</code>报错，可以尝试<code>/bin/bash</code></p>
-<p>记得<strong>替换<code>DOMAIN</code>参数</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">docker run -it --rm \</div><div class="line">-e DOMAIN="tunnel.ningxy.cn" \ </div><div class="line">-v /home/ubuntu/docker/ngrok:/myfiles \</div><div class="line">hteen/ngrok /bin/sh /build.sh</div><div class="line"></div><div class="line">./ngrok -config ./ngrok.cfg -subdomain wechat 127.0.0.1:8082</div></pre></td></tr></table></figure>
-<p>注：<code>--rm</code>可以使得容易退出后能够自动清理容器内部的文件系统。</p>
-<p>指定目录下会产生一个<code>/bin</code>文件夹。结构如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">bin/</div><div class="line">├── darwin_amd64    macOS</div><div class="line">│   └── ngrok</div><div class="line">├── go-bindata</div><div class="line">├── ngrok           Linux</div><div class="line">├── ngrokd          Server</div><div class="line">└── windows_amd64   Windows</div><div class="line">    └── ngrok.exe</div><div class="line"></div><div class="line">2 directories, 5 files</div></pre></td></tr></table></figure>
-<p>下载对应的客户端到自己电脑里。</p>
-<p>例如macOS用户就下载<code>/darwin_amd64/ngrok</code>这个程序。保留好。</p>
-<h3 id="启动ngrok-Server"><a href="#启动ngrok-Server" class="headerlink" title="启动ngrok Server"></a>启动ngrok Server</h3><p>创建容器运行server</p>
-<p>记得<strong>替换<code>DOMAIN</code>参数</strong></p>
-<p>同时<strong>保持目录的正确性</strong></p>
-<p>至于宿主机端口映射可以自行更改</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">docker run -idt --name ngrok-server \</div><div class="line">-v /home/ubuntu/docker/ngrok:/myfiles \</div><div class="line">-p 10080:80 -p 10443:443 -p 14443:4443 \</div><div class="line">-e DOMAIN='tunnel.ningxy.cn' \</div><div class="line">hteen/ngrok /bin/sh /server.sh</div></pre></td></tr></table></figure>
-<h3 id="配置Nginx"><a href="#配置Nginx" class="headerlink" title="配置Nginx"></a>配置Nginx</h3><p>显然我并没有使用容器默认的80/443端口。</p>
-<p>而域名A解析只能解析到IP。那么就需要一个Nginx来进行端口转发+反向代理。</p>
-<ul>
-<li><p>安装Nginx</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install nginx</div></pre></td></tr></table></figure>
-</li>
-<li><p>配置</p>
-<p>打开配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/nginx/nginx.conf</div></pre></td></tr></table></figure>
-<p>加入：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="section">server</span> &#123;</div><div class="line">        <span class="attribute">listen</span>       <span class="number">80</span>;</div><div class="line">        <span class="attribute">server_name</span>  tunnel.ningxy.cn <span class="regexp">*.tunnel.ningxy.cn</span>;</div><div class="line">        <span class="attribute">location</span> / &#123;</div><div class="line">                <span class="attribute">proxy_redirect</span> <span class="literal">off</span>;</div><div class="line">                <span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</div><div class="line">                <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</div><div class="line">                <span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</div><div class="line">                <span class="attribute">proxy_pass</span> http://127.0.0.1:10080;</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="section">server</span> &#123;</div><div class="line">        <span class="attribute">listen</span>       <span class="number">443</span>;</div><div class="line">        <span class="attribute">server_name</span>  tunnel.ningxy.cn <span class="regexp">*.tunnel.ningxy.cn</span>;</div><div class="line">        <span class="attribute">location</span> / &#123;</div><div class="line">                <span class="attribute">proxy_redirect</span> <span class="literal">off</span>;</div><div class="line">                <span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</div><div class="line">                <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</div><div class="line">                <span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</div><div class="line">                <span class="attribute">proxy_pass</span> http://127.0.0.1:10443;</div><div class="line">        &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>键入命令使配置生效：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nginx -s reload</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h2><p>去域名提供商添加2条A解析：</p>
-<p>主机记录：看自己喜欢什么域名，随意填，当然需要跟上面的<code>DOMAIN</code>一致</p>
-<p>记录值：填写服务器IP，如果是内地服务器，记得备案。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">记录类型</th>
-<th style="text-align:center">主机记录</th>
-<th style="text-align:center">记录值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">A</td>
-<td style="text-align:center">tunnel</td>
-<td style="text-align:center">{Server_IP}</td>
-</tr>
-<tr>
-<td style="text-align:center">A</td>
-<td style="text-align:center">*.tunnel</td>
-<td style="text-align:center">{Server_IP}</td>
-</tr>
-</tbody>
-</table>
-<h2 id="客户端（macOS）"><a href="#客户端（macOS）" class="headerlink" title="客户端（macOS）"></a>客户端（macOS）</h2><p>我写了个小脚本，方便之后的快速运行：</p>
-<p>打开终端，进入到合适的目录（随意定，能记住就行）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/Ningxxxl/my_ngrok.git &amp;&amp; cd my_ngrok</div></pre></td></tr></table></figure>
-<p>拷贝之前下载好的客户端程序<code>ngrok</code>到这个文件夹中。</p>
-<p>此时目录结构应为：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">/my_ngrok</div><div class="line">├── README.md</div><div class="line">├── ngrok       macOS客户端程序(从服务器生成下载得到)</div><div class="line">├── ngrok.cfg   配置文件</div><div class="line">└── start.sh    快速运行脚本</div><div class="line"></div><div class="line">0 directories, 4 files</div></pre></td></tr></table></figure>
-<p>打开<code>ngrok.cfg</code>文件</p>
-<p>修改<code>server_addr</code>属性对应的值为自己设置的域名和对应端口（容器4443对外映射的端口）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">server_addr: "tunnel.ningxy.cn:4443"</div><div class="line">trust_host_root_certs: false</div></pre></td></tr></table></figure>
-<p>保存，退出。</p>
-<h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><p>给脚本执行权限：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod 777 ./start.sh</div></pre></td></tr></table></figure>
-<p>开始连接：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./start.sh</div></pre></td></tr></table></figure>
-<p>输入一个子域名（随意定）和映射的本地端口（也是随意）</p>
-<p>输入完成后，提示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Tunnel Status                 online</div></pre></td></tr></table></figure>
-<p>即完成。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/通过ngrok实现内网穿透.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
